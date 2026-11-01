@@ -22,7 +22,8 @@ const pkgVersion = JSON.parse(fs.readFileSync(path.join(pkgDir, 'package.json'),
 
 /** [sprite, name, evidence]. Evidence: "figma" = glyph compared against the Figma vector export;
  *  "colour" = object-icon background colour matched exactly in Figma; "blueprint" = required by the
- *  SLDS blueprint of an inventory component (glyph lost or not visible in the capture). */
+ *  SLDS blueprint of an inventory component (glyph lost or not visible in the capture);
+ *  "nearest" = nearest SLDS icon by Figma colour and meaning (org uses a custom image) — listed in KD4. */
 const ICONS = [
   // Console shell / global header
   ['utility', 'rows', 'figma'],
@@ -103,6 +104,14 @@ const ICONS = [
   ['custom', 'custom66', 'colour'],
   ['custom', 'custom68', 'colour'],
   ['custom', 'custom70', 'colour'],
+  // ds-v1.1 (pages audit, M5) — evidence "nearest": SLDS icon picked by Figma colour + meaning (docs/known-differences.md KD4)
+  ['utility', 'clock', 'blueprint'], // Timepicker (SLDS Timepicker blueprint)
+  ['utility', 'warning', 'blueprint'], // ScopedNotification warning (SLDS Scoped Notifications blueprint)
+  ['utility', 'success', 'blueprint'], // ScopedNotification success
+  ['utility', 'bookmark', 'nearest'], // Accounts Intelligence View filter bar (D1)
+  ['utility', 'change_record_type', 'nearest'], // Account Record Type field action (A4 / A9)
+  ['standard', 'account_info', 'nearest'], // "Account History" quick link — Figma #5868e8 = SLDS #5867e8
+  ['standard', 'currency', 'nearest'], // "Payment & Repayment History" card — Figma grey money glyph (#939393)
 ];
 
 const css = fs.readFileSync(cssPath, 'utf8');

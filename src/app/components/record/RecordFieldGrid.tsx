@@ -6,8 +6,8 @@ export type RecordFieldGridProps = {
    * as in Lightning record layouts). A RecordField with `fullWidth` should be placed alone in its row.
    */
   fields: Array<ReactNode | null>;
-  /** 1 or 2 columns (Lightning record layouts use 2). */
-  columns?: 1 | 2;
+  /** 1, 2 or 3 columns (Lightning record layouts use 2; summary cards with caps labels use 3 — Figma Claim Details). */
+  columns?: 1 | 2 | 3;
 };
 
 /** SLDS Form — record detail blueprint (div.slds-form[role=list] › .slds-form__row › .slds-form__item[role=listitem]). */

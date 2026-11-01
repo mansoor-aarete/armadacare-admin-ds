@@ -87,8 +87,9 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Input | `forms/Input.tsx` | `InputProps` | **`label`**, `type?`, `onChange?`, `hideLabel?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?`, `iconLeft?`, `iconRight?` + native `<input>` attributes | `input.md` | component | **stable** |
 | RadioGroup | `forms/RadioGroup.tsx` | `RadioGroupProps` | **`legend`**, `hideLegend?`, **`options`**, **`value`**, **`onChange`**, `required?`, `disabled?`, `error?`, `name?` | `radio-group.md` | component | **stable** |
 | RichTextEditor | `forms/RichTextEditor.tsx` | `RichTextEditorProps` | **`label`**, `hideLabel?`, `defaultValue?`, `onChange?`, `placeholder?`, `onInsertImage?`, `disabled?`, `error?`, `fill?`, `autoFocus?` | `rich-text-editor.md` | component | **stable** |
-| Select | `forms/Select.tsx` | `SelectProps` | **`label`**, **`options`**, `value?`, `defaultValue?`, `onChange?`, `placeholderOption?`, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `layout?`, `id?`, `name?` | `select.md` | component | **stable** |
+| Select | `forms/Select.tsx` | `SelectProps` | **`label`**, **`options`**, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `layout?`, `id?`, `name?`, `multiple?`, `value?`, `defaultValue?`, `onChange?`, `placeholderOption?`, `size?` | `select.md` | component | **stable** |
 | Textarea | `forms/Textarea.tsx` | `TextareaProps` | **`label`**, `onChange?`, `hideLabel?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?` + native `<textarea>` attributes | `textarea.md` | component | **stable** |
+| Timepicker | `forms/Timepicker.tsx` | `TimepickerProps` | **`label`**, `value?`, `defaultValue?`, `onChange?`, `step?`, `placeholder?`, `required?`, `disabled?`, `error?`, `hideLabel?`, `layout?`, `defaultOpen?`, `id?` | `timepicker.md` | component | **stable** |
 | Toggle | `forms/Toggle.tsx` | `ToggleProps` | **`label`**, `checked?`, `defaultChecked?`, `onChange?`, `onLabel?`, `offLabel?`, `disabled?`, `hideLabel?`, `capsLabel?`, `layout?`, `name?` | `toggle.md` | component | **stable** |
 
 ## Buttons and menus
@@ -112,6 +113,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | EmptyState | `feedback/EmptyState.tsx` | `EmptyStateProps` | `variant?`, `heading?`, **`message`**, `size?`, `shaded?` | `empty-state.md` | component | **stable** |
 | Pill | `feedback/Pill.tsx` | `PillProps` | **`label`**, `href?`, `onClick?`, `iconName?`, `avatar?`, `onRemove?`, `error?` | `pill.md` | component | **stable** |
 | PillContainer | `feedback/PillContainer.tsx` | `PillContainerProps` | **`children`**, `label?` | `pill-container.md` | component | **stable** |
+| ScopedNotification | `feedback/ScopedNotification.tsx` | `ScopedNotificationProps` | `variant?`, **`children`**, `assistiveText?` | `scoped-notification.md` | component | **stable** |
 | Spinner | `feedback/Spinner.tsx` | `SpinnerProps` | `size?`, `variant?`, `layout?`, `assistiveText?` | `spinner.md` | component | **stable** |
 
 ## Icons

@@ -7,6 +7,6 @@ File: `src/app/components/record/RecordFieldGrid.tsx`. Lays out RecordFields.
 | Prop | Type | Default | Notes |
 |---|---|---|---|
 | `fields` | `(ReactNode \| null)[]` | — | reading order, row by row; `null` = empty cell (keeps the next field in the right column, as in Lightning layouts) |
-| `columns?` | `1 \| 2` | `2` | |
+| `columns?` | `1 \| 2 \| 3` | `2` | 3 = summary cards with stacked caps labels (Figma Claim Details, Receipt / Documentation) — ds-v1.1 |
 
 `slds-form` is blueprint markup without CSS (allowlisted).

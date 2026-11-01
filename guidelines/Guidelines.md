@@ -1,4 +1,4 @@
-# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.0
+# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.1
 
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 
@@ -33,10 +33,10 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 | `foundations/spacing.md` | SLDS spacing scale and utility classes |
 | `foundations/icons.md` | Icon registry, sizes, tones, licence, how to add an icon |
 | `components/overview-components.md` | Registry of every component: file, props type, props, doc, role, status (generated from the source) |
-| `components/<component-name>.md` | **One file per component**, named after the component in kebab-case (`RelatedListCard` → `related-list-card.md`). 62 files, all listed with props and status in `overview-components.md`. |
+| `components/<component-name>.md` | **One file per component**, named after the component in kebab-case (`RelatedListCard` → `related-list-card.md`). 64 files, all listed with props and status in `overview-components.md`. |
 | Buttons and menus | `button.md`, `button-stateful.md`, `button-icon.md`, `button-group.md`, `button-menu.md`, `menu-dropdown.md` |
-| Forms | `form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `combobox-listbox.md`, `combobox-object-switcher.md`, `datepicker.md`, `datepicker-calendar.md`, `dual-listbox.md`, `toggle.md`, `radio-group.md`, `file-selector.md`, `rich-text-editor.md`, `form-footer.md` |
-| Feedback | `avatar.md`, `badge.md`, `spinner.md`, `pill.md`, `pill-container.md`, `empty-state.md`, `desert-illustration.md` |
+| Forms | `form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `combobox-listbox.md`, `combobox-object-switcher.md`, `datepicker.md`, `datepicker-calendar.md`, `dual-listbox.md`, `toggle.md`, `radio-group.md`, `file-selector.md`, `rich-text-editor.md`, `form-footer.md`, `timepicker.md` |
+| Feedback | `avatar.md`, `badge.md`, `spinner.md`, `pill.md`, `pill-container.md`, `empty-state.md`, `desert-illustration.md`, `scoped-notification.md` |
 | Icons | `icon.md`, `icon-svg.md` |
 | Overlays | `help-text.md`, `tooltip.md`, `popover.md`, `error-popover.md`, `modal.md`, `docked-composer.md` |
 | Console shell | `global-header.md`, `app-nav.md`, `workspace-tabs.md`, `workspace-sub-tabs.md`, `split-view.md`, `utility-bar.md`, `console-shell.md` |

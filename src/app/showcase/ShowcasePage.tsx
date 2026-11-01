@@ -13,6 +13,7 @@ import { DataSection } from "./DataSection";
 import { CardsSection } from "./CardsSection";
 import { DialogsSection } from "./DialogsSection";
 import { Phase4Section } from "./Phase4Section";
+import { V11Section } from "./V11Section";
 
 /** /showcase — every design-system component in every variant and state. Phases 1–4: foundations, primitives, patterns, additions. */
 export function ShowcasePage() {
@@ -21,7 +22,7 @@ export function ShowcasePage() {
       <header className="slds-m-bottom_large">
         <h1 className="slds-text-heading_large">ArmadaCare Admin Portal — Design System</h1>
         <p className="slds-text-body_regular slds-text-color_weak">
-          SLDS 1 (@salesforce-ux/design-system 2.264.3) · ArmadaCare theme · Phases 1–4: foundations, primitives, patterns and Phase 4 additions
+          SLDS 1 (@salesforce-ux/design-system 2.264.3) · ArmadaCare theme · ds-v1.1: foundations, primitives, patterns, Phase 4 and v1.1 additions
         </p>
       </header>
       <EnvironmentChecks />
@@ -37,6 +38,7 @@ export function ShowcasePage() {
       <CardsSection />
       <DialogsSection />
       <Phase4Section />
+      <V11Section />
       <FigmaCompareSection />
       <FigmaComparePatterns />
     </main>
