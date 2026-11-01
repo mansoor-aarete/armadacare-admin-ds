@@ -1,7 +1,7 @@
 # Pages inventory and plan — ArmadaCare Admin Portal (built on ds-v1.4)
 
 Figma: `iiZjEBlMVcWNHALIB4qKBB` (page 0:1) — 10 sections, 48 screens (frames 1920 px wide).
-Status: **All sections built (P1–P10)** — 49 screens: Accounts A1–A9, Accounts Dashboard D1, Contacts C1–C7, Claims CL1–CL8, Reports R1–R9, Plan Years PY1–PY3, Plan Year Enrollments E1–E2, Card Transactions T1, Portal Informations PI1, Participant P1–P7 (ds-v1.9).
+Status: **All sections built (P1–P10)** — 48 screens: Accounts A1–A9, Accounts Dashboard D1, Contacts C1–C7, Claims CL1–CL8, Reports R1–R9, Plan Years PY1–PY3, Plan Year Enrollments E1–E2, Card Transactions T1, Portal Informations PI1, Participant P1–P7 (ds-v1.9).
 
 Open any built screen in its Figma state with `?scenario=<code>` on a console URL (e.g. `http://localhost:5173/lightning/o/Account/list?scenario=A4`); scenarios open the same workspace tabs and split-view selection as the capture. Normal navigation never needs them.
 
