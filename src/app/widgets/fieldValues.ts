@@ -61,11 +61,11 @@ export function addressParts(def: FieldDef): Array<{ part: keyof AddressValue; l
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/** "2026-07-17T03:35" → "7/17/2026 3:35 AM". */
-export function formatDateTime(iso: string): string {
+/** "2026-07-17T03:35" → "7/17/2026 3:35 AM" ("comma": "7/17/2026, 3:35 AM", Reports tables). */
+export function formatDateTime(iso: string, style?: "medium" | "comma"): string {
   const [date, time = "00:00"] = iso.split("T");
   const [h, m] = time.split(":").map(Number);
-  return `${formatUs(date)} ${h % 12 === 0 ? 12 : h % 12}:${pad(m)} ${h < 12 ? "AM" : "PM"}`;
+  return `${formatUs(date)}${style === "comma" ? "," : ""} ${h % 12 === 0 ? 12 : h % 12}:${pad(m)} ${h < 12 ? "AM" : "PM"}`;
 }
 
 function formatNumber(n: number, scale: number): string {
@@ -87,7 +87,7 @@ export function formatValue(def: FieldDef, v: FieldValue | undefined): string {
   }
   if (typeof v === "string") {
     if (def.type === "date") return def.dateStyle === "medium" ? formatMediumDate(v) : formatUs(v);
-    if (def.type === "datetime") return formatDateTime(v);
+    if (def.type === "datetime") return formatDateTime(v, def.dateStyle);
     return v;
   }
   if (def.type === "location") {

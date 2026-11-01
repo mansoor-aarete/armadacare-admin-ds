@@ -1,4 +1,4 @@
-import type { ObjectIconName } from "../app/components/icons/Icon";
+import type { ObjectIconName, UtilityIconName } from "../app/components/icons/Icon";
 
 /*
  * Config + data model shared by every object. Templates read these shapes; objects provide them
@@ -79,8 +79,8 @@ export type FieldDef = {
   inlineHelp?: string;
   /** Checkbox with its label beside the box (Figma C3 "Send notification email") instead of a form label. */
   inlineLabel?: boolean;
-  /** Dates as "Mar 20, 2026" (Figma claim summary cards) instead of "3/20/2026". */
-  dateStyle?: "medium";
+  /** Dates as "Mar 20, 2026" (claim cards); "comma" date-times as "10/16/2026, 12:29 PM" (Reports tables). */
+  dateStyle?: "medium" | "comma";
   /** Checkbox shown as a read-only toggle with Yes / No (Figma CL3 "Place on Hold"). */
   display?: "toggle";
 };
@@ -217,17 +217,26 @@ export type FormConfig = {
 
 // ── List views ──────────────────────────────────────────────────────────────────────────────────
 
-export type ListFilter = { kind: "all" } | { kind: "ownedByMe" } | { kind: "recentlyViewed" };
+export type ListFilter =
+  | { kind: "all" }
+  | { kind: "ownedByMe" }
+  | { kind: "recentlyViewed" }
+  /** Records whose field equals a value (booleans, picklists) or whose lookup points at a record id. */
+  | { kind: "fieldEquals"; field: string; value: string | boolean }
+  /** Nothing captured / no records in the prototype (Private Reports …). */
+  | { kind: "none" };
 
 export type ListColumnConfig = {
   field: string;
   /** Header label (default: the field label). */
   label?: string;
-  /** "record" opens the record; "plain" link styling only (lookups / aliases). */
-  link?: "record" | "plain";
+  /** "record" opens the row's record; "lookup" opens the lookup's record; "plain" link styling only. */
+  link?: "record" | "lookup" | "plain";
   /** Column width in rem. */
   width?: string;
   align?: "left" | "right";
+  /** Glyph before the value (Reports home: grey folder on folder rows). */
+  iconName?: UtilityIconName;
 };
 
 export type ListViewConfig = {
@@ -240,6 +249,14 @@ export type ListViewConfig = {
   rowNumbers?: "hidden" | "numbers";
   /** Lightning loads 50 rows at a time: meta says "50+ items" when the list is longer. */
   pageSize?: number;
+  /** List another object's records (Reports home: folder views list Report Folders). */
+  objectApiName?: string;
+  /** Opens as a workspace tab "<label> | <object plural>" (Figma R4 "All Folders | Reports"). */
+  openInTab?: boolean;
+  /** Search box placeholder (Reports home). */
+  searchPlaceholder?: string;
+  /** Left-navigation section (Reports home: REPORTS / FOLDERS / FAVORITES). */
+  navSection?: string;
 };
 
 /** Split-view item lines: title = name field; optional right text and a second line. */
@@ -267,7 +284,8 @@ export type ActionNoteConfig = { text: string; linkLabel?: string; bullets?: str
 export type ActionSaveConfig =
   | { kind: "close" }
   | { kind: "update"; map: Record<string, string> }
-  | { kind: "create"; objectApiName: string; parentField: string; map: Record<string, string> };
+  /** Creates a record; with `parentField` it points at the current record. */
+  | { kind: "create"; objectApiName: string; parentField?: string; map: Record<string, string> };
 
 /** Show the action only when a field has one of these values (claim actions by status). */
 export type ActionVisibility = { field: string; in: string[] };
@@ -358,8 +376,16 @@ export type ObjectConfig = {
   recordTypes?: RecordTypeConfig[];
   /** Record type used when a record has none. */
   defaultRecordType?: string;
-  /** Object home: "list" (list view page, default) or "split" (split view only, empty workspace — Figma CL1). */
-  home?: "list" | "split";
+  /** Object home: "list" (list view page, default), "split" (split view only, empty workspace — Figma CL1) or
+   *  "reports" (Reports home: left navigation + folder / report tables — Figma R1–R9). */
+  home?: "list" | "split" | "reports";
+  /** Record pages: "record" (RecordPage, default), "reportsFolder" (folder contents in the Reports home layout),
+   *  "reportViewer" (report body placeholder — Figma R2, R5, R6, R8). */
+  recordTemplate?: "record" | "reportsFolder" | "reportViewer";
+  /** Object whose navigation item is shown for this object's pages (Report Folder → Reports). */
+  navObject?: string;
+  /** Workspace tab label: "name | Object" (default) or the record name only (Reports / folders). */
+  tabLabel?: "nameAndObject" | "name";
   layouts: Record<string, RecordLayoutConfig>;
   forms?: Record<string, FormConfig>;
   actions: ActionConfig[];

@@ -2,6 +2,7 @@ import type { ConsoleScenario, RecordData } from "../config/types";
 import { ACCOUNT_RECORDS, ACCOUNT_SCENARIOS } from "./account/mock-data";
 import { ACCUMULATOR_RECORDS, ADJUDICATION_RECORDS, CLAIM_FILE_RECORDS, CLAIM_RECORDS, CLAIM_SCENARIOS } from "./claim/mock-data";
 import { CONTACT_RECORDS, CONTACT_SCENARIOS } from "./contact/mock-data";
+import { REPORT_FOLDER_RECORDS, REPORT_RECORDS, REPORT_SCENARIOS } from "./report/mock-data";
 import { CURRENT_USER_ID, USER_RECORDS } from "./user/mock-data";
 
 /** Mock data of every object — read only by src/services (swap the services for Salesforce APIs later). */
@@ -12,6 +13,8 @@ export const SEED_RECORDS: Record<string, RecordData[]> = {
   ClaimFile: CLAIM_FILE_RECORDS,
   Adjudication: ADJUDICATION_RECORDS,
   Accumulator: ACCUMULATOR_RECORDS,
+  Report: REPORT_RECORDS,
+  ReportFolder: REPORT_FOLDER_RECORDS,
   User: USER_RECORDS,
   Note: [],
   Task: [],
@@ -25,4 +28,5 @@ export const SEED_SCENARIOS: Record<string, ConsoleScenario> = {
   ...ACCOUNT_SCENARIOS,
   ...CONTACT_SCENARIOS,
   ...CLAIM_SCENARIOS,
+  ...REPORT_SCENARIOS,
 };

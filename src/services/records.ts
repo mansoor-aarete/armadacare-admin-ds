@@ -62,6 +62,13 @@ export async function listRecords(apiName: string, filter: ListFilter = { kind: 
       const owner = r.values[field];
       return isLookup(owner) && owner.id === getCurrentUserId();
     });
+  } else if (filter.kind === "fieldEquals") {
+    rows = rows.filter((r) => {
+      const v = r.values[filter.field];
+      return isLookup(v) ? v.id === filter.value : v === filter.value;
+    });
+  } else if (filter.kind === "none") {
+    rows = [];
   } else if (filter.kind === "recentlyViewed") {
     rows = recentIds()
       .map((id) => rows.find((r) => r.id === id))

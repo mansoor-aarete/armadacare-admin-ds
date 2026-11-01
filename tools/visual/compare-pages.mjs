@@ -41,6 +41,8 @@ const STEPS = {
     const li = el.closest('li');
     if (box && li) box.scrollTop = li.offsetTop - box.querySelector('li').offsetTop;
   }),
+  hoverRow2: async (p) => p.locator('main table tbody tr').nth(1).hover(),
+  hoverRow4: async (p) => p.locator('main table tbody tr').nth(3).hover(),
   openOverflow: async (p) => p.locator('.slds-page-header').getByRole('button', { name: /more actions/i }).first().click(),
 };
 
@@ -71,6 +73,16 @@ export const SCREENS = [
   { id: 'CL6', node: '2-25897', band: false, step: ['captureWindow'] },
   { id: 'CL7', node: '2-27571', band: false, step: ['captureWindow'] },
   { id: 'CL8', node: '2-29432', band: false },
+  // Reports: the table header row is blank in the capture (KD30) — masked.
+  { id: 'R1', node: '2-31085', band: false, masks: [[160, 230, 1760, 34]] },
+  { id: 'R2', node: '2-32027', band: false },
+  { id: 'R3', node: '2-32271', band: false, step: ['hoverRow2'], masks: [[160, 230, 1760, 34]] },
+  { id: 'R4', node: '2-33107', band: false, masks: [[160, 230, 1760, 34]] },
+  { id: 'R5', node: '2-34073', band: false },
+  { id: 'R6', node: '2-34292', band: false },
+  { id: 'R7', node: '2-34485', band: false, step: ['hoverRow4'], masks: [[160, 230, 1760, 34]] },
+  { id: 'R8', node: '2-35371', band: false },
+  { id: 'R9', node: '2-35564', band: false, masks: [[160, 230, 1760, 34]] },
 ];
 
 /** Area-average resample to w × h. */

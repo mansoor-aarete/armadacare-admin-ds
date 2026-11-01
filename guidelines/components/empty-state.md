@@ -11,3 +11,5 @@ A shaded placeholder block (`div.slds-theme_shade` + SLDS grid centering, `role=
 Illustration colours come from the SLDS illustration classes (light blue, as in Figma).
 
 ds-v1.6: the region variant is shaded unless `shaded={false}` — a blank white body of the set height (Figma C1: open sections whose fields were not captured).
+
+ds-v1.8: `regionSize="fill"` — the region fills its parent's height (report tab body, Figma R2).

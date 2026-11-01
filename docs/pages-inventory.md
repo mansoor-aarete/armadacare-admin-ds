@@ -49,15 +49,15 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 21 | CL6 | Claims | 2:25897 | ″ | RecordPage + ActionModal | Repayment Recovery info modal | **built** 5.7 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=repaymentRecovery` |
 | 22 | CL7 | Claims | 2:27571 | ″ | RecordPage + ActionModal (custom) | Split Approval calculator | **built** 5.74 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=splitApproval` |
 | 23 | CL8 | Claims | 2:29432 | ″ | RecordPage | Details tab (Files (1), Adjudication History row) | **built** 5.58 % · `/lightning/r/Claim/a0CEc00000000020AA/view` |
-| 24 | R1 | Reports | 2:31085 | Shared with Me \| Reports | ReportsHomePage | Shared with Me (folders) | `/lightning/o/Report/home?queryScope=sharedWithMe` |
-| 25 | R2 | Reports | 2:32027 | AH Accounts and Contacts | ReportViewerPage | report tab (placeholder) | `/lightning/r/Report/<id>/view` |
-| 26 | R3 | Reports | 2:32271 | AH Sales & Marketing | ReportsHomePage | folder contents (breadcrumb), row hover | `/lightning/r/ReportFolder/<id>/view` |
-| 27 | R4 | Reports | 2:33107 | All Folders \| Reports | ReportsHomePage | All Folders | `…/home?queryScope=allFolders` |
-| 28 | R5 | Reports | 2:34073 | 1-1-22 Sirius Transition Groups | ReportViewerPage | report tab | `/lightning/r/Report/<id>/view` |
-| 29 | R6 | Reports | 2:34292 | > 2/1 NeverBounce Active Clients & Mem | ReportViewerPage | report tab | ″ |
-| 30 | R7 | Reports | 2:34485 | Public Reports \| Reports | ReportsHomePage | Public Reports, row hover (wrapped description) | `…/home?queryScope=public` |
-| 31 | R8 | Reports | 2:35371 | Account Census Data | ReportViewerPage | report tab | ″ |
-| 32 | R9 | Reports | 2:35564 | Recent \| Reports | ReportsHomePage | Recent (2 reports) | `…/home?queryScope=recent` |
+| 24 | R1 | Reports | 2:31085 | Shared with Me \| Reports | ReportsHomePage | Shared with Me (folders) | **built** 7.11 % · `/lightning/o/Report/list?filterName=sharedWithMe` |
+| 25 | R2 | Reports | 2:32027 | AH Accounts and Contacts | ReportViewerPage | report tab (placeholder) | **built** 1.22 % · `/lightning/r/Report/<AH Accounts and Contacts>/view` |
+| 26 | R3 | Reports | 2:32271 | AH Sales & Marketing | ReportsHomePage | folder contents (breadcrumb), row hover | **built** 5.42 % · `/lightning/r/ReportFolder/<AH Sales & Marketing>/view` |
+| 27 | R4 | Reports | 2:33107 | All Folders \| Reports | ReportsHomePage | All Folders | **built** 6.97 % · `/lightning/o/Report/list?filterName=allFolders` |
+| 28 | R5 | Reports | 2:34073 | 1-1-22 Sirius Transition Groups | ReportViewerPage | report tab | **built** 1.19 % · `/lightning/r/Report/<1-1-22 Sirius Transition Groups>/view` |
+| 29 | R6 | Reports | 2:34292 | > 2/1 NeverBounce Active Clients & Mem | ReportViewerPage | report tab | **built** 1.17 % · `/lightning/r/Report/<> 2/1 NeverBounce Active Clients & Mem>/view` |
+| 30 | R7 | Reports | 2:34485 | Public Reports \| Reports | ReportsHomePage | Public Reports, row hover (wrapped description) | **built** 6.29 % · `/lightning/o/Report/list?filterName=public` |
+| 31 | R8 | Reports | 2:35371 | Account Census Data | ReportViewerPage | report tab | **built** 1.17 % · `/lightning/r/Report/<Account Census Data>/view` |
+| 32 | R9 | Reports | 2:35564 | Recent \| Reports | ReportsHomePage | Recent (2 reports) | **built** 1.88 % · `/lightning/o/Report/list?filterName=recent` |
 | 33 | T1 | Card Transactions | 2:35931 | CTX-0000000 \| Card Transaction | RecordPage | Details (Dynamic Forms sections) | `/lightning/r/CardTransaction/<id>/view` |
 | 34 | PY1 | Plan Years | 2:36529 | 2026 Meridian \| Plan Year | RecordPage | Related tab (Plan Year History 6+), 5 workspace tabs | `/lightning/r/PlanYear/<id>/view?tab=related` |
 | 35 | PY2 | Plan Years | 2:37382 | 2026 Meridian \| Plan Year | RecordPage | Details tab | `…?tab=details` |

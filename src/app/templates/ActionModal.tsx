@@ -92,7 +92,10 @@ export function ActionModal({ apiName, record, action, currentUser, today, onClo
       s.kind === "update"
         ? updateRecord(apiName, record.id, pick(s.map))
         : s.kind === "create"
-          ? createRecord(s.objectApiName, undefined, { ...pick(s.map), [s.parentField]: { id: record.id, name: tokens.recordName, objectApiName: apiName } })
+          ? createRecord(s.objectApiName, undefined, {
+              ...pick(s.map),
+              ...(s.parentField ? { [s.parentField]: { id: record.id, name: tokens.recordName, objectApiName: apiName } } : {}),
+            })
           : Promise.resolve();
     done.then(onClose);
   };

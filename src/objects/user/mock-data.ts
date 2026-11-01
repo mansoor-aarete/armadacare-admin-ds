@@ -25,6 +25,26 @@ const USERS: Array<[id: string, name: string, alias: string]> = [
   ["005Ec00000JSmit001", "jsmit", "jsmit"],
   ["005Ec00000MRath001", "Mehul Rathod", "mrath"],
   ["005Ec00000LMegh001", "lmegh", "lmegh"],
+  // Reports, Card Transactions and Plan Years screens.
+  ["005Ec0000U00000000", "Administrator Qualtrics", "aqual"],
+  ["005Ec0000U00000001", "Armada Administrator", "aadmi"],
+  ["005Ec0000U00000002", "Armada Avideon", "aavid"],
+  ["005Ec0000U00000003", "Christina Swetz", "cswet"],
+  ["005Ec0000U00000004", "Doug Adkins", "dadki"],
+  ["005Ec0000U00000005", "Huntley Mitchell", "hmitc"],
+  ["005Ec0000U00000006", "Jennifer Best", "jbest"],
+  ["005Ec0000U00000007", "Jessica Cheng", "jchen"],
+  ["005Ec0000U00000008", "Keith Schaub", "kscha"],
+  ["005Ec0000U00000009", "Marketing Cloud Administrator", "madmi"],
+  ["005Ec0000U00000010", "Marsha Saul", "msaul"],
+  ["005Ec0000U00000011", "Nicole LaGrega", "nlagr"],
+  ["005Ec0000U00000012", "Sujan Vanga", "svang"],
+  ["005Ec0000U00000013", "Suzanne Kirincic", "skiri"],
+  ["005Ec0000U00000014", "System Admin", "sadmi"],
+  ["005Ec0000U00000015", "Zoe Hatzes", "zhatz"],
+  ["005Ec0000U00000016", "Jyotiraditya Dhalmahapatra", "jdhal"],
+  ["005Ec0000U00000017", "Tanmoy Das", "tdas"],
+  ["005Ec0000U00000018", "Adner Ramos", "aramo"],
 ];
 
 export const USER_RECORDS: RecordData[] = USERS.map(([id, name, alias]) => ({ id, values: { name, alias } }));

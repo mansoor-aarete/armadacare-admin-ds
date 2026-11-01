@@ -109,6 +109,7 @@ const ICONS = [
   ['utility', 'warning', 'blueprint'], // ScopedNotification warning (SLDS Scoped Notifications blueprint)
   ['utility', 'success', 'blueprint'], // ScopedNotification success
   ['utility', 'bookmark', 'nearest'], // Accounts Intelligence View filter bar (D1)
+  ['utility', 'open_folder', 'figma'], // Reports home folder rows (R1, R4): grey folder glyph
   ['utility', 'change_record_type', 'nearest'], // Account Record Type field action (A4 / A9)
   ['standard', 'account_info', 'nearest'], // "Account History" quick link — Figma #5868e8 = SLDS #5867e8
   ['standard', 'currency', 'nearest'], // "Payment & Repayment History" card — Figma grey money glyph (#939393)

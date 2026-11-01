@@ -8,8 +8,8 @@ import { DesertIllustration } from "./DesertIllustration";
  */
 export type EmptyStateVariant = "illustration" | "text" | "region";
 
-/** Height of the "region" variant: small 6.25rem (Figma iframe 100 px) · medium 12.5rem · large 25rem. */
-export type EmptyStateRegionSize = "small" | "medium" | "large";
+/** Height of the "region" variant: small 6.25rem (Figma iframe 100 px) · medium 12.5rem · large 25rem · fill = 100 % of the parent (ds-v1.8, report body). */
+export type EmptyStateRegionSize = "small" | "medium" | "large" | "fill";
 
 export type EmptyStateProps = {
   variant?: EmptyStateVariant;
@@ -27,7 +27,7 @@ export type EmptyStateProps = {
   regionLabel?: string;
 };
 
-const REGION_HEIGHT: Record<EmptyStateRegionSize, string> = { small: "6.25rem", medium: "12.5rem", large: "25rem" };
+const REGION_HEIGHT: Record<EmptyStateRegionSize, string> = { small: "6.25rem", medium: "12.5rem", large: "25rem", fill: "100%" };
 
 /** SLDS Illustration blueprint (div.slds-illustration › svg + .slds-text-longform), a plain message, or a shaded placeholder region. */
 export function EmptyState({ variant = "illustration", heading, message, size = "small", shaded, regionSize = "small", regionLabel }: EmptyStateProps) {

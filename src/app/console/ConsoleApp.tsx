@@ -1,7 +1,7 @@
 import profileAvatar from "@salesforce-ux/design-system/assets/images/profile_avatar_96.png";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { getObjectConfig, NAV_OBJECTS } from "../../objects";
+import { getObjectConfig, NAV_OBJECTS, OBJECTS } from "../../objects";
 import { createRecord, getCurrentUser, getRecord, listRecords, recordName } from "../../services/records";
 import { applyScenarioRecords, getScenario } from "../../services/session";
 import { toIso } from "../components/utils/dates";
@@ -16,9 +16,9 @@ import { WorkspaceTabs, type WorkspaceTab } from "../components/shell/WorkspaceT
 import { ConsoleContent } from "./ConsoleContent";
 import { ConsoleContext, type ComposerRequest, type ConsoleApi } from "./ConsoleContext";
 import { ConsoleSplitView } from "./ConsoleSplitView";
-import { listUrl, parseRoute, recordUrl, routeOf, subTabKeyOf, tabKeyOf } from "./urls";
+import { listUrl, parseRoute, recordUrl, routeOf, subTabKeyOf } from "./urls";
 import { useServiceData } from "./useServiceData";
-import { tabUrl, upsertTab, type WorkspaceTabState } from "./workspaceTabs";
+import { tabKeyFor, tabUrl, upsertTab, type WorkspaceTabState } from "./workspaceTabs";
 
 const DEFAULT_OBJECT = NAV_OBJECTS[0];
 
@@ -67,11 +67,11 @@ export function ConsoleApp() {
   useEffect(() => {
     if (!ready) return;
     setTabs((t) => upsertTab(t, url));
-    if (route.kind !== "unknown") setHomeObject(route.apiName);
+    if (route.kind !== "unknown") setHomeObject(OBJECTS[route.apiName]?.navObject ?? route.apiName);
     if (route.kind === "list" && route.listViewId) setListViewId(route.listViewId);
   }, [url, ready]);
 
-  const activeKey = tabKeyOf(route);
+  const activeKey = tabKeyFor(route);
   const navigate = useCallback((to: string, options?: { replace?: boolean }) => routerNavigate(to, options), [routerNavigate]);
   const homeUrl = listUrl(homeObject, listViewId);
 
@@ -124,7 +124,8 @@ export function ConsoleApp() {
 
   const labelOf = (t: WorkspaceTabState) => {
     const config = getObjectConfig(t.apiName);
-    if (t.recordId) return `${names?.get(t.recordId) ?? ""} | ${config.label}`;
+    if (t.listViewId) return `${config.listViews.find((v) => v.id === t.listViewId)?.label ?? ""} | ${config.labelPlural}`;
+    if (t.recordId) return config.tabLabel === "name" ? names?.get(t.recordId) ?? "" : `${names?.get(t.recordId) ?? ""} | ${config.label}`;
     const r = routeOf(tabUrl(t));
     return `New ${config.label}${r.kind === "new" && r.recordType ? `: ${r.recordType}` : ""}`;
   };
@@ -132,7 +133,7 @@ export function ConsoleApp() {
     id: t.key,
     label: labelOf(t),
     iconName: getObjectConfig(t.apiName).iconName,
-    menuItems: t.recordId ? undefined : [],
+    menuItems: t.recordId || t.listViewId ? undefined : [],
   }));
   const activeTab = tabs.find((t) => t.key === activeKey);
   const homeConfig = getObjectConfig(homeObject);
@@ -163,7 +164,7 @@ export function ConsoleApp() {
 
       <ConsoleShell
         fill="viewport"
-        workspacePadding={route.kind === "record" || route.kind === "hierarchy" || route.kind === "new"}
+        workspacePadding={route.kind === "record" || route.kind === "hierarchy" || route.kind === "new" || (route.kind === "list" && Boolean(activeTab))}
         globalHeader={
           <GlobalHeader
             position="inline"
@@ -205,9 +206,9 @@ export function ConsoleApp() {
           />
         }
         splitView={
-          activeTab || splitHome ? (
+          (activeTab && getObjectConfig(activeTab.apiName).splitView) || splitHome ? (
             <ConsoleSplitView
-              apiName={activeTab?.apiName ?? homeObject}
+              apiName={activeTab && getObjectConfig(activeTab.apiName).splitView ? activeTab.apiName : homeObject}
               listViewId={listViewId ?? homeConfig.defaultListView}
               onListViewChange={setListViewId}
               currentId={activeTab?.recordId}

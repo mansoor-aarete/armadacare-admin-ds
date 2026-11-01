@@ -3,6 +3,7 @@ import { ACCOUNT_CONFIG } from "./account/config";
 import { ACCOUNT_FUNNEL_TRACKER_CONFIG, NOTE_CONFIG, TASK_CONFIG } from "./activity/config";
 import { ACCUMULATOR_CONFIG, ADJUDICATION_CONFIG, CLAIM_CONFIG, CLAIM_FILE_CONFIG } from "./claim/config";
 import { CONTACT_CONFIG } from "./contact/config";
+import { REPORT_CONFIG, REPORT_FOLDER_CONFIG } from "./report/config";
 import { USER_CONFIG } from "./user/config";
 
 /*
@@ -17,6 +18,8 @@ export const OBJECTS: Record<string, ObjectConfig> = {
   ClaimFile: CLAIM_FILE_CONFIG,
   Adjudication: ADJUDICATION_CONFIG,
   Accumulator: ACCUMULATOR_CONFIG,
+  Report: REPORT_CONFIG,
+  ReportFolder: REPORT_FOLDER_CONFIG,
   User: USER_CONFIG,
   Note: NOTE_CONFIG,
   Task: TASK_CONFIG,
@@ -24,7 +27,7 @@ export const OBJECTS: Record<string, ObjectConfig> = {
 };
 
 /** Objects listed in the console navigation menu, in order. */
-export const NAV_OBJECTS = ["Account", "Contact", "Claim"];
+export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report"];
 
 export function getObjectConfig(apiName: string): ObjectConfig {
   const config = OBJECTS[apiName];
