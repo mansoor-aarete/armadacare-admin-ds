@@ -1,4 +1,4 @@
-# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.9
+# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.0 (release; design-system changes ds-v1.1 … ds-v1.9 + v1.0)
 
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 

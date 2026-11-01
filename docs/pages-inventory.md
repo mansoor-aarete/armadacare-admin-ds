@@ -1,7 +1,7 @@
 # Pages inventory and plan — ArmadaCare Admin Portal (built on ds-v1.4)
 
 Figma: `iiZjEBlMVcWNHALIB4qKBB` (page 0:1) — 10 sections, 48 screens (frames 1920 px wide).
-Status: **All sections built (P1–P10)** — 48 screens: Accounts A1–A9, Accounts Dashboard D1, Contacts C1–C7, Claims CL1–CL8, Reports R1–R9, Plan Years PY1–PY3, Plan Year Enrollments E1–E2, Card Transactions T1, Portal Informations PI1, Participant P1–P7 (ds-v1.9).
+Status: **All sections built (P1–P10)** — 48 screens: Accounts A1–A9, Accounts Dashboard D1, Contacts C1–C7, Claims CL1–CL8, Reports R1–R9, Plan Years PY1–PY3, Plan Year Enrollments E1–E2, Card Transactions T1, Portal Informations PI1, Participant P1–P7 (release v1.0). Open business questions: [open-questions-for-business.md](open-questions-for-business.md).
 
 Open any built screen in its Figma state with `?scenario=<code>` on a console URL (e.g. `http://localhost:5173/lightning/o/Account/list?scenario=A4`); scenarios open the same workspace tabs and split-view selection as the capture. Normal navigation never needs them.
 
@@ -26,13 +26,13 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 
 | # | Code | Section | Node | Frame | Template | State shown | Status · URL |
 |---|---|---|---|---|---|---|---|
-| 1 | P1 | Participant | 2:3 | Account Intelligence View \| Accounts | SearchPage | Participant Search tab, basic, no search run | **built** 5.21 % · `/lightning/n/Participant_Search?tab=participant` |
-| 2 | P2 | Participant | 2:260 | ″ | SearchPage | Claim Search tab, basic (17 status checkboxes, All checked) | **built** 5.6 % · `/lightning/n/Participant_Search?tab=claim` |
-| 3 | P3 | Participant | 2:621 | ″ | SearchPage | Employer Search tab, no results | **built** 5.8 % · `/lightning/n/Participant_Search?tab=employer` |
-| 4 | P4 | Participant | 2:865 | ″ | SearchPage | Participant results (Last Name "A", 30 rows) | **built** 7.59 % · `/lightning/n/Participant_Search?tab=participant&lastName=A&search=1` |
-| 5 | P5 | Participant | 2:2423 | ″ | SearchPage | Employer results, 13 found, page 1 of 2 (10/page) | **built** 7.76 % · `/lightning/n/Participant_Search?tab=employer&name=A&search=1` |
-| 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | **built** 5.92 % · `/lightning/n/Participant_Search?tab=claim&advanced=1&employer=QA+Test+Employer+Group+-+CBSR&search=1` |
-| 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | **built** 7.25 % · `/lightning/n/Participant_Search?tab=participant&advanced=1&lastName=A&search=1` |
+| 1 | P1 | Participant | 2:3 | Account Intelligence View \| Accounts | SearchPage | Participant Search tab, basic, no search run | **built** 2.5 % · `/lightning/n/Participant_Search?tab=participant` |
+| 2 | P2 | Participant | 2:260 | ″ | SearchPage | Claim Search tab, basic (17 status checkboxes, All checked) | **built** 2.94 % · `/lightning/n/Participant_Search?tab=claim` |
+| 3 | P3 | Participant | 2:621 | ″ | SearchPage | Employer Search tab, no results | **built** 3.56 % · `/lightning/n/Participant_Search?tab=employer` |
+| 4 | P4 | Participant | 2:865 | ″ | SearchPage | Participant results (Last Name "A", 30 rows) | **built** 6.29 % · `/lightning/n/Participant_Search?tab=participant&lastName=A&search=1` |
+| 5 | P5 | Participant | 2:2423 | ″ | SearchPage | Employer results, 13 found, page 1 of 2 (10/page) | **built** 5.37 % · `/lightning/n/Participant_Search?tab=employer&name=A&search=1` |
+| 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | **built** 4.35 % · `/lightning/n/Participant_Search?tab=claim&advanced=1&employer=QA+Test+Employer+Group+-+CBSR&search=1` |
+| 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | **built** 6.25 % · `/lightning/n/Participant_Search?tab=participant&advanced=1&lastName=A&search=1` |
 | 8 | D1 | Accounts Dashboard | 2:5437 | Account Intelligence View \| Accounts | IntelligenceViewPage | My Accounts, Total Accounts tile selected, empty state | **built** 2.35 % · `/lightning/o/Account/intelligence` |
 | 9 | C1 | Contacts | 2:5847 | Adam Sahn \| Contact | RecordPage (no tabs) | default; tabs Aarav · **Adam** | **built** 3.84 % · `/lightning/r/Contact/003Ec0000a1962939d/view` |
 | 10 | C2 | Contacts | 2:7726 | Aarav Aramanai \| Contact | RecordPage | Card Transactions card loading | **built** 3.77 % · `/lightning/r/Contact/003Ec0000bB8A527B1/view` |
@@ -43,12 +43,12 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 15 | C7 | Contacts | 2:17295 | ″ | RecordPage | highlights overflow ▼ open (22 items) | **built** 3.75 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view → ▼` |
 | 16 | CL1 | Claims | 2:19210 | Lightning Experience | ObjectListPage (split mode) | split-view list only, empty workspace | **built** 1.48 % · `/lightning/o/Claim/list` |
 | 17 | CL2 | Claims | 2:20051 | CLM-0000023 \| Claim | RecordPage | Audit & System tab | **built** 3.58 % · `/lightning/r/Claim/a0CEc00000000023AA/view?tab=auditSystem` |
-| 18 | CL3 | Claims | 2:21357 | CLM-0000023 \| Claim | RecordPage | Details tab (empty Files + upload area) | **built** 5.83 % · `/lightning/r/Claim/a0CEc00000000023AA/view` |
+| 18 | CL3 | Claims | 2:21357 | CLM-0000023 \| Claim | RecordPage | Details tab (empty Files + upload area) | **built** 5.27 % · `/lightning/r/Claim/a0CEc00000000023AA/view` |
 | 19 | CL4 | Claims | 2:22949 | CLM-0000020 \| Claim | RecordPage | Audit & System tab | **built** 3.49 % · `/lightning/r/Claim/a0CEc00000000020AA/view?tab=auditSystem` |
-| 20 | CL5 | Claims | 2:24222 | CLM-0000020 \| Claim | RecordPage + ActionModal | Delete Claim confirm | **built** 5.49 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=delete` |
-| 21 | CL6 | Claims | 2:25897 | ″ | RecordPage + ActionModal | Repayment Recovery info modal | **built** 5.7 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=repaymentRecovery` |
-| 22 | CL7 | Claims | 2:27571 | ″ | RecordPage + ActionModal (custom) | Split Approval calculator | **built** 5.74 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=splitApproval` |
-| 23 | CL8 | Claims | 2:29432 | ″ | RecordPage | Details tab (Files (1), Adjudication History row) | **built** 5.58 % · `/lightning/r/Claim/a0CEc00000000020AA/view` |
+| 20 | CL5 | Claims | 2:24222 | CLM-0000020 \| Claim | RecordPage + ActionModal | Delete Claim confirm | **built** 5.44 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=delete` |
+| 21 | CL6 | Claims | 2:25897 | ″ | RecordPage + ActionModal | Repayment Recovery info modal | **built** 5.64 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=repaymentRecovery` |
+| 22 | CL7 | Claims | 2:27571 | ″ | RecordPage + ActionModal (custom) | Split Approval calculator | **built** 5.68 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=splitApproval` |
+| 23 | CL8 | Claims | 2:29432 | ″ | RecordPage | Details tab (Files (1), Adjudication History row) | **built** 5.7 % · `/lightning/r/Claim/a0CEc00000000020AA/view` |
 | 24 | R1 | Reports | 2:31085 | Shared with Me \| Reports | ReportsHomePage | Shared with Me (folders) | **built** 7.11 % · `/lightning/o/Report/list?filterName=sharedWithMe` |
 | 25 | R2 | Reports | 2:32027 | AH Accounts and Contacts | ReportViewerPage | report tab (placeholder) | **built** 1.22 % · `/lightning/r/Report/<AH Accounts and Contacts>/view` |
 | 26 | R3 | Reports | 2:32271 | AH Sales & Marketing | ReportsHomePage | folder contents (breadcrumb), row hover | **built** 5.42 % · `/lightning/r/ReportFolder/<AH Sales & Marketing>/view` |
@@ -65,15 +65,15 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | **built** 4.13 % · `/lightning/r/PortalInformation/a3PEc00000PINF0001/view` |
 | 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | **built** 4.19 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00001/view` |
 | 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | **built** 3.6 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00114/view` |
-| 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | **built** 5.71 % · `/lightning/o/Account/list?filterName=NewThisWeek` |
-| 41 | A2 | Accounts | 2:42291 | AGent 1 \| Account | RecordPage + ActionModal | Delete Account confirm (Broker Agency layout) | **built** 4.04 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=delete` |
-| 42 | A3 | Accounts | 2:44211 | AGent 1 \| Account | RecordPage + ActionModal (form) | Share modal, lookup focused | **built** 4.17 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=sharing` |
-| 43 | A4 | Accounts | 2:46225 | AGent 1 \| Account | RecordPage | Broker Agency layout, Details | **built** 3.16 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view` |
-| 44 | A5 | Accounts | 2:48122 | New Account: Group | RecordFormPage | Group form, scrolled, error popover open | **built** 3.54 % · `/lightning/o/Account/new?recordType=Group` → Save with Account Name empty |
-| 45 | A6 | Accounts | 2:51331 | New Account: Group | RecordFormPage | top of form, Account Name error | **built** 3.8 % · `/lightning/o/Account/new?recordType=Group` → leave Account Name empty |
-| 46 | A7 | Accounts | 2:54505 | New Account | RecordTypePicker | Group selected | **built** 2.78 % · `/lightning/o/Account/new` |
-| 47 | A8 | Accounts | 2:55068 | Account Hierarchy | HierarchyPage (sub-tab) | tree grid, "current" badge | **built** 2.43 % · `/lightning/r/Account/001Ec00001fY0zTIAS/hierarchy` |
-| 48 | A9 | Accounts | 2:55718 | Blalock Development Co \| Account | RecordPage | Group layout, overflow ▼ open (24 items) | **built** 3.24 % · `/lightning/r/Account/001Ec00001fY0zTIAS/view` → ▼ |
+| 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | **built** 5.74 % · `/lightning/o/Account/list?filterName=NewThisWeek` |
+| 41 | A2 | Accounts | 2:42291 | AGent 1 \| Account | RecordPage + ActionModal | Delete Account confirm (Broker Agency layout) | **built** 3.47 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=delete` |
+| 42 | A3 | Accounts | 2:44211 | AGent 1 \| Account | RecordPage + ActionModal (form) | Share modal, lookup focused | **built** 3.55 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=sharing` |
+| 43 | A4 | Accounts | 2:46225 | AGent 1 \| Account | RecordPage | Broker Agency layout, Details | **built** 3.15 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view` |
+| 44 | A5 | Accounts | 2:48122 | New Account: Group | RecordFormPage | Group form, scrolled, error popover open | **built** 3.58 % · `/lightning/o/Account/new?recordType=Group` → Save with Account Name empty |
+| 45 | A6 | Accounts | 2:51331 | New Account: Group | RecordFormPage | top of form, Account Name error | **built** 3.9 % · `/lightning/o/Account/new?recordType=Group` → leave Account Name empty |
+| 46 | A7 | Accounts | 2:54505 | New Account | RecordTypePicker | Group selected | **built** 2.77 % · `/lightning/o/Account/new` |
+| 47 | A8 | Accounts | 2:55068 | Account Hierarchy | HierarchyPage (sub-tab) | tree grid, "current" badge | **built** 2.4 % · `/lightning/r/Account/001Ec00001fY0zTIAS/hierarchy` |
+| 48 | A9 | Accounts | 2:55718 | Blalock Development Co \| Account | RecordPage | Group layout, overflow ▼ open (24 items) | **built** 3.19 % · `/lightning/r/Account/001Ec00001fY0zTIAS/view` → ▼ |
 
 ## 3. Templates (confirmed)
 The expected list holds, with four additions found in the audit (marked **new**). All are generic — no object names inside.

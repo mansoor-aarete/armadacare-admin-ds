@@ -64,6 +64,14 @@ export function CardsSection() {
             <p className="slds-text-align_center">Einstein doesn't have any recommendations for you right now.</p>
           </Card>
         </ShowcaseExample>
+        <ShowcaseExample title='Card — look="custom" (custom search component: Arial, light olive Search, grey-bordered Clear)'>
+          <Card title="Participant Search" bodyPadding look="custom">
+            <ButtonGroup>
+              <Button variant="brand" label="Search" />
+              <Button label="Clear" />
+            </ButtonGroup>
+          </Card>
+        </ShowcaseExample>
         <ShowcaseExample title="Related list — empty / with ▼ / with buttons / loading" visualId="related-empty">
           <RelatedListCard iconName="standard:note" title="Notes" count={0} menuItems={RELATED_MENU} />
           <RelatedListCard iconName="standard:case" title="Cases" count={0} />

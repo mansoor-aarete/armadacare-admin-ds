@@ -25,10 +25,13 @@ export type CardProps = {
   className?: string;
   /** Keep the card border inside tabsets / other cards (.slds-card_boundary). ds-v1.7. */
   boundary?: boolean;
+  /** "custom" = look of the org's custom (non-Lightning) search component: Arial, light olive brand buttons, grey-bordered
+   *  neutral buttons, bold 13 px section titles — all from theme tokens (Figma P1, P2, P4, P6, P7; v1.0). */
+  look?: "standard" | "custom";
 };
 
 /** SLDS Cards blueprint (article.slds-card › header › body › footer). Without title and actions the header is left out. */
-export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, children, bodyPadding, footer, shaded, className, boundary }: CardProps) {
+export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, children, bodyPadding, footer, shaded, className, boundary, look }: CardProps) {
   const isLink = Boolean(onTitleClick || titleHref);
   const header = title || actions ? (
     <div className="slds-card__header slds-grid">
@@ -67,7 +70,7 @@ export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, 
     </div>
   ) : null;
   return (
-    <article className={cx("slds-card", shaded && "slds-theme_shade", boundary && "slds-card_boundary", className)}>
+    <article className={cx("slds-card", shaded && "slds-theme_shade", boundary && "slds-card_boundary", className)} data-ac-look={look === "custom" ? "custom" : undefined}>
       {header}
       {children !== undefined && children !== null && children !== false ? (
         <div className={cx("slds-card__body", bodyPadding && "slds-card__body_inner", shaded && "slds-theme_default")}>{children}</div>

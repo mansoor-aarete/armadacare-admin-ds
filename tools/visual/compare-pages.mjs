@@ -96,10 +96,10 @@ export const SCREENS = [
   { id: 'P1', node: '2-3', band: true },
   { id: 'P2', node: '2-260', band: true },
   { id: 'P3', node: '2-621', band: true },
-  { id: 'P4', node: '2-865', band: true, masks: [[0, 521, 1920, 37]] },
+  { id: 'P4', node: '2-865', band: true, masks: [[0, 521, 1920, 34]] },
   { id: 'P5', node: '2-2423', band: true, step: ['focusSearchButton'], masks: [[0, 538, 1920, 53]] },
   { id: 'P6', node: '2-3068', band: true },
-  { id: 'P7', node: '2-3781', band: true, masks: [[0, 785, 1920, 49]] },
+  { id: 'P7', node: '2-3781', band: true, masks: [[0, 785, 1920, 44]] },
 ];
 
 /** Area-average resample to w × h. */

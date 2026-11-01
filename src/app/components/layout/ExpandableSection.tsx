@@ -12,10 +12,12 @@ export type ExpandableSectionProps = {
   onToggle?: (open: boolean) => void;
   /** Right-aligned content of a non-collapsible title, e.g. an "Advanced Search" link (Figma P1; ds-v1.9). */
   actions?: ReactNode;
+  /** Non-collapsible title colour: "shade" (default, light grey) or "inverse" (dark search-panel bar, Figma P1–P7; v1.0). */
+  tone?: "shade" | "inverse";
 };
 
 /** SLDS Expandable Section blueprint (div.slds-section › h3.slds-section__title › button / span › content). */
-export function ExpandableSection({ title, children, collapsible = true, open = true, onToggle, actions }: ExpandableSectionProps) {
+export function ExpandableSection({ title, children, collapsible = true, open = true, onToggle, actions, tone = "shade" }: ExpandableSectionProps) {
   const contentId = useId();
   const isOpen = collapsible ? open : true;
 
@@ -37,7 +39,7 @@ export function ExpandableSection({ title, children, collapsible = true, open = 
           </button>
         </h3>
       ) : (
-        <h3 className="slds-section__title slds-theme_shade">
+        <h3 className={cx("slds-section__title", tone === "inverse" ? "slds-theme_inverse" : "slds-theme_shade")}>
           <span className="slds-truncate slds-p-horizontal_small" title={title}>
             {title}
           </span>

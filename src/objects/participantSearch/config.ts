@@ -41,6 +41,8 @@ export const PARTICIPANT_SEARCH_PAGE: SearchPageConfig = {
       label: "Participant Search",
       heading: "Participant Search",
       criteriaTitle: "Search Criteria",
+      criteriaBar: "dark",
+      look: "custom",
       buttons: "right",
       blocks: [
         {
@@ -127,6 +129,8 @@ export const PARTICIPANT_SEARCH_PAGE: SearchPageConfig = {
       label: "Employer Search",
       heading: "Employer Search",
       criteriaTitle: "Search Criteria",
+      criteriaBar: "dark",
+      criteriaSpacing: "loose",
       buttons: "below",
       blocks: [
         {
@@ -169,6 +173,8 @@ export const PARTICIPANT_SEARCH_PAGE: SearchPageConfig = {
       label: "Claim Search",
       heading: "Claim Search",
       criteriaTitle: "Search Criteria",
+      criteriaBar: "dark",
+      look: "custom",
       buttons: "right",
       blocks: [
         {

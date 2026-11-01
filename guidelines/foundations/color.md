@@ -11,9 +11,14 @@ All colour values live in **`src/styles/slds-theme.css`** — nowhere else. Comp
 | `--ac-color-brand-base-tint` | `rgba(139, 154, 76, 0.1)` | Figma (active console tab / nav item background) | active backgrounds |
 | `--ac-color-page-background` | `var(--slds-g-color-neutral-base-100)` (white) | Figma | page background |
 | `--ac-color-icon-user` | `#34becd` | Figma (lookup / object-switcher user icon; SLDS 2.264.3 `standard:user` is `#107cad`) | `.slds-icon-standard-user` background — see `docs/known-differences.md` KD3 |
-| `--ac-color-environment-chip` | `#e0e5f8` | Figma (sandbox chip "Sandbox (CXDev)") | GlobalHeader environment badge (Block C) | Figma (lookup / object-switcher user icon; SLDS 2.264.3 `standard:user` is `#107cad`) | `.slds-icon-standard-user` background — see `docs/known-differences.md` KD3 |
+| `--ac-color-environment-chip` | `#e0e5f8` | Figma (sandbox chip "Sandbox (CXDev)") | GlobalHeader environment badge (Block C) |
+| `--ac-color-search-bar` | `#5a5a5a` | Figma P1–P7 ("Search Criteria" bar) | ExpandableSection `tone="inverse"` (Block C, v1.0) |
+| `--ac-color-custom-brand-button` | `#93a445` | Figma P1, P2, P4, P6, P7 (Search button, checked boxes) | Card `look="custom"` brand buttons and checkboxes (Block C, v1.0) |
+| `--ac-color-custom-neutral-border` | `#9e9e9e` | Figma P1, P2, P4, P6, P7 (Clear button border) | Card `look="custom"` neutral buttons (Block C, v1.0) |
+| `--ac-font-custom` | `Arial, Helvetica, sans-serif` | Figma P1, P2, P4, P6, P7 (custom search component font; not a colour) | Card `look="custom"` (Block C, v1.0) |
 
 Contrast on white: `#57612d` 6.66:1 (AA text), `#373e1d` 11.37:1, `#8b9a4c` 3.08:1 (non-text indicators only — never text).
+Custom look (as captured in Figma): white on `#5a5a5a` 6.9:1 (AA); white bold 13 px on `#93a445` 2.7:1 — **below AA** for normal text; kept because you asked to match Figma (KD1).
 Not used: the Broker Portal palette (`#8F993E` etc.) is a different product.
 
 ## SLDS defaults kept unchanged (they already match Figma)
@@ -114,7 +119,11 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | Console workspace tabs (ds-v1.5) | `.slds-context-bar__item_tab` (width 13.75rem) | Figma 220 px tabs show full labels (SLDS 12rem) |
 | Small modal (ds-v1.6) | `.slds-modal_small .slds-modal__container` (min-width 48em) | max-width 59.125rem — Figma C4 Log an Activity 946 px |
 | Docked composer in the utility bar (ds-v1.6) | `.slds-utility-bar_container > .slds-docked_container` | bottom 2.5rem — docked above the utility bar (Figma C5) |
-| Search panel titles (ds-v1.9) | `.slds-section__title.slds-theme_shade`, `.slds-section__title.slds-theme_shade .slds-button` (line-height 1.5rem) | Figma P1–P7: 28 px "Search Criteria" bar (with its link) and 26 px advanced section titles instead of 32 px; only non-collapsible ExpandableSection titles use `slds-theme_shade` |
+| Search panel titles (ds-v1.9) | `.slds-section__title.slds-theme_shade` / `.slds-theme_inverse`, and their `.slds-button` (line-height 1.5rem) | Figma P1–P7: 28 px "Search Criteria" bar (with its link) and 26 px advanced section titles instead of 32 px; only non-collapsible ExpandableSection titles use `slds-theme_shade` |
+| Plain table rows (v1.0) | `.slds-table_cell-buffer.slds-table_bordered tbody td, … th` (line-height 1.3) | Figma Claims Accumulator Balances rows 26 px (SLDS 28.5 px) — KD73 |
+| Compact data table (v1.0) | `.slds-table_fixed-layout:not(.slds-table_resizable-cols) tbody tr.slds-line-height_reset` (line-height 1.3), `… thead th` (height 2rem) | Figma P5 rows 26 px, Lightning datatable header 33 px |
+| Dark search-panel bar (v1.0) | `.slds-section__title.slds-theme_inverse` (background / border `--ac-color-search-bar`, square corners, 13 px bold), `… .slds-button` (inherit colour, 12 px bold, underlined), `.slds-section:has(> .slds-section__title.slds-theme_inverse)` and `.slds-card__body:has(> .slds-section > …)` (margin-top 0 — flush with the card top) | Figma P1–P7 "Search Criteria" bar — KD1 |
+| Custom-component look (v1.0) | `[data-ac-look="custom"]` (font `--ac-font-custom`; checkbox hooks `--slds-c-checkbox-color-background-checked` / `-border-checked` = `--ac-color-custom-brand-button`, mark white), `… .slds-checkbox_faux` (0.8125rem), `… .slds-button_brand` (`--ac-color-custom-brand-button`, bold), `… .slds-button_neutral` (`--ac-color-custom-neutral-border`, inherit text colour, bold), `… .slds-text-color_weak` (italic), `… .slds-table` (0.75rem; compact rows line-height 1.1667), `… .slds-section__title.slds-theme_shade` (13 px bold) | Figma P1, P2, P4, P6, P7 custom search component — KD1 |
 | Console object item | `.slds-context-bar__object-switcher` (width 11.5625rem), `.slds-is-active` (no item tint / animation / `:before` bar), `> .slds-context-bar__label-action` (12 px padding; active: tint + 3 px inset top bar), `> .slds-context-bar__icon-action` (own cell: left border, no negative margin) | ▼ in its own cell (Figma A1) |
 
 ## Do / Don't

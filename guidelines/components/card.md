@@ -9,3 +9,5 @@ File: `src/app/components/cards/Card.tsx`.
 Card titles are 14 px (`--slds-c-card-heading-font-size`, theme block A — Figma).
 
 `boundary?: boolean` (ds-v1.7) — keeps the card border inside tabsets or other cards (`.slds-card_boundary`; Figma Claim Details, Benefit Snapshot, Claims).
+
+v1.0: `look?: "standard" | "custom"` — `"custom"` renders `data-ac-look="custom"` on the article and the theme (Block C, tokens only) gives everything inside the look of the org's custom search component (Figma P1, P2, P4, P6, P7): Arial, bold `#93a445` brand buttons and filled 13 px checkboxes, white neutral buttons with a `#9e9e9e` border, italic weak text, 12 px compact tables, 13 px bold shaded section titles. Note: white on `#93a445` is 2.75:1 (below AA) — as captured.

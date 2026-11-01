@@ -181,6 +181,9 @@ export function PageSection() {
           <ExpandableSection title="Search Criteria" collapsible={false} actions={<Button variant="base" label="Advanced Search" />}>
             <p className="slds-p-around_small">With title actions (ds-v1.9).</p>
           </ExpandableSection>
+          <ExpandableSection title="Search Criteria" collapsible={false} tone="inverse" actions={<Button variant="base" label="Show Less" />}>
+            <p className="slds-p-around_small">Dark search-panel bar, tone="inverse" (v1.0).</p>
+          </ExpandableSection>
         </ShowcaseExample>
         <ShowcaseExample title="Record field — value types (horizontal)" visualId="record-fields" wide>
           <RecordFieldGrid

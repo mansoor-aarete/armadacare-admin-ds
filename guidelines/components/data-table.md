@@ -22,3 +22,5 @@ File: `src/app/components/data/DataTable.tsx` — generic over `Row extends { id
 Column header labels are always rendered (they are blank only in the Figma capture).
 
 ds-v1.9: `variant="compact"` — the base table as the search results' Lightning datatable draws it: `slds-table_fixed-layout` (equal columns), no `slds-table_cell-buffer`, body rows `slds-line-height_reset` (≈23 px, Figma P4 / P5). `wrap` columns still wrap.
+
+v1.0: the `compact` variant shows wrapped columns in full (no 3-line clamp, as Lightning datatable wraps), has a 2rem header row and 26 px rows (Block C). The base variant's rows are 26 px too (line-height 1.3, Figma Claims accumulators).

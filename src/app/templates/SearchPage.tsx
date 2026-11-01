@@ -158,7 +158,7 @@ export function SearchPage({ name, url }: { name: string; url: string }) {
         </div>
       ) : null}
       {(block.checkboxGroups ?? []).map((g) => (
-        <div key={g.id} className="slds-m-bottom_x-small">
+        <div key={g.id} className={tab.criteriaSpacing === "loose" ? "slds-m-top_x-small slds-m-bottom_x-small" : "slds-m-bottom_x-small"}>
           <CheckboxGroup
             legend={g.legend}
             layout="inline"
@@ -176,7 +176,7 @@ export function SearchPage({ name, url }: { name: string; url: string }) {
   const renderBlock = (block: SearchBlockConfig, index: number) =>
     block.titleStyle === "shaded" && block.title ? (
       <ExpandableSection key={block.id} collapsible={false} title={block.title}>
-        <div className="slds-p-horizontal_small">{blockBody(block, index === 0)}</div>
+        {blockBody(block, index === 0)}
       </ExpandableSection>
     ) : (
       <div key={block.id}>
@@ -213,16 +213,19 @@ export function SearchPage({ name, url }: { name: string; url: string }) {
         ) : results.heading ? (
           <h2 className="slds-text-title_bold slds-m-bottom_x-small">{results.heading}</h2>
         ) : null}
-        <DataTable<RecordData>
-          label={results.heading ?? tab.heading}
-          variant="compact"
-          columns={columns}
-          rows={shown}
-          onLinkClick={(row) => {
-            const record = row.values.record as LookupValue;
-            con.openRecord(record.objectApiName, record.id);
-          }}
-        />
+        {/* Lightning datatable keeps a scrollbar gutter on the right (Figma P4 / P5: table ends 19 px before the panel edge). */}
+        <div className="slds-p-right_medium">
+          <DataTable<RecordData>
+            label={results.heading ?? tab.heading}
+            variant="compact"
+            columns={columns}
+            rows={shown}
+            onLinkClick={(row) => {
+              const record = row.values.record as LookupValue;
+              con.openRecord(record.objectApiName, record.id);
+            }}
+          />
+        </div>
         {results.count.position === "below" ? <p className="slds-text-body_small slds-text-color_weak slds-m-top_x-small">{count}</p> : null}
         {results.pageSize ? (
           <Pagination
@@ -239,12 +242,13 @@ export function SearchPage({ name, url }: { name: string; url: string }) {
     );
 
   const panel = (
-    <Card title={tab.heading}>
-      <div className="slds-p-horizontal_small">
+    <Card title={tab.heading} look={tab.look}>
+      <div className="slds-p-horizontal_small slds-p-top_small">
         <Card boundary>
           <ExpandableSection
             collapsible={false}
             title={tab.criteriaTitle}
+            tone={tab.criteriaBar === "dark" ? "inverse" : "shade"}
             actions={
               tab.advanced ? (
                 <Button
@@ -256,11 +260,11 @@ export function SearchPage({ name, url }: { name: string; url: string }) {
               ) : undefined
             }
           >
-            <div className="slds-p-horizontal_small">
+            <div className={tab.criteriaSpacing === "loose" ? "slds-p-horizontal_small slds-p-top_small" : "slds-p-horizontal_small"}>
               {tab.blocks.map(renderBlock)}
               {advanced && tab.advanced ? (
                 <>
-                  <hr className="slds-m-vertical_small" />
+                  <hr className="slds-m-top_x-small slds-m-bottom_xx-small" />
                   {tab.advanced.blocks.map((b, i) => renderBlock(b, i + tab.blocks.length))}
                 </>
               ) : null}

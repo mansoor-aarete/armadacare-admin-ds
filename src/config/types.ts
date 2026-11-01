@@ -442,6 +442,12 @@ export type SearchTabConfig = {
   label: string;
   heading: string;
   criteriaTitle: string;
+  /** "dark" = the custom component's dark criteria bar (Figma P1–P7); default "shaded" (standard SLDS section title). */
+  criteriaBar?: "shaded" | "dark";
+  /** "custom" = the org's custom-component look (Arial, light olive Search button — Figma P1, P2); default "standard". */
+  look?: "standard" | "custom";
+  /** "loose" = more room inside the criteria box (Figma P3 / P5 Employer Search); default "default". */
+  criteriaSpacing?: "default" | "loose";
   /** "right" of the first field row (P1) or "below" the criteria (P3). */
   buttons: "right" | "below";
   blocks: SearchBlockConfig[];

@@ -34,6 +34,14 @@
   --ac-color-icon-user: #34becd;
   /* Figma: sandbox environment chip in the header row ("Sandbox (CXDev)"). */
   --ac-color-environment-chip: #e0e5f8;
+  /* Figma P1–P7: custom search component — dark "Search Criteria" bar. */
+  --ac-color-search-bar: #5a5a5a;
+  /* Figma P1, P2, P4, P6, P7: custom search component — Search (brand) button. */
+  --ac-color-custom-brand-button: #93a445;
+  /* Figma P1, P2, P4, P6, P7: custom search component — Clear (neutral) button border. */
+  --ac-color-custom-neutral-border: #9e9e9e;
+  /* Figma P1, P2, P4, P6, P7: font of the custom search component (not a colour; kept with the other Figma values). */
+  --ac-font-custom: Arial, Helvetica, sans-serif;
 }
 /* @brand-tokens:end */
 
@@ -405,11 +413,91 @@ a:active {
   height: 1.859375rem;
 }
 
+/* Plain (base) data tables (v1.0): Figma Claims Accumulator Balances rows are 26 px; SLDS line-height 1.5 gives 28.5 px. */
+.slds-table_cell-buffer.slds-table_bordered tbody td,
+.slds-table_cell-buffer.slds-table_bordered tbody th {
+  line-height: 1.3;
+}
+
+/* Compact data table rows (v1.0, DataTable variant "compact"): Figma P5 rows are 26 px; slds-line-height_reset alone
+   gives 22 px. (Custom look: 12 px text, 23 px rows — below.) */
+.slds-table_fixed-layout:not(.slds-table_resizable-cols) tbody tr.slds-line-height_reset {
+  line-height: 1.3;
+}
+/* Lightning datatable header row: 2rem (Figma P4 / P5 33 px with the border). */
+.slds-table_fixed-layout:not(.slds-table_resizable-cols) thead th {
+  height: 2rem;
+}
+
 /* Search panels (ds-v1.9): Figma P1–P7 shaded titles are 28 px ("Search Criteria", with its link) and 26 px (advanced
    sections); the SLDS section title is 32 px. Only non-collapsible ExpandableSection titles carry slds-theme_shade. */
 .slds-section__title.slds-theme_shade,
-.slds-section__title.slds-theme_shade .slds-button {
+.slds-section__title.slds-theme_shade .slds-button,
+.slds-section__title.slds-theme_inverse,
+.slds-section__title.slds-theme_inverse .slds-button {
   line-height: 1.5rem;
+}
+
+/* Dark search-panel bar (v1.0, ExpandableSection tone "inverse"; Figma P1–P7 KD1): #5a5a5a bar, 13 px bold white
+   title, white underlined link; square corners, flush with the top of its bordered card. */
+.slds-section__title.slds-theme_inverse {
+  background-color: var(--ac-color-search-bar);
+  border-color: var(--ac-color-search-bar);
+  border-radius: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.slds-section__title.slds-theme_inverse .slds-button {
+  color: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.slds-section:has(> .slds-section__title.slds-theme_inverse) {
+  margin-top: 0;
+}
+.slds-card__body:has(> .slds-section > .slds-section__title.slds-theme_inverse) {
+  margin-top: 0;
+}
+
+/* Custom-component look (v1.0, Card look "custom"; Figma P1, P2, P4, P6, P7 KD1): the org's custom search component
+   draws Arial text, a #93a445 bold Search button, a white Clear button with a #9e9e9e border and bold dark text, and
+   13 px bold section titles. */
+[data-ac-look="custom"] {
+  font-family: var(--ac-font-custom);
+  /* Filled #93a445 checkboxes with a white mark (Figma P2, P7). */
+  --slds-c-checkbox-color-background-checked: var(--ac-color-custom-brand-button);
+  --slds-c-checkbox-color-border-checked: var(--ac-color-custom-brand-button);
+  --slds-c-checkbox-mark-color-foreground: var(--slds-g-color-neutral-base-100);
+}
+[data-ac-look="custom"] .slds-checkbox_faux {
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+[data-ac-look="custom"] .slds-button_brand {
+  background-color: var(--ac-color-custom-brand-button);
+  border-color: var(--ac-color-custom-brand-button);
+  font-weight: 700;
+}
+[data-ac-look="custom"] .slds-button_neutral {
+  border-color: var(--ac-color-custom-neutral-border);
+  color: inherit;
+  font-weight: 700;
+}
+/* Result count and no-results text in italics (Figma P4, P6, P7). */
+[data-ac-look="custom"] .slds-text-color_weak {
+  font-style: italic;
+}
+/* Results table: 12 px text, 23 px rows, 14 px wrapped lines (Figma P4, P7). */
+[data-ac-look="custom"] .slds-table {
+  font-size: 0.75rem;
+}
+[data-ac-look="custom"] .slds-table tbody tr.slds-line-height_reset {
+  line-height: 1.1667;
+}
+[data-ac-look="custom"] .slds-section__title.slds-theme_shade {
+  font-size: 0.8125rem;
+  font-weight: 700;
 }
 
 /* Inline record form panel (ds-v1.5): Figma A5 / A6 panel is 734 px wide, 14 px below the console tabs

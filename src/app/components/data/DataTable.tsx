@@ -68,7 +68,10 @@ function CellContent<Row extends DataTableRow>({
   column,
   linkTabIndex,
   onLinkClick,
+  fullWrap,
 }: {
+  /** Wrapped text is shown in full instead of clamped to 3 lines (compact variant, as Lightning datatable wraps). */
+  fullWrap?: boolean;
   row: Row;
   column: DataTableColumn<Row>;
   linkTabIndex?: number;
@@ -77,13 +80,13 @@ function CellContent<Row extends DataTableRow>({
   const text = column.value(row);
   if (column.render) {
     return (
-      <div className={column.wrap ? "slds-line-clamp" : "slds-truncate"} title={text}>
+      <div className={column.wrap ? (fullWrap ? undefined : "slds-line-clamp") : "slds-truncate"} title={text}>
         {column.render(row)}
       </div>
     );
   }
   return (
-    <div className={column.wrap ? "slds-line-clamp" : "slds-truncate"} title={text}>
+    <div className={column.wrap ? (fullWrap ? undefined : "slds-line-clamp") : "slds-truncate"} title={text}>
       {column.link?.(row) ? (
         <a
           href="#"
@@ -143,7 +146,7 @@ export function DataTable<Row extends DataTableRow>({
           {rows.map((row) => (
             <tr key={row.id} className={cx("slds-hint-parent", compact && "slds-line-height_reset")}>
               {columns.map((c, i) => {
-                const content = <CellContent row={row} column={c} onLinkClick={onLinkClick} />;
+                const content = <CellContent row={row} column={c} onLinkClick={onLinkClick} fullWrap={compact} />;
                 const cls = cx(c.align === "right" && "slds-text-align_right", c.wrap && "slds-cell-wrap") || undefined;
                 return i === 0 && firstColumnIsRowHeader ? (
                   <th key={c.key} scope="row" data-label={c.label} className={cls}>
