@@ -96,3 +96,6 @@ Intentional or unavoidable differences, kept here so they can be revisited. Upda
 | KD90 | Plan lookups | "Ultimate Health Diamond", "Double Platinum" (Plan records) | Lookup values without a Plan page (no Plan screens in Figma) | Not captured | No |
 | KD91 | Plan Year Enrollment Members "New" / "Change Owner" | Buttons captured, forms not | New opens a small form (Member, Status) and creates a member; Change Owner has no action | Answer 2 | Yes — confirm the New member form |
 | KD92 | Plan Year Tier lookups (E1, E2) | "a7LEc00000TIcXb" / "…TIcXe" link values | Lookup values without a Plan Year Tier page (not captured) | Not captured | No |
+| KD93 | Card Transaction sections Amounts / Merchant & Description / Adjudication & Status / Participant & Receipt Info | Headers only (fields not captured) | Empty sections from config — fields can be added without code | Answer 2 | Yes — supply the fields |
+| KD94 | Card Transaction ▼ menu | Only ▼ in the highlights, items not captured | Edit · Delete · Sharing · Printable View | Answer 2 | Yes |
+| KD95 | T1 Created By | Name and date overlapped in the capture | Rendered normally | Capture glitch | No |

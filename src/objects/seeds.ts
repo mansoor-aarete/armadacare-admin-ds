@@ -1,6 +1,7 @@
 import type { ConsoleScenario, RecordData } from "../config/types";
 import { ACCOUNT_RECORDS, ACCOUNT_SCENARIOS } from "./account/mock-data";
 import { ACCUMULATOR_RECORDS, ADJUDICATION_RECORDS, CLAIM_FILE_RECORDS, CLAIM_RECORDS, CLAIM_SCENARIOS } from "./claim/mock-data";
+import { CARD_TRANSACTION_RECORDS, CARD_TRANSACTION_SCENARIOS } from "./cardTransaction/mock-data";
 import { CONTACT_RECORDS, CONTACT_SCENARIOS } from "./contact/mock-data";
 import { PLAN_YEAR_HISTORY_RECORDS, PLAN_YEAR_RECORDS, PLAN_YEAR_SCENARIOS } from "./planYear/mock-data";
 import { PLAN_YEAR_ENROLLMENT_MEMBER_RECORDS, PLAN_YEAR_ENROLLMENT_RECORDS, PLAN_YEAR_ENROLLMENT_SCENARIOS } from "./planYearEnrollment/mock-data";
@@ -21,6 +22,7 @@ export const SEED_RECORDS: Record<string, RecordData[]> = {
   PlanYearHistory: PLAN_YEAR_HISTORY_RECORDS,
   PlanYearEnrollment: PLAN_YEAR_ENROLLMENT_RECORDS,
   PlanYearEnrollmentMember: PLAN_YEAR_ENROLLMENT_MEMBER_RECORDS,
+  CardTransaction: CARD_TRANSACTION_RECORDS,
   User: USER_RECORDS,
   Note: [],
   Task: [],
@@ -37,4 +39,5 @@ export const SEED_SCENARIOS: Record<string, ConsoleScenario> = {
   ...REPORT_SCENARIOS,
   ...PLAN_YEAR_SCENARIOS,
   ...PLAN_YEAR_ENROLLMENT_SCENARIOS,
+  ...CARD_TRANSACTION_SCENARIOS,
 };

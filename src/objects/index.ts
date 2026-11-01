@@ -2,6 +2,7 @@ import type { ObjectConfig } from "../config/types";
 import { ACCOUNT_CONFIG } from "./account/config";
 import { ACCOUNT_FUNNEL_TRACKER_CONFIG, NOTE_CONFIG, TASK_CONFIG } from "./activity/config";
 import { ACCUMULATOR_CONFIG, ADJUDICATION_CONFIG, CLAIM_CONFIG, CLAIM_FILE_CONFIG } from "./claim/config";
+import { CARD_TRANSACTION_CONFIG } from "./cardTransaction/config";
 import { CONTACT_CONFIG } from "./contact/config";
 import { PLAN_YEAR_CONFIG, PLAN_YEAR_HISTORY_CONFIG } from "./planYear/config";
 import { PLAN_YEAR_ENROLLMENT_CONFIG, PLAN_YEAR_ENROLLMENT_MEMBER_CONFIG } from "./planYearEnrollment/config";
@@ -26,6 +27,7 @@ export const OBJECTS: Record<string, ObjectConfig> = {
   PlanYearHistory: PLAN_YEAR_HISTORY_CONFIG,
   PlanYearEnrollment: PLAN_YEAR_ENROLLMENT_CONFIG,
   PlanYearEnrollmentMember: PLAN_YEAR_ENROLLMENT_MEMBER_CONFIG,
+  CardTransaction: CARD_TRANSACTION_CONFIG,
   User: USER_CONFIG,
   Note: NOTE_CONFIG,
   Task: TASK_CONFIG,
@@ -33,7 +35,7 @@ export const OBJECTS: Record<string, ObjectConfig> = {
 };
 
 /** Objects listed in the console navigation menu, in order. */
-export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report", "PlanYear", "PlanYearEnrollment"];
+export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report", "PlanYear", "PlanYearEnrollment", "CardTransaction"];
 
 export function getObjectConfig(apiName: string): ObjectConfig {
   const config = OBJECTS[apiName];
