@@ -26,13 +26,13 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 
 | # | Code | Section | Node | Frame | Template | State shown | Status · URL |
 |---|---|---|---|---|---|---|---|
-| 1 | P1 | Participant | 2:3 | Account Intelligence View \| Accounts | SearchPage | Participant Search tab, basic, no search run | `/lightning/n/Participant_Search?tab=participant` |
-| 2 | P2 | Participant | 2:260 | ″ | SearchPage | Claim Search tab, basic (17 status checkboxes, All checked) | `…?tab=claim` |
-| 3 | P3 | Participant | 2:621 | ″ | SearchPage | Employer Search tab, no results | `…?tab=employer` |
-| 4 | P4 | Participant | 2:865 | ″ | SearchPage | Participant results (Last Name "A", 30 rows) | `…?tab=participant&lastName=A` |
-| 5 | P5 | Participant | 2:2423 | ″ | SearchPage | Employer results, 13 found, page 1 of 2 (10/page) | `…?tab=employer&name=A` |
-| 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | `…?tab=claim&advanced=1&employer=…` |
-| 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | `…?tab=participant&advanced=1&lastName=A` |
+| 1 | P1 | Participant | 2:3 | Account Intelligence View \| Accounts | SearchPage | Participant Search tab, basic, no search run | **built** 5.21 % · `/lightning/n/Participant_Search?tab=participant` |
+| 2 | P2 | Participant | 2:260 | ″ | SearchPage | Claim Search tab, basic (17 status checkboxes, All checked) | **built** 5.6 % · `/lightning/n/Participant_Search?tab=claim` |
+| 3 | P3 | Participant | 2:621 | ″ | SearchPage | Employer Search tab, no results | **built** 5.8 % · `/lightning/n/Participant_Search?tab=employer` |
+| 4 | P4 | Participant | 2:865 | ″ | SearchPage | Participant results (Last Name "A", 30 rows) | **built** 7.59 % · `/lightning/n/Participant_Search?tab=participant&lastName=A&search=1` |
+| 5 | P5 | Participant | 2:2423 | ″ | SearchPage | Employer results, 13 found, page 1 of 2 (10/page) | **built** 7.76 % · `/lightning/n/Participant_Search?tab=employer&name=A&search=1` |
+| 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | **built** 5.92 % · `/lightning/n/Participant_Search?tab=claim&advanced=1&employer=QA+Test+Employer+Group+-+CBSR&search=1` |
+| 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | **built** 7.25 % · `/lightning/n/Participant_Search?tab=participant&advanced=1&lastName=A&search=1` |
 | 8 | D1 | Accounts Dashboard | 2:5437 | Account Intelligence View \| Accounts | IntelligenceViewPage | My Accounts, Total Accounts tile selected, empty state | **built** 2.36 % · `/lightning/o/Account/intelligence` |
 | 9 | C1 | Contacts | 2:5847 | Adam Sahn \| Contact | RecordPage (no tabs) | default; tabs Aarav · **Adam** | **built** 3.84 % · `/lightning/r/Contact/003Ec0000a1962939d/view` |
 | 10 | C2 | Contacts | 2:7726 | Aarav Aramanai \| Contact | RecordPage | Card Transactions card loading | **built** 3.77 % · `/lightning/r/Contact/003Ec0000bB8A527B1/view` |

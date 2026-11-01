@@ -5,6 +5,7 @@ import { CARD_TRANSACTION_RECORDS, CARD_TRANSACTION_SCENARIOS } from "./cardTran
 import { CONTACT_RECORDS, CONTACT_SCENARIOS } from "./contact/mock-data";
 import { PLAN_YEAR_HISTORY_RECORDS, PLAN_YEAR_RECORDS, PLAN_YEAR_SCENARIOS } from "./planYear/mock-data";
 import { PLAN_YEAR_ENROLLMENT_MEMBER_RECORDS, PLAN_YEAR_ENROLLMENT_RECORDS, PLAN_YEAR_ENROLLMENT_SCENARIOS } from "./planYearEnrollment/mock-data";
+import { EMPLOYER_SEARCH_ROWS, PARTICIPANT_CONTACTS, PARTICIPANT_SEARCH_ROWS, PARTICIPANT_SEARCH_SCENARIOS } from "./participantSearch/mock-data";
 import { PORTAL_INFORMATION_RECORDS, PORTAL_INFORMATION_SCENARIOS } from "./portalInformation/mock-data";
 import { REPORT_FOLDER_RECORDS, REPORT_RECORDS, REPORT_SCENARIOS } from "./report/mock-data";
 import { CURRENT_USER_ID, USER_RECORDS } from "./user/mock-data";
@@ -12,7 +13,7 @@ import { CURRENT_USER_ID, USER_RECORDS } from "./user/mock-data";
 /** Mock data of every object — read only by src/services (swap the services for Salesforce APIs later). */
 export const SEED_RECORDS: Record<string, RecordData[]> = {
   Account: ACCOUNT_RECORDS,
-  Contact: CONTACT_RECORDS,
+  Contact: [...CONTACT_RECORDS, ...PARTICIPANT_CONTACTS],
   Claim: CLAIM_RECORDS,
   ClaimFile: CLAIM_FILE_RECORDS,
   Adjudication: ADJUDICATION_RECORDS,
@@ -29,6 +30,9 @@ export const SEED_RECORDS: Record<string, RecordData[]> = {
   Note: [],
   Task: [],
   AccountFunnelTracker: [],
+  ParticipantSearchRow: PARTICIPANT_SEARCH_ROWS,
+  EmployerSearchRow: EMPLOYER_SEARCH_ROWS,
+  ClaimSearchRow: [],
 };
 
 export const SEED_CURRENT_USER_ID = CURRENT_USER_ID;
@@ -43,4 +47,5 @@ export const SEED_SCENARIOS: Record<string, ConsoleScenario> = {
   ...PLAN_YEAR_ENROLLMENT_SCENARIOS,
   ...CARD_TRANSACTION_SCENARIOS,
   ...PORTAL_INFORMATION_SCENARIOS,
+  ...PARTICIPANT_SEARCH_SCENARIOS,
 };

@@ -89,6 +89,9 @@ export function DataSection() {
         <ShowcaseExample title="Data table — base (accumulator balances)" visualId="datatable-base" wide>
           <DataTable variant="base" label="Accumulator Balances" columns={BALANCE_COLUMNS} rows={BALANCE_ROWS} />
         </ShowcaseExample>
+        <ShowcaseExample title="Data table — compact (search results: equal columns, single-line rows)" wide>
+          <DataTable variant="compact" label="Search Results" columns={BALANCE_COLUMNS} rows={BALANCE_ROWS} />
+        </ShowcaseExample>
         <ShowcaseExample title="Tree grid — caps header, badge, expanded parent" visualId="treegrid" full>
           <TreeGrid
             label="Account Hierarchy"

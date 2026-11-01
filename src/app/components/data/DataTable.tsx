@@ -29,9 +29,10 @@ export type DataTableColumn<Row extends DataTableRow> = {
 
 /**
  * "advanced" = Lightning data grid (role=grid, select column, sortable / resizable headers, header ▾ menus, row actions).
- * "base" = simple bordered table (Figma accumulator / search results).
+ * "base" = simple bordered table (Figma accumulator). "compact" = base table as the search results' Lightning datatable
+ * draws it: equal fixed-width columns, no cell buffer, single-line-height rows (Figma P4 / P5; ds-v1.9).
  */
-export type DataTableVariant = "advanced" | "base";
+export type DataTableVariant = "advanced" | "base" | "compact";
 
 export type DataTableProps<Row extends DataTableRow> = {
   /** Accessible name of the table. */
@@ -124,8 +125,9 @@ export function DataTable<Row extends DataTableRow>({
   const allSelected = rows.length > 0 && selected.length === rows.length;
 
   if (!advanced) {
+    const compact = variant === "compact";
     return (
-      <table className="slds-table slds-table_cell-buffer slds-table_bordered" aria-label={label}>
+      <table className={cx("slds-table", !compact && "slds-table_cell-buffer", "slds-table_bordered", compact && "slds-table_fixed-layout")} aria-label={label}>
         <thead>
           <tr className="slds-line-height_reset">
             {columns.map((c) => (
@@ -139,7 +141,7 @@ export function DataTable<Row extends DataTableRow>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.id} className="slds-hint-parent">
+            <tr key={row.id} className={cx("slds-hint-parent", compact && "slds-line-height_reset")}>
               {columns.map((c, i) => {
                 const content = <CellContent row={row} column={c} onLinkClick={onLinkClick} />;
                 const cls = cx(c.align === "right" && "slds-text-align_right", c.wrap && "slds-cell-wrap") || undefined;

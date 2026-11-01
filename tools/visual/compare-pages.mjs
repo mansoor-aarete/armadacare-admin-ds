@@ -43,6 +43,8 @@ const STEPS = {
   }),
   hoverRow2: async (p) => p.locator('main table tbody tr').nth(1).hover(),
   hoverRow4: async (p) => p.locator('main table tbody tr').nth(3).hover(),
+  // P5: the Search button has focus (just clicked).
+  focusSearchButton: async (p) => p.locator('main').getByRole('button', { name: 'Search', exact: true }).focus(),
   openOverflow: async (p) => p.locator('.slds-page-header').getByRole('button', { name: /more actions/i }).first().click(),
 };
 
@@ -90,6 +92,14 @@ export const SCREENS = [
   { id: 'E2', node: '2-40422', band: false },
   { id: 'T1', node: '2-35931', band: false },
   { id: 'PI1', node: '2-39060', band: false },
+  // Participant: the results header row is blank in the capture (KD30) — masked.
+  { id: 'P1', node: '2-3', band: true },
+  { id: 'P2', node: '2-260', band: true },
+  { id: 'P3', node: '2-621', band: true },
+  { id: 'P4', node: '2-865', band: true, masks: [[0, 521, 1920, 37]] },
+  { id: 'P5', node: '2-2423', band: true, step: ['focusSearchButton'], masks: [[0, 538, 1920, 53]] },
+  { id: 'P6', node: '2-3068', band: true },
+  { id: 'P7', node: '2-3781', band: true, masks: [[0, 785, 1920, 49]] },
 ];
 
 /** Area-average resample to w × h. */

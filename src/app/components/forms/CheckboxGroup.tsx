@@ -17,15 +17,17 @@ export type CheckboxGroupProps = {
   required?: boolean;
   disabled?: boolean;
   error?: string;
+  /** Legend for assistive tech only, when a section title already labels the group (Figma P6 Bucket; ds-v1.9). */
+  hideLegend?: boolean;
 };
 
 /** SLDS Checkbox Group blueprint (fieldset.slds-form-element › legend › control › checkboxes). */
-export function CheckboxGroup({ legend, options, value, onChange, layout = "stacked", required, disabled, error }: CheckboxGroupProps) {
+export function CheckboxGroup({ legend, options, value, onChange, layout = "stacked", required, disabled, error, hideLegend }: CheckboxGroupProps) {
   const id = useId();
   const toggle = (v: string, on: boolean) => onChange(on ? [...value, v] : value.filter((x) => x !== v));
   return (
     <fieldset className={cx("slds-form-element", error && "slds-has-error", required && "slds-is-required")} aria-describedby={error ? helpId(id) : undefined}>
-      <legend className="slds-form-element__legend slds-form-element__label">
+      <legend className={hideLegend ? "slds-assistive-text" : "slds-form-element__legend slds-form-element__label"}>
         {required ? (
           <abbr className="slds-required" title="required">
             *{" "}
@@ -38,7 +40,7 @@ export function CheckboxGroup({ legend, options, value, onChange, layout = "stac
           <Checkbox
             key={o.value}
             wrapper="none"
-            className={layout === "inline" ? "slds-m-right_medium" : undefined}
+            className={layout === "inline" ? "slds-m-right_small" : undefined}
             label={o.label}
             name={id}
             value={o.value}

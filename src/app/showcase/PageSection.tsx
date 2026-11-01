@@ -178,6 +178,9 @@ export function PageSection() {
           <ExpandableSection title="Claim Information" collapsible={false}>
             <p className="slds-p-around_small">Non-collapsible shaded title (search panels).</p>
           </ExpandableSection>
+          <ExpandableSection title="Search Criteria" collapsible={false} actions={<Button variant="base" label="Advanced Search" />}>
+            <p className="slds-p-around_small">With title actions (ds-v1.9).</p>
+          </ExpandableSection>
         </ShowcaseExample>
         <ShowcaseExample title="Record field — value types (horizontal)" visualId="record-fields" wide>
           <RecordFieldGrid

@@ -114,6 +114,7 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | Console workspace tabs (ds-v1.5) | `.slds-context-bar__item_tab` (width 13.75rem) | Figma 220 px tabs show full labels (SLDS 12rem) |
 | Small modal (ds-v1.6) | `.slds-modal_small .slds-modal__container` (min-width 48em) | max-width 59.125rem — Figma C4 Log an Activity 946 px |
 | Docked composer in the utility bar (ds-v1.6) | `.slds-utility-bar_container > .slds-docked_container` | bottom 2.5rem — docked above the utility bar (Figma C5) |
+| Search panel titles (ds-v1.9) | `.slds-section__title.slds-theme_shade`, `.slds-section__title.slds-theme_shade .slds-button` (line-height 1.5rem) | Figma P1–P7: 28 px "Search Criteria" bar (with its link) and 26 px advanced section titles instead of 32 px; only non-collapsible ExpandableSection titles use `slds-theme_shade` |
 | Console object item | `.slds-context-bar__object-switcher` (width 11.5625rem), `.slds-is-active` (no item tint / animation / `:before` bar), `> .slds-context-bar__label-action` (12 px padding; active: tint + 3 px inset top bar), `> .slds-context-bar__icon-action` (own cell: left border, no negative margin) | ▼ in its own cell (Figma A1) |
 
 ## Do / Don't

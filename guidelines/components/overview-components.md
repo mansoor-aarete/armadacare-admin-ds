@@ -20,7 +20,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
-| ExpandableSection | `layout/ExpandableSection.tsx` | `ExpandableSectionProps` | **`title`**, **`children`**, `collapsible?`, `open?`, `onToggle?` | `expandable-section.md` | component | **stable** |
+| ExpandableSection | `layout/ExpandableSection.tsx` | `ExpandableSectionProps` | **`title`**, **`children`**, `collapsible?`, `open?`, `onToggle?`, `actions?` | `expandable-section.md` | component | **stable** |
 | HighlightsPanel | `layout/HighlightsPanel.tsx` | `HighlightsPanelProps` | **`iconName`**, **`objectLabel`**, **`title`**, `actions?`, `overflowActions?`, `overflowLength?`, `onAction?`, `follow?`, `onHierarchy?`, `details?`, `extraActions?` | `highlights-panel.md` | component | **stable** |
 | ListViewToolbar | `layout/ListViewToolbar.tsx` | `ListViewToolbarProps` | `search?`, `settingsItems?`, `displayItems?`, `onMenuSelect?`, `onRefresh?`, `onSort?`, `onEdit?`, `charts?`, `filters?` | `list-view-toolbar.md` | component | **stable** |
 | PageHeader | `layout/PageHeader.tsx` | `PageHeaderProps` | `variant?`, **`title`**, `iconName?`, `objectLabel?`, `breadcrumbs?`, `listViews?`, `onListViewSelect?`, `pin?`, `actions?`, `meta?`, `controls?`, `details?` | `page-header.md` | component | **stable** |
@@ -74,7 +74,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
 | Checkbox | `forms/Checkbox.tsx` | `CheckboxProps` | **`label`**, `checked?`, `defaultChecked?`, `indeterminate?`, `onChange?`, `disabled?`, `required?`, `error?`, `hideLabel?`, `name?`, `value?`, `id?`, `wrapper?`, `className?` | `checkbox.md` | component | **stable** |
-| CheckboxGroup | `forms/CheckboxGroup.tsx` | `CheckboxGroupProps` | **`legend`**, **`options`**, **`value`**, **`onChange`**, `layout?`, `required?`, `disabled?`, `error?` | `checkbox-group.md` | component | **stable** |
+| CheckboxGroup | `forms/CheckboxGroup.tsx` | `CheckboxGroupProps` | **`legend`**, **`options`**, **`value`**, **`onChange`**, `layout?`, `required?`, `disabled?`, `error?`, `hideLegend?` | `checkbox-group.md` | component | **stable** |
 | Combobox | `forms/Combobox.tsx` | `ComboboxProps` | **`label`**, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?`, `placeholder?`, `id?`, `defaultOpen?`, `variant?`, **`options`**, `value?`, `defaultValue?`, `onChange?`, `onSearchChange?`, `objectSwitcher?` | `combobox.md` | component | **stable** |
 | ComboboxListbox | `forms/ComboboxListbox.tsx` | `ComboboxListboxProps` | **`id`**, **`kind`**, **`options`**, `selectedValue?`, **`focusedIndex`**, **`optionId`**, **`onPick`**, **`onFocusIndex`**, **`ariaLabel`**, `className?` | `combobox-listbox.md` | building block | **stable** |
 | ComboboxObjectSwitcher | `forms/ComboboxObjectSwitcher.tsx` | `ComboboxObjectSwitcherProps` | **`config`**, `disabled?` | `combobox-object-switcher.md` | building block | **stable** |

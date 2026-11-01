@@ -1,9 +1,10 @@
-import type { ObjectConfig } from "../config/types";
+import type { ObjectConfig, SearchPageConfig } from "../config/types";
 import { ACCOUNT_CONFIG } from "./account/config";
 import { ACCOUNT_FUNNEL_TRACKER_CONFIG, NOTE_CONFIG, TASK_CONFIG } from "./activity/config";
 import { ACCUMULATOR_CONFIG, ADJUDICATION_CONFIG, CLAIM_CONFIG, CLAIM_FILE_CONFIG } from "./claim/config";
 import { CARD_TRANSACTION_CONFIG } from "./cardTransaction/config";
 import { CONTACT_CONFIG } from "./contact/config";
+import { PARTICIPANT_SEARCH_PAGE } from "./participantSearch/config";
 import { PLAN_YEAR_CONFIG, PLAN_YEAR_HISTORY_CONFIG } from "./planYear/config";
 import { PLAN_YEAR_ENROLLMENT_CONFIG, PLAN_YEAR_ENROLLMENT_MEMBER_CONFIG } from "./planYearEnrollment/config";
 import { PORTAL_INFORMATION_CONFIG } from "./portalInformation/config";
@@ -36,8 +37,21 @@ export const OBJECTS: Record<string, ObjectConfig> = {
   AccountFunnelTracker: ACCOUNT_FUNNEL_TRACKER_CONFIG,
 };
 
+/** Navigation-item pages (`/lightning/n/<name>`). Adding a search page = its folder + one line here. */
+export const PAGES: Record<string, SearchPageConfig> = {
+  Participant_Search: PARTICIPANT_SEARCH_PAGE,
+};
+
 /** Objects listed in the console navigation menu, in order. */
 export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report", "PlanYear", "PlanYearEnrollment", "CardTransaction", "PortalInformation"];
+
+/** Navigation menu: objects, then pages. */
+export const NAV_ITEMS = [...NAV_OBJECTS, ...Object.keys(PAGES)];
+
+/** Label of a navigation item (object plural label or page label). */
+export function navLabel(id: string): string {
+  return PAGES[id]?.navLabel ?? getObjectConfig(id).labelPlural;
+}
 
 export function getObjectConfig(apiName: string): ObjectConfig {
   const config = OBJECTS[apiName];

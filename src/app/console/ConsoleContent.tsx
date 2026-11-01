@@ -1,18 +1,20 @@
 import { Navigate } from "react-router";
-import { NAV_OBJECTS, OBJECTS } from "../../objects";
+import { NAV_OBJECTS, OBJECTS, PAGES } from "../../objects";
 import { HierarchyPage } from "../templates/HierarchyPage";
 import { IntelligenceViewPage } from "../templates/IntelligenceViewPage";
 import { ObjectListPage } from "../templates/ObjectListPage";
 import { RecordFormPage } from "../templates/RecordFormPage";
 import { RecordPage } from "../templates/RecordPage";
 import { RecordTypePicker } from "../templates/RecordTypePicker";
+import { SearchPage } from "../templates/SearchPage";
 import { ReportsHomePage } from "../templates/ReportsHomePage";
 import { ReportViewerPage } from "../templates/ReportViewerPage";
 import { listUrl, type ConsoleRoute } from "./urls";
 
 /** Picks the template for a console route. */
 export function ConsoleContent({ route, url }: { route: ConsoleRoute; url: string }) {
-  if (route.kind === "unknown" || !OBJECTS[route.apiName]) return <Navigate to={listUrl(NAV_OBJECTS[0])} replace />;
+  if (route.kind === "page" && PAGES[route.name]) return <SearchPage key={route.name} name={route.name} url={url} />;
+  if (route.kind === "unknown" || route.kind === "page" || !OBJECTS[route.apiName]) return <Navigate to={listUrl(NAV_OBJECTS[0])} replace />;
   switch (route.kind) {
     case "list":
       if (OBJECTS[route.apiName].home === "split") return null;

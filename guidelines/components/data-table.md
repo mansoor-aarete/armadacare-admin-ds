@@ -20,3 +20,5 @@ File: `src/app/components/data/DataTable.tsx` — generic over `Row extends { id
 | `onLinkClick?` | `(row, columnKey)` | |
 
 Column header labels are always rendered (they are blank only in the Figma capture).
+
+ds-v1.9: `variant="compact"` — the base table as the search results' Lightning datatable draws it: `slds-table_fixed-layout` (equal columns), no `slds-table_cell-buffer`, body rows `slds-line-height_reset` (≈23 px, Figma P4 / P5). `wrap` columns still wrap.

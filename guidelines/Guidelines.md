@@ -1,4 +1,4 @@
-# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.8
+# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.9
 
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 
@@ -22,7 +22,8 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 Pages are built from templates; object content is config. **Adding an object = `src/objects/<object>/` (config.ts · mock-data.ts · types.ts) + one line in `src/objects/index.ts` and `src/objects/seeds.ts`. Zero page code.**
 - `src/config/types.ts` — config and data shapes (fields, layouts, sections, forms, list views, actions, scenarios).
 - `src/app/console/` — ConsoleApp (routing, workspace tabs / sub-tabs, split view), `urls.ts`, `useServiceData`.
-- `src/app/templates/` — ObjectListPage, RecordPage, RecordFormPage, RecordTypePicker, ActionModal, HierarchyPage, IntelligenceViewPage.
+- `src/app/templates/` — ObjectListPage, RecordPage, RecordFormPage, RecordTypePicker, ActionModal, HierarchyPage, IntelligenceViewPage, ReportsHomePage, ReportViewerPage, SearchPage.
+- Navigation-item pages (`/lightning/n/<name>`, e.g. Participant search): a `SearchPageConfig` in `src/objects/<page>/config.ts` registered in `PAGES` (`src/objects/index.ts`); its result rows are mock-data tables searched by `src/services/search.ts`.
 - `src/app/widgets/` — FieldSection, FieldView, FieldInput, SidebarRegion, value formatting.
 - `src/services/` — async data access (Promises) over an in-memory store seeded from mock data; swap for Salesforce APIs without touching pages. Pages never import mock data.
 - Page code composes design-system components only: no CSS, no inline styles, no hex; SLDS classes limited to grid, spacing and text utilities (`npm run verify` enforces this).

@@ -405,6 +405,13 @@ a:active {
   height: 1.859375rem;
 }
 
+/* Search panels (ds-v1.9): Figma P1–P7 shaded titles are 28 px ("Search Criteria", with its link) and 26 px (advanced
+   sections); the SLDS section title is 32 px. Only non-collapsible ExpandableSection titles carry slds-theme_shade. */
+.slds-section__title.slds-theme_shade,
+.slds-section__title.slds-theme_shade .slds-button {
+  line-height: 1.5rem;
+}
+
 /* Inline record form panel (ds-v1.5): Figma A5 / A6 panel is 734 px wide, 14 px below the console tabs
    (SLDS modal container: 50 %, max 40rem, 3rem top padding). Record-type picker (medium): 1,000 px. */
 .slds-template__container > .slds-modal__container {

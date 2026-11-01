@@ -1,7 +1,7 @@
 import profileAvatar from "@salesforce-ux/design-system/assets/images/profile_avatar_96.png";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { getObjectConfig, NAV_OBJECTS, OBJECTS } from "../../objects";
+import { getObjectConfig, NAV_ITEMS, NAV_OBJECTS, navLabel, OBJECTS, PAGES } from "../../objects";
 import { createRecord, getCurrentUser, getRecord, listRecords, recordName } from "../../services/records";
 import { applyScenarioRecords, getScenario } from "../../services/session";
 import { toIso } from "../components/utils/dates";
@@ -16,11 +16,15 @@ import { WorkspaceTabs, type WorkspaceTab } from "../components/shell/WorkspaceT
 import { ConsoleContent } from "./ConsoleContent";
 import { ConsoleContext, type ComposerRequest, type ConsoleApi } from "./ConsoleContext";
 import { ConsoleSplitView } from "./ConsoleSplitView";
-import { listUrl, parseRoute, recordUrl, routeOf, subTabKeyOf } from "./urls";
+import { listUrl, pageUrl, parseRoute, recordUrl, routeOf, subTabKeyOf, type ConsoleRoute } from "./urls";
 import { useServiceData } from "./useServiceData";
 import { tabKeyFor, tabUrl, upsertTab, type WorkspaceTabState } from "./workspaceTabs";
 
 const DEFAULT_OBJECT = NAV_OBJECTS[0];
+
+/** Navigation item a route belongs to (object or page). */
+const navItemOf = (route: ConsoleRoute) => (route.kind === "page" ? route.name : route.kind !== "unknown" ? OBJECTS[route.apiName]?.navObject ?? route.apiName : null);
+const navUrl = (item: string, listViewId?: string) => (PAGES[item] ? pageUrl(item) : listUrl(item, listViewId));
 
 /** The Lightning console: shell, workspace tabs (open / focus / close), sub-tabs, split view and routed content. */
 export function ConsoleApp() {
@@ -32,7 +36,7 @@ export function ConsoleApp() {
 
   const [ready, setReady] = useState(!scenarioId);
   const [tabs, setTabs] = useState<WorkspaceTabState[]>([]);
-  const [homeObject, setHomeObject] = useState(route.kind !== "unknown" ? route.apiName : DEFAULT_OBJECT);
+  const [homeObject, setHomeObject] = useState(navItemOf(route) ?? DEFAULT_OBJECT);
   const [listViewId, setListViewId] = useState<string | undefined>(route.kind === "list" ? route.listViewId : undefined);
   const [selection, setSelection] = useState<string[]>([]);
   const [listUpdatedAt, setListUpdatedAt] = useState(() => Date.now());
@@ -67,13 +71,14 @@ export function ConsoleApp() {
   useEffect(() => {
     if (!ready) return;
     setTabs((t) => upsertTab(t, url));
-    if (route.kind !== "unknown") setHomeObject(OBJECTS[route.apiName]?.navObject ?? route.apiName);
+    const item = navItemOf(route);
+    if (item) setHomeObject(item);
     if (route.kind === "list" && route.listViewId) setListViewId(route.listViewId);
   }, [url, ready]);
 
   const activeKey = tabKeyFor(route);
   const navigate = useCallback((to: string, options?: { replace?: boolean }) => routerNavigate(to, options), [routerNavigate]);
-  const homeUrl = listUrl(homeObject, listViewId);
+  const homeUrl = navUrl(homeObject, listViewId);
 
   const closeTab = useCallback(
     (key?: string) => {
@@ -136,9 +141,9 @@ export function ConsoleApp() {
     menuItems: t.recordId || t.listViewId ? undefined : [],
   }));
   const activeTab = tabs.find((t) => t.key === activeKey);
-  const homeConfig = getObjectConfig(homeObject);
+  const homeConfig = OBJECTS[homeObject] as (typeof OBJECTS)[string] | undefined;
   // Objects whose home is the split view alone (Figma CL1: Claims list, empty workspace).
-  const splitHome = route.kind === "list" && homeConfig.home === "split";
+  const splitHome = route.kind === "list" && homeConfig?.home === "split";
   const content = <ConsoleContent route={route} url={url} />;
   const composerPanel =
     composer && composerParent && composerAction?.kind === "composer" ? (
@@ -183,12 +188,12 @@ export function ConsoleApp() {
             appName="ArmadaCare Admin Portal"
             objectItem={{
               id: homeObject,
-              label: homeConfig.labelPlural,
+              label: navLabel(homeObject),
               active: !activeTab,
-              menuItems: NAV_OBJECTS.map((a) => ({ value: a, label: getObjectConfig(a).labelPlural })),
+              menuItems: NAV_ITEMS.map((a) => ({ value: a, label: navLabel(a) })),
             }}
             onSelect={() => navigate(homeUrl)}
-            onMenuSelect={(_, value) => navigate(listUrl(value))}
+            onMenuSelect={(_, value) => navigate(navUrl(value))}
             tabs={
               tabs.length ? (
                 <WorkspaceTabs
@@ -209,7 +214,7 @@ export function ConsoleApp() {
           (activeTab && getObjectConfig(activeTab.apiName).splitView) || splitHome ? (
             <ConsoleSplitView
               apiName={activeTab && getObjectConfig(activeTab.apiName).splitView ? activeTab.apiName : homeObject}
-              listViewId={listViewId ?? homeConfig.defaultListView}
+              listViewId={listViewId ?? homeConfig?.defaultListView ?? ""}
               onListViewChange={setListViewId}
               currentId={activeTab?.recordId}
               selection={selection}

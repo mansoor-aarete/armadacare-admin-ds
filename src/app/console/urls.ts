@@ -6,8 +6,10 @@ export type ConsoleRoute =
   | { kind: "record"; apiName: string; id: string; tab?: string; action?: string }
   | { kind: "hierarchy"; apiName: string; id: string }
   | { kind: "new"; apiName: string; recordType?: string }
+  | { kind: "page"; name: string; tab?: string }
   | { kind: "unknown" };
 
+export const pageUrl = (name: string) => `/lightning/n/${name}`;
 export const listUrl = (apiName: string, listViewId?: string) => `/lightning/o/${apiName}/list${listViewId ? `?filterName=${encodeURIComponent(listViewId)}` : ""}`;
 export const intelligenceUrl = (apiName: string) => `/lightning/o/${apiName}/intelligence`;
 export const recordUrl = (apiName: string, id: string) => `/lightning/r/${apiName}/${id}/view`;
@@ -25,6 +27,7 @@ export function parseRoute(pathname: string, search: string): ConsoleRoute {
     if (a === "intelligence") return { kind: "intelligence", apiName };
     if (a === "new") return { kind: "new", apiName, recordType: q.get("recordType") ?? undefined };
   }
+  if (type === "n" && apiName) return { kind: "page", name: apiName, tab: q.get("tab") ?? undefined };
   if (type === "r" && apiName && a) {
     if (b === "hierarchy") return { kind: "hierarchy", apiName, id: a };
     return { kind: "record", apiName, id: a, tab: q.get("tab") ?? undefined, action: q.get("action") ?? undefined };

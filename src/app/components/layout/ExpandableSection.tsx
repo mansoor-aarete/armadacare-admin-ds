@@ -10,10 +10,12 @@ export type ExpandableSectionProps = {
   /** Controlled open state (collapsible only). */
   open?: boolean;
   onToggle?: (open: boolean) => void;
+  /** Right-aligned content of a non-collapsible title, e.g. an "Advanced Search" link (Figma P1; ds-v1.9). */
+  actions?: ReactNode;
 };
 
 /** SLDS Expandable Section blueprint (div.slds-section › h3.slds-section__title › button / span › content). */
-export function ExpandableSection({ title, children, collapsible = true, open = true, onToggle }: ExpandableSectionProps) {
+export function ExpandableSection({ title, children, collapsible = true, open = true, onToggle, actions }: ExpandableSectionProps) {
   const contentId = useId();
   const isOpen = collapsible ? open : true;
 
@@ -39,6 +41,7 @@ export function ExpandableSection({ title, children, collapsible = true, open = 
           <span className="slds-truncate slds-p-horizontal_small" title={title}>
             {title}
           </span>
+          {actions ? <span className="slds-col_bump-left slds-p-horizontal_small">{actions}</span> : null}
         </h3>
       )}
       <div hidden={!isOpen} className="slds-section__content" id={contentId}>

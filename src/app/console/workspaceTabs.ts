@@ -25,7 +25,7 @@ export type WorkspaceTabState = {
 export function upsertTab(tabs: WorkspaceTabState[], url: string): WorkspaceTabState[] {
   const route = routeOf(url);
   const key = tabKeyFor(route);
-  if (!key || route.kind === "intelligence" || route.kind === "unknown") return tabs;
+  if (!key || route.kind === "intelligence" || route.kind === "unknown" || route.kind === "page") return tabs;
   const subKey = subTabKeyOf(route);
   const recordId = route.kind === "record" || route.kind === "hierarchy" ? route.id : undefined;
   const existing = tabs.find((t) => t.key === key);

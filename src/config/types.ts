@@ -364,6 +364,100 @@ export type IntelligenceViewConfig = {
 
 export type RecordTypeConfig = { value: string; label: string; description?: string; layout: string; form?: string };
 
+// ── Search pages ────────────────────────────────────────────────────────────────────────────────
+
+/** How a criterion filters the search rows ("A" → last names starting with A). */
+export type SearchMatch = { field: string; operator: "startsWith" | "contains" | "equals" };
+
+export type SearchFieldConfig = {
+  id: string;
+  label: string;
+  type: "text" | "picklist" | "date" | "number";
+  required?: boolean;
+  placeholder?: string;
+  /** Picklist values ("--None--" is added first unless `noneOption` is false). */
+  options?: string[];
+  noneOption?: boolean;
+  defaultValue?: string;
+  /** Omitted = criterion not applied to the mock rows (its column was not captured). */
+  match?: SearchMatch;
+};
+
+/**
+ * Checkbox group with an "All" option. "exclusive": All is the only value when checked (Figma P2 Claim Status);
+ * "selectsAll": checking All checks every option and unchecking one clears All (Figma P7 Participant Status).
+ * All checked = no filter.
+ */
+export type SearchCheckboxGroupConfig = {
+  id: string;
+  legend: string;
+  options: string[];
+  defaultValue: string[];
+  allBehavior: "exclusive" | "selectsAll";
+  match?: { field: string };
+};
+
+/** One block of criteria: optional sub-heading, then a field grid and / or checkbox groups. */
+export type SearchBlockConfig = {
+  id: string;
+  title?: string;
+  /** "plain" bold sub-heading (Participant Information) or "shaded" section title (Claimant Information). */
+  titleStyle?: "plain" | "shaded";
+  columns: 2 | 3 | 4;
+  /** Width of each control inside its column (Figma: 3/4 in the 3- and 4-column grids, 1/2 in the 2-column grid). */
+  controlSize?: "full" | "3-of-4" | "1-of-2";
+  fields?: SearchFieldConfig[];
+  checkboxGroups?: SearchCheckboxGroupConfig[];
+  /** Fields placed after the checkbox groups (Claim Details › Escalation State). */
+  fieldsAfter?: SearchFieldConfig[];
+};
+
+export type SearchColumnConfig = {
+  /** Row field; "recordUrl" = the linked record's URL. */
+  field: string;
+  label: string;
+  /** Opens the row's record (`values.record`) in a workspace tab. */
+  link?: boolean;
+  wrap?: boolean;
+};
+
+export type SearchResultsConfig = {
+  /** Mock data table the service searches (src/objects/<folder>/mock-data.ts). */
+  dataset: string;
+  heading?: string;
+  /** "label": bold text above the table (P4 "SEARCH RESULTS"); "title": card-style title with the count beside it (P5). */
+  headingStyle?: "label" | "title";
+  /** Count text, {count} is replaced. "below" the table (P4) or beside the "heading" (P5). */
+  count: { text: string; position: "below" | "heading" };
+  emptyText: string;
+  columns: SearchColumnConfig[];
+  sort?: string[];
+  /** Pager with a records-per-page picklist (P5). Omitted = every row on one page (P4). */
+  pageSize?: number;
+  pageSizeOptions?: number[];
+};
+
+export type SearchTabConfig = {
+  id: string;
+  label: string;
+  heading: string;
+  criteriaTitle: string;
+  /** "right" of the first field row (P1) or "below" the criteria (P3). */
+  buttons: "right" | "below";
+  blocks: SearchBlockConfig[];
+  /** Blocks shown by the "Advanced Search" / "Show Less" link (P6, P7). */
+  advanced?: { showLabel: string; hideLabel: string; blocks: SearchBlockConfig[] };
+  results: SearchResultsConfig;
+};
+
+/** A navigation-item page made of search tabs (Figma P1–P7, `/lightning/n/<name>`). */
+export type SearchPageConfig = {
+  name: string;
+  navLabel: string;
+  tabs: SearchTabConfig[];
+  defaultTab: string;
+};
+
 // ── Object ──────────────────────────────────────────────────────────────────────────────────────
 
 export type ObjectConfig = {

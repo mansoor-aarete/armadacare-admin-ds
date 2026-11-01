@@ -5,3 +5,5 @@ File: `src/app/components/layout/ExpandableSection.tsx`.
 
 ## Props — `ExpandableSectionProps`
 `title`, `children`, `collapsible?` (default true), `open?` (default true), `onToggle?(open)`.
+
+ds-v1.9: `actions?: ReactNode` — right-aligned content in a non-collapsible title (`span.slds-col_bump-left`), e.g. the "Advanced Search" / "Show Less" base button of the search panels (Figma P1–P7). Non-collapsible titles are 28 px with a button, 26 px without (Block C).
