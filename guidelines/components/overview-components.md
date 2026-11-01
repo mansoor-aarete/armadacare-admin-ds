@@ -9,7 +9,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
 | AppNav | `shell/AppNav.tsx` | `AppNavProps` | **`appName`**, `onAppLauncher?`, `objectItem?`, `items?`, `tabs?`, `onSelect?`, `onMenuSelect?` | `app-nav.md` | component | **stable** |
-| ConsoleShell | `shell/ConsoleShell.tsx` | `ConsoleShellProps` | **`globalHeader`**, **`appNav`**, `splitView?`, `utilityBar?`, **`children`** | `console-shell.md` | component | **stable** |
+| ConsoleShell | `shell/ConsoleShell.tsx` | `ConsoleShellProps` | **`globalHeader`**, **`appNav`**, `splitView?`, `utilityBar?`, **`children`**, `workspacePadding?`, `fill?` | `console-shell.md` | component | **stable** |
 | GlobalHeader | `shell/GlobalHeader.tsx` | `GlobalHeaderProps` | `logo?`, `search?`, `favorites?`, `onGlobalActions?`, `onHelp?`, `onSetup?`, `notificationCount?`, `onNotifications?`, **`avatar`**, **`userName`**, `onAvatar?`, `environment?`, `position?` | `global-header.md` | component | **stable** |
 | SplitView | `shell/SplitView.tsx` | `SplitViewProps` | **`open`**, **`onToggle`**, **`iconName`**, **`objectLabel`**, **`listViewName`**, `listViews?`, `onListViewSelect?`, `pinned?`, `onPin?`, `controls?`, `onControlSelect?`, **`meta`**, `onRefresh?`, `search?`, `sort?`, `listInfo?`, **`items`**, `currentId?`, **`onOpen`**, `selection?` | `split-view.md` | component | **stable** |
 | UtilityBar | `shell/UtilityBar.tsx` | `UtilityBarProps` | **`items`**, `activeId?`, **`onSelect`**, `panel?`, `position?` | `utility-bar.md` | component | **stable** |

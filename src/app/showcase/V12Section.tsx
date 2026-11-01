@@ -10,9 +10,14 @@ import { Textarea } from "../components/forms/Textarea";
 import { Timepicker } from "../components/forms/Timepicker";
 import { ErrorPopover } from "../components/overlays/ErrorPopover";
 import { Modal } from "../components/overlays/Modal";
+import { AppNav } from "../components/shell/AppNav";
+import { ConsoleShell } from "../components/shell/ConsoleShell";
+import { GlobalHeader } from "../components/shell/GlobalHeader";
+import { UtilityBar } from "../components/shell/UtilityBar";
+import { USER_AVATAR } from "./patternData";
 import { ShowcaseExample } from "./ShowcaseExample";
 
-/** ds-v1.2 additions: Card without a title, inline Modal, CompoundField, EmptyState region. */
+/** ds-v1.2 additions: Card without a title, inline Modal, CompoundField, EmptyState region · ds-v1.3: ConsoleShell flush workspace. */
 export function V12Section() {
   const [popover, setPopover] = useState(true);
   return (
@@ -99,6 +104,18 @@ export function V12Section() {
               <Button label="Next" variant="brand" className="slds-m-left_x-small" />
             </div>
           </Modal>
+        </ShowcaseExample>
+        <ShowcaseExample title="ds-v1.3 — Console shell, flush workspace (workspacePadding={false})" visualId="console-shell-flush" full>
+          <div style={{ height: "16rem" }}>
+            <ConsoleShell
+              workspacePadding={false}
+              globalHeader={<GlobalHeader position="inline" avatar={USER_AVATAR} userName="Feng Yue" />}
+              appNav={<AppNav appName="ArmadaCare Admin Portal" objectItem={{ id: "accounts", label: "Accounts", active: true }} />}
+              utilityBar={<UtilityBar position="inline" items={[{ id: "omni", label: "Omni-Channel", iconName: "utility:omni_channel" }]} onSelect={() => undefined} />}
+            >
+              <div className="slds-theme_shade slds-p-around_small">Workspace content starts at the edge.</div>
+            </ConsoleShell>
+          </div>
         </ShowcaseExample>
       </div>
     </section>

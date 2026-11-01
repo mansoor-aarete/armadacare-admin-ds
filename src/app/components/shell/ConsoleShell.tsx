@@ -1,4 +1,8 @@
 import type { ReactNode } from "react";
+import { cx } from "../utils/cx";
+
+/** "parent" = fill the parent's height (give the parent a height); "viewport" = fill the browser window (100vh). */
+export type ConsoleShellFill = "parent" | "viewport";
 
 export type ConsoleShellProps = {
   /** <GlobalHeader position="inline" …/> */
@@ -11,15 +15,22 @@ export type ConsoleShellProps = {
   utilityBar?: ReactNode;
   /** Workspace content (page header, record layout, …). */
   children: ReactNode;
+  /**
+   * Pad the workspace by 0.75rem (default true — record pages). false = content flush with the workspace edges
+   * (object homes / list views, Figma A1 and D1). ds-v1.3.
+   */
+  workspacePadding?: boolean;
+  /** Height source (default "parent"). ds-v1.3. */
+  fill?: ConsoleShellFill;
 };
 
 /**
  * Lightning console layout built from SLDS grid utilities: global header, context bar, optional split view,
- * scrolling workspace and utility bar. Fills its parent's height — give the parent a height (e.g. 100vh).
+ * scrolling workspace and utility bar. Fills its parent's height, or the viewport with `fill="viewport"`.
  */
-export function ConsoleShell({ globalHeader, appNav, splitView, utilityBar, children }: ConsoleShellProps) {
+export function ConsoleShell({ globalHeader, appNav, splitView, utilityBar, children, workspacePadding = true, fill = "parent" }: ConsoleShellProps) {
   return (
-    <div className="slds-grid slds-grid_vertical" style={{ height: "100%", minHeight: 0 }}>
+    <div className="slds-grid slds-grid_vertical" style={{ height: fill === "viewport" ? "100vh" : "100%", minHeight: 0 }}>
       <div className="slds-shrink-none">
         {globalHeader}
         {appNav}
@@ -30,7 +41,7 @@ export function ConsoleShell({ globalHeader, appNav, splitView, utilityBar, chil
             {splitView}
           </div>
         ) : null}
-        <main id="main-content" className="slds-col slds-scrollable_y slds-p-around_small">
+        <main id="main-content" className={cx("slds-col slds-scrollable_y", workspacePadding && "slds-p-around_small")}>
           {children}
         </main>
       </div>
