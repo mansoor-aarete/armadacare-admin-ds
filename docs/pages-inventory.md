@@ -59,9 +59,9 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 31 | R8 | Reports | 2:35371 | Account Census Data | ReportViewerPage | report tab | **built** 1.17 % · `/lightning/r/Report/<Account Census Data>/view` |
 | 32 | R9 | Reports | 2:35564 | Recent \| Reports | ReportsHomePage | Recent (2 reports) | **built** 1.88 % · `/lightning/o/Report/list?filterName=recent` |
 | 33 | T1 | Card Transactions | 2:35931 | CTX-0000000 \| Card Transaction | RecordPage | Details (Dynamic Forms sections) | `/lightning/r/CardTransaction/<id>/view` |
-| 34 | PY1 | Plan Years | 2:36529 | 2026 Meridian \| Plan Year | RecordPage | Related tab (Plan Year History 6+), 5 workspace tabs | `/lightning/r/PlanYear/<id>/view?tab=related` |
-| 35 | PY2 | Plan Years | 2:37382 | 2026 Meridian \| Plan Year | RecordPage | Details tab | `…?tab=details` |
-| 36 | PY3 | Plan Years | 2:38258 | 2026 Double Platinum \| Plan Year | RecordPage | Details tab | ″ |
+| 34 | PY1 | Plan Years | 2:36529 | 2026 Meridian \| Plan Year | RecordPage | Related tab (Plan Year History 6+), 5 workspace tabs | **built** 3.4 % · `/lightning/r/PlanYear/a1PEc00000PY26MER1/view?tab=related` |
+| 35 | PY2 | Plan Years | 2:37382 | 2026 Meridian \| Plan Year | RecordPage | Details tab | **built** 3.31 % · `/lightning/r/PlanYear/a1PEc00000PY26MER1/view?tab=details` |
+| 36 | PY3 | Plan Years | 2:38258 | 2026 Double Platinum \| Plan Year | RecordPage | Details tab | **built** 3.25 % · `/lightning/r/PlanYear/<2026 Double Platinum>/view?tab=details` |
 | 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | `/lightning/r/PortalInformation/<id>/view` |
 | 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | `/lightning/r/PlanYearEnrollment/<id>/view` |
 | 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | ″ |

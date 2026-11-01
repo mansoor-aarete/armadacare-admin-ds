@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ActionConfig, FieldValue, RegionConfig } from "../../config/types";
 import { getObjectConfig, OBJECTS } from "../../objects";
-import { getCurrentUser, getRecord, listRelated, recordName, updateRecord } from "../../services/records";
+import { createRecord, getCurrentUser, getRecord, listRelated, recordName, updateRecord } from "../../services/records";
 import { RelatedListQuickLinks } from "../components/cards/RelatedListQuickLinks";
 import { EmptyState } from "../components/feedback/EmptyState";
 import { FormFooter } from "../components/forms/FormFooter";
@@ -98,6 +98,10 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
     if (!a) return;
     if (a.kind === "delete" || a.kind === "form" || a.kind === "message" || a.kind === "widget") con.navigate(`${url}?action=${a.id}`, { replace: true });
     else if (a.kind === "update") updateRecord(apiName, id, a.values);
+    else if (a.kind === "clone")
+      createRecord(apiName, record.recordType, { ...record.values, [config.nameField]: `${recordName(apiName, record)} Copy` }).then((copy) =>
+        con.openRecord(apiName, copy.id),
+      );
     else if (a.kind === "edit") startEdit();
     else if (a.kind === "hierarchy") con.navigate(hierarchyUrl(apiName, id));
     else if (a.kind === "new") con.navigate(newUrl(apiName));
@@ -181,7 +185,7 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
           />
         </div>
       ) : null}
-      {layout.sidebar.length ? (
+      {layout.sidebar.length || layout.mainWidth === "2-of-3" ? (
         <div className="slds-grid">
           <div className="slds-col slds-size_2-of-3 slds-p-right_small">{mainColumn}</div>
           <div className="slds-col slds-size_1-of-3">

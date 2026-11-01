@@ -83,6 +83,13 @@ export const SCREENS = [
   { id: 'R7', node: '2-34485', band: false, step: ['hoverRow4'], masks: [[160, 230, 1760, 34]] },
   { id: 'R8', node: '2-35371', band: false },
   { id: 'R9', node: '2-35564', band: false, masks: [[160, 230, 1760, 34]] },
+  { id: 'PY1', node: '2-36529', band: false },
+  { id: 'PY2', node: '2-37382', band: false },
+  { id: 'PY3', node: '2-38258', band: false },
+  { id: 'E1', node: '2-39648', band: false },
+  { id: 'E2', node: '2-40422', band: false },
+  { id: 'T1', node: '2-35931', band: false },
+  { id: 'PI1', node: '2-39060', band: false },
 ];
 
 /** Area-average resample to w × h. */

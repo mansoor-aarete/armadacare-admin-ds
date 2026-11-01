@@ -90,3 +90,7 @@ Intentional or unavoidable differences, kept here so they can be revisited. Upda
 | KD84 | New Report | Report builder not captured | "New Report" has no action; "New Folder" opens a form and creates a folder | Out of scope | Yes |
 | KD85 | Folder glyph (ds-v1.8) | Grey folder glyph on folder rows | `utility:open_folder` added to the icon registry (evidence: figma) | Registry addition | No |
 | KD86 | Report tabs | "All Folders · Reports" opens as a workspace tab; folder / report tabs show the name only | List views with `openInTab`; object `tabLabel: "name"` | Figma R2–R5 | No |
+| KD87 | Record ▼ menus not captured (Plan Years, Plan Year Enrollments, Portal Informations) | ▼ after Edit · Delete · Clone, items not captured | Lightning standard Sharing · Printable View (no behaviour); Clone copies the record ("<name> Copy") and opens it | Answer 2 | Yes — supply the menu items |
+| KD88 | Plan Year History count | "6+" with 6 rows | List `pageSize: 6` → "6+" once 6 rows exist (only 6 were captured) | Lightning paging | No |
+| KD89 | New Plan Year form | Not captured | Form built from the Details fields (config `forms.planYear`) | Answer 2 | Yes — confirm the form layout |
+| KD90 | Plan lookups | "Ultimate Health Diamond", "Double Platinum" (Plan records) | Lookup values without a Plan page (no Plan screens in Figma) | Not captured | No |

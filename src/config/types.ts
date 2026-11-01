@@ -130,6 +130,13 @@ export type RelatedListConfig = {
   sort?: { field: string; direction: "ascending" | "descending" };
   /** List view controls (gear ▾) and refresh in the header. */
   settings?: boolean;
+  /** Table body: row ▼ menus (default true) and selection checkboxes (default false). */
+  rowActions?: boolean;
+  selectable?: boolean;
+  /** "N items • Updated …" meta line without a sort (Plan Year Enrollment Members). */
+  meta?: boolean;
+  /** Rows shown; the count reads "6+" when the list is at least this long (Plan Year History). */
+  pageSize?: number;
 };
 
 /** How a region looks in the captured back-end state (`?state=error`, Figma). Default: working / empty. */
@@ -204,6 +211,8 @@ export type RecordLayoutConfig = {
   defaultTab?: string;
   /** Main column regions when there are no tabs. */
   main?: RegionConfig[];
+  /** Main column width: "2-of-3" keeps the empty right column Lightning shows (Plan Years, Card Transactions …). Default: 2-of-3 with a sidebar, else full. */
+  mainWidth?: "full" | "2-of-3";
   sidebar: SidebarRegionConfig[];
 };
 
@@ -293,6 +302,8 @@ export type ActionVisibility = { field: string; in: string[] };
 export type ActionConfig = { visibleWhen?: ActionVisibility } & (
   | { id: string; label: string; kind: "new" }
   | { id: string; label: string; kind: "edit" }
+  /** Copies the record ("<name> Copy") and opens the copy. */
+  | { id: string; label: string; kind: "clone" }
   | { id: string; label: string; kind: "hierarchy" }
   | { id: string; label: string; kind: "delete"; title: string; message: string; confirmLabel: string }
   /** Sets field values right away (Approve → Status = Approved). */

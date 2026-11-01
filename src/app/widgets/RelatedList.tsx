@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { RecordData, RelatedListConfig } from "../../config/types";
 import { getObjectConfig } from "../../objects";
 import { createRecord, listRelated, recordName } from "../../services/records";
@@ -31,7 +32,9 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
   );
   const child = childApi ? getObjectConfig(childApi) : null;
   const records = child && list.sort ? sortRows(child, data ?? [], list.sort) : data ?? [];
-  const count = childApi ? records.length : parent.related?.[list.id] ?? 0;
+  const shown = list.pageSize ? records.slice(0, list.pageSize) : records;
+  const count = childApi ? (list.pageSize && records.length >= list.pageSize ? `${list.pageSize}+` : records.length) : parent.related?.[list.id] ?? 0;
+  const [selected, setSelected] = useState<string[]>([]);
   const loading = Boolean(captured && list.backend?.loading);
 
   const menu = list.menu === false || list.buttons ? undefined : [{ value: "new", label: "New" }];
@@ -50,10 +53,13 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
     });
   };
 
+  const items = `${records.length} ${records.length === 1 ? "item" : "items"}`;
   const meta =
     child && list.sort
-      ? `${records.length} ${records.length === 1 ? "item" : "items"} • Sorted by ${fieldAt(child, list.sort.field).label} • Updated ${updatedAgo(con.listUpdatedAt)}`
-      : undefined;
+      ? `${items} • Sorted by ${fieldAt(child, list.sort.field).label} • Updated ${updatedAgo(con.listUpdatedAt)}`
+      : child && list.meta && records.length
+        ? `${items} • Updated ${updatedAgo(con.listUpdatedAt)}`
+        : undefined;
 
   let body = null;
   if (child && list.display === "table" && list.columns && records.length) {
@@ -65,8 +71,9 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
       <DataTable
         label={list.label}
         columns={columns}
-        rows={records}
-        rowActions={ROW_ACTIONS}
+        rows={shown}
+        rowActions={list.rowActions === false ? undefined : ROW_ACTIONS}
+        selection={list.selectable ? { selectedIds: selected, onChange: setSelected } : undefined}
         onLinkClick={(r) => childApi && onOpenRecord?.(childApi, r.id)}
       />
     );
