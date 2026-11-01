@@ -117,6 +117,8 @@ export type HighlightsConfig = {
   actions: string[];
   /** Overflow ▼ menu (ActionConfig ids). */
   overflow: string[];
+  /** Scroll the overflow menu after 5, 7 or 10 items (Figma A9: 10). */
+  overflowLength?: 5 | 7 | 10;
   follow?: boolean;
   /** View hierarchy icon button. */
   hierarchy?: boolean;

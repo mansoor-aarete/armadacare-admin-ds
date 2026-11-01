@@ -21,7 +21,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
 | ExpandableSection | `layout/ExpandableSection.tsx` | `ExpandableSectionProps` | **`title`**, **`children`**, `collapsible?`, `open?`, `onToggle?` | `expandable-section.md` | component | **stable** |
-| HighlightsPanel | `layout/HighlightsPanel.tsx` | `HighlightsPanelProps` | **`iconName`**, **`objectLabel`**, **`title`**, `actions?`, `overflowActions?`, `onAction?`, `follow?`, `onHierarchy?`, `details?`, `extraActions?` | `highlights-panel.md` | component | **stable** |
+| HighlightsPanel | `layout/HighlightsPanel.tsx` | `HighlightsPanelProps` | **`iconName`**, **`objectLabel`**, **`title`**, `actions?`, `overflowActions?`, `overflowLength?`, `onAction?`, `follow?`, `onHierarchy?`, `details?`, `extraActions?` | `highlights-panel.md` | component | **stable** |
 | ListViewToolbar | `layout/ListViewToolbar.tsx` | `ListViewToolbarProps` | `search?`, `settingsItems?`, `displayItems?`, `onMenuSelect?`, `onRefresh?`, `onSort?`, `onEdit?`, `charts?`, `filters?` | `list-view-toolbar.md` | component | **stable** |
 | PageHeader | `layout/PageHeader.tsx` | `PageHeaderProps` | `variant?`, **`title`**, `iconName?`, `objectLabel?`, `breadcrumbs?`, `listViews?`, `onListViewSelect?`, `pin?`, `actions?`, `meta?`, `controls?`, `details?` | `page-header.md` | component | **stable** |
 | Tabs | `layout/Tabs.tsx` | `TabsProps` | **`items`**, **`activeId`**, **`onSelect`**, `size?`, `card?` | `tabs.md` | component | **stable** |

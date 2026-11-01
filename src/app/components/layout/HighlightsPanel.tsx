@@ -4,7 +4,7 @@ import { ButtonGroup } from "../buttons/ButtonGroup";
 import { ButtonIcon } from "../buttons/ButtonIcon";
 import { ButtonMenu } from "../buttons/ButtonMenu";
 import { ButtonStateful } from "../buttons/ButtonStateful";
-import type { MenuItem } from "../buttons/MenuDropdown";
+import type { MenuItem, MenuLength } from "../buttons/MenuDropdown";
 import type { ObjectIconName } from "../icons/Icon";
 import { PageHeader, type PageHeaderDetail } from "./PageHeader";
 
@@ -20,6 +20,8 @@ export type HighlightsPanelProps = {
   actions?: HighlightsAction[];
   /** Overflow ▼ menu; with no `actions` it is the only control (Figma T1). */
   overflowActions?: MenuItem[];
+  /** Scroll the overflow menu after this many items (Figma A9: 24 actions in a 10-item list). ds-v1.5. */
+  overflowLength?: MenuLength;
   onAction?: (value: string) => void;
   /** Follow / Following stateful button (Figma: accounts). */
   follow?: { following: boolean; onToggle: (following: boolean) => void };
@@ -41,6 +43,7 @@ export function HighlightsPanel({
   title,
   actions = [],
   overflowActions,
+  overflowLength,
   onAction,
   follow,
   onHierarchy,
@@ -61,7 +64,7 @@ export function HighlightsPanel({
           <Button key={a.value} label={a.label} disabled={a.disabled} onClick={() => onAction?.(a.value)} />
         ))}
         {overflowActions?.length ? (
-          <ButtonMenu assistiveText="Show more actions" items={overflowActions} onSelect={onAction} position="right" size="x-small" actions />
+          <ButtonMenu assistiveText="Show more actions" items={overflowActions} onSelect={onAction} position="right" size="x-small" length={overflowLength} actions />
         ) : null}
       </ButtonGroup>,
     );

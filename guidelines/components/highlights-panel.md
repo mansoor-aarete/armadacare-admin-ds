@@ -7,3 +7,5 @@ File: `src/app/components/layout/HighlightsPanel.tsx`.
 `iconName`, `objectLabel` ("Contact"), `title` (record name), `actions?: { value; label; disabled? }[]`, `overflowActions?: MenuItem[]`, `onAction?(value)`, `follow?: { following; onToggle }`, `onHierarchy?`, `details?: PageHeaderDetail[]` (≈6 fields; empty values allowed), `extraActions?: ReactNode[]`.
 
 Figma variants: contact (hierarchy + 3 actions + ▼ + details), account (Follow + hierarchy), plan year (Edit / Delete / Clone + ▼, no details), card transaction (▼ only).
+
+`overflowLength?: 5 | 7 | 10` (ds-v1.5) — the overflow ▼ menu scrolls after that many items (SLDS dropdown length; Figma A9 shows 24 actions in a 10-item list).

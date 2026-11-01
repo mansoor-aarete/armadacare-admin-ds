@@ -3,6 +3,7 @@ import { Button } from "../components/buttons/Button";
 import { DataTable } from "../components/data/DataTable";
 import { Card } from "../components/cards/Card";
 import { EmptyState } from "../components/feedback/EmptyState";
+import { HighlightsPanel } from "../components/layout/HighlightsPanel";
 import { CompoundField } from "../components/forms/CompoundField";
 import { Datepicker } from "../components/forms/Datepicker";
 import { FormFooter } from "../components/forms/FormFooter";
@@ -105,6 +106,16 @@ export function V12Section() {
               <Button label="Next" variant="brand" className="slds-m-left_x-small" />
             </div>
           </Modal>
+        </ShowcaseExample>
+        <ShowcaseExample title="ds-v1.5 — HighlightsPanel overflowLength={10} (24 actions, list scrolls)" visualId="highlights-overflow-length" full>
+          <HighlightsPanel
+            iconName="standard:account"
+            objectLabel="Account"
+            title="Blalock Development Co"
+            actions={[{ value: "docusign", label: "Send with Docusign" }]}
+            overflowActions={Array.from({ length: 24 }, (_, i) => ({ value: `a${i}`, label: `Action ${i + 1}` }))}
+            overflowLength={10}
+          />
         </ShowcaseExample>
         <ShowcaseExample title="ds-v1.4 — DataTable row-number column (hidden / numbers)" visualId="datatable-row-numbers" full>
           {(["hidden", "numbers"] as const).map((mode) => (

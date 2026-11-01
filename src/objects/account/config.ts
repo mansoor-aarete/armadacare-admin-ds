@@ -898,6 +898,7 @@ const LAYOUTS: Record<AccountLayoutId, RecordLayoutConfig> = {
         "debitCardCancellation",
         "debitCardSuspension",
       ],
+      overflowLength: 10,
       follow: true,
       hierarchy: true,
     },

@@ -94,6 +94,7 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
           onHierarchy={layout.highlights.hierarchy ? () => runAction("hierarchy") : undefined}
           actions={layout.highlights.actions.map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
           overflowActions={layout.highlights.overflow.map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
+          overflowLength={layout.highlights.overflowLength}
           onAction={runAction}
           details={layout.highlights.fields.map((key) => ({ label: config.fields[key].label, value: formatValue(config.fields[key], record.values[key]) }))}
         />

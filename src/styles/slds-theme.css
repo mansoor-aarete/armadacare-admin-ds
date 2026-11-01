@@ -388,3 +388,47 @@ a:active {
   right: -1.5rem;
   width: 1.5rem;
 }
+
+/* Data table density (ds-v1.5): Lightning datatable header 28.75 px and rows 29.75 px (Figma A1);
+   SLDS gives a 2rem header and the row ▼ trigger's line box makes rows 30.75 px. */
+.slds-table .slds-th__action {
+  height: 1.796875rem;
+}
+.slds-table td .slds-dropdown-trigger,
+.slds-table td .slds-checkbox {
+  vertical-align: top;
+}
+.slds-table td .slds-dropdown-trigger {
+  display: inline-flex;
+}
+.slds-table tbody tr {
+  height: 1.859375rem;
+}
+
+/* Inline record form panel (ds-v1.5): Figma A5 / A6 panel is 734 px wide, 14 px below the console tabs
+   (SLDS modal container: 50 %, max 40rem, 3rem top padding). Record-type picker (medium): 1,000 px. */
+.slds-template__container > .slds-modal__container {
+  width: 45.875rem;
+  max-width: 45.875rem;
+  padding-top: 0.125rem;
+}
+.slds-template__container.slds-modal_medium > .slds-modal__container {
+  width: 62.5rem;
+  max-width: 62.5rem;
+}
+/* Record-type picker header (Figma A7): title left-aligned, underline inset 15 px from the panel edges. */
+.slds-template__container.slds-modal_medium .slds-modal__header {
+  text-align: left;
+  margin: 0 0.9375rem;
+  padding-left: 0.9375rem;
+}
+
+/* Console workspace tabs (ds-v1.5): Figma tabs are 220 px wide (labels in full, e.g. "AGent 1 | Account"); SLDS 12rem. */
+.slds-context-bar__item_tab {
+  width: 13.75rem;
+}
+
+/* Global header search (ds-v1.5): Figma search box is 400 px wide (x 743–1142); SLDS lets it grow to 44rem. */
+.slds-global-header__item_search {
+  flex: 0 1 25rem;
+}
