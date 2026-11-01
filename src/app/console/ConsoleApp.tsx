@@ -136,6 +136,8 @@ export function ConsoleApp() {
   }));
   const activeTab = tabs.find((t) => t.key === activeKey);
   const homeConfig = getObjectConfig(homeObject);
+  // Objects whose home is the split view alone (Figma CL1: Claims list, empty workspace).
+  const splitHome = route.kind === "list" && homeConfig.home === "split";
   const content = <ConsoleContent route={route} url={url} />;
   const composerPanel =
     composer && composerParent && composerAction?.kind === "composer" ? (
@@ -203,12 +205,12 @@ export function ConsoleApp() {
           />
         }
         splitView={
-          activeTab ? (
+          activeTab || splitHome ? (
             <ConsoleSplitView
-              apiName={activeTab.apiName}
+              apiName={activeTab?.apiName ?? homeObject}
               listViewId={listViewId ?? homeConfig.defaultListView}
               onListViewChange={setListViewId}
-              currentId={activeTab.recordId}
+              currentId={activeTab?.recordId}
               selection={selection}
               onSelectionChange={setSelection}
             />

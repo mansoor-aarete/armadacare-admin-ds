@@ -13,6 +13,7 @@ export function ConsoleContent({ route, url }: { route: ConsoleRoute; url: strin
   if (route.kind === "unknown" || !OBJECTS[route.apiName]) return <Navigate to={listUrl(NAV_OBJECTS[0])} replace />;
   switch (route.kind) {
     case "list":
+      if (OBJECTS[route.apiName].home === "split") return null;
       return <ObjectListPage key={url} apiName={route.apiName} listViewId={route.listViewId} />;
     case "intelligence":
       return <IntelligenceViewPage apiName={route.apiName} />;

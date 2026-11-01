@@ -15,6 +15,13 @@ import { formatValue, hasValue, isLookup } from "../widgets/fieldValues";
 import { Region } from "../widgets/Region";
 import { SidebarRegion } from "../widgets/SidebarRegion";
 import { ActionModal } from "./ActionModal";
+import { Modal } from "../components/overlays/Modal";
+import { WIDGETS, type ObjectWidgetProps } from "../../objects/widgets";
+
+function WidgetView({ widget, ...props }: ObjectWidgetProps & { widget: string }) {
+  const Widget = WIDGETS[widget];
+  return <Widget {...props} />;
+}
 
 export type RecordPageProps = {
   apiName: string;
@@ -56,6 +63,11 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
   if (record === null) return <EmptyState variant="text" message="This record was deleted or you don't have access to it." />;
 
   const actionOf = (actionId: string): ActionConfig | undefined => config.actions.find((a) => a.id === actionId);
+  // Actions shown for the record's current values (claim actions by status).
+  const visible = (actionId: string) => {
+    const w = actionOf(actionId)?.visibleWhen;
+    return !w || w.in.includes(String(record.values[w.field] ?? ""));
+  };
   const values = draft ?? record.values;
   const url = recordUrl(apiName, id);
 
@@ -84,7 +96,8 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
   const runAction = (actionId: string) => {
     const a = actionOf(actionId);
     if (!a) return;
-    if (a.kind === "delete" || a.kind === "form") con.navigate(`${url}?action=${a.id}`, { replace: true });
+    if (a.kind === "delete" || a.kind === "form" || a.kind === "message" || a.kind === "widget") con.navigate(`${url}?action=${a.id}`, { replace: true });
+    else if (a.kind === "update") updateRecord(apiName, id, a.values);
     else if (a.kind === "edit") startEdit();
     else if (a.kind === "hierarchy") con.navigate(hierarchyUrl(apiName, id));
     else if (a.kind === "new") con.navigate(newUrl(apiName));
@@ -136,8 +149,8 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
           title={recordName(apiName, record)}
           follow={layout.highlights.follow ? { following, onToggle: setFollowing } : undefined}
           onHierarchy={layout.highlights.hierarchy ? () => runAction("hierarchy") : undefined}
-          actions={layout.highlights.actions.map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
-          overflowActions={layout.highlights.overflow.map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
+          actions={layout.highlights.actions.filter(visible).map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
+          overflowActions={layout.highlights.overflow.filter(visible).map((a) => ({ value: a, label: actionOf(a)?.label ?? a }))}
           overflowLength={layout.highlights.overflowLength}
           onAction={runAction}
           details={layout.highlights.fields.map((key) => {
@@ -168,14 +181,18 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
           />
         </div>
       ) : null}
-      <div className="slds-grid">
-        <div className="slds-col slds-size_2-of-3 slds-p-right_small">{mainColumn}</div>
-        <div className="slds-col slds-size_1-of-3">
-          {layout.sidebar.map((r, i) => (
-            <SidebarRegion key={i} region={r} record={record} captured={con.captured} onAction={runAction} onOpenRecord={con.openRecord} />
-          ))}
+      {layout.sidebar.length ? (
+        <div className="slds-grid">
+          <div className="slds-col slds-size_2-of-3 slds-p-right_small">{mainColumn}</div>
+          <div className="slds-col slds-size_1-of-3">
+            {layout.sidebar.map((r, i) => (
+              <SidebarRegion key={i} region={r} record={record} captured={con.captured} onAction={runAction} onOpenRecord={con.openRecord} />
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        mainColumn
+      )}
       {draft ? (
         <FormFooter
           hasErrors={Object.keys(errors).length > 0}
@@ -195,7 +212,18 @@ export function RecordPage({ apiName, id, tab, action }: RecordPageProps) {
           onAction={(v) => (v === "save" ? save() : cancelEdit())}
         />
       ) : null}
-      {modalAction && (modalAction.kind === "delete" || modalAction.kind === "form") ? (
+      {modalAction?.kind === "widget" && WIDGETS[modalAction.widget] ? (
+        <Modal open headless heading={modalAction.title} size={modalAction.size ?? "default"} onClose={() => con.navigate(url, { replace: true })}>
+          <WidgetView
+            widget={modalAction.widget}
+            apiName={apiName}
+            record={record}
+            captured={con.captured}
+            onClose={() => con.navigate(url, { replace: true })}
+          />
+        </Modal>
+      ) : null}
+      {modalAction && (modalAction.kind === "delete" || modalAction.kind === "form" || modalAction.kind === "message") ? (
         <ActionModal
           apiName={apiName}
           record={record}

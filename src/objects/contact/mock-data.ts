@@ -155,7 +155,20 @@ const LIST: RecordData[] = [
   { id: "003Ec00008D89bC476", values: { name: "Zachary Ackerman", relationship: "Participant" } },
 ];
 
-export const CONTACT_RECORDS: RecordData[] = LIST.map((r) => ({
+/** The Chen family (Figma Claims: claim members, subscriber David Chen, accumulator balances). */
+export const DAVID_CHEN = "003Ec00000DChen001";
+export const LISA_CHEN = "003Ec00000LChen001";
+const NATASHA_CHEN = "003Ec00000NChen001";
+const RYAN_CHEN = "003Ec00000RChen001";
+const CHEN_FAMILY: RecordData[] = [
+  { id: DAVID_CHEN, values: { name: "David Chen", relationship: "Participant", gender: "M" } },
+  { id: LISA_CHEN, values: { name: "Lisa Chen", relationship: "Dependent", employee: contact(DAVID_CHEN, "David Chen"), gender: "F" } },
+  { id: NATASHA_CHEN, values: { name: "Natasha Chen", relationship: "Dependent", employee: contact(DAVID_CHEN, "David Chen"), gender: "F" } },
+  { id: RYAN_CHEN, values: { name: "Ryan Chen", relationship: "Dependent", employee: contact(DAVID_CHEN, "David Chen"), gender: "M" } },
+];
+export const CHEN_IDS = { david: DAVID_CHEN, lisa: LISA_CHEN, natasha: NATASHA_CHEN, ryan: RYAN_CHEN };
+
+export const CONTACT_RECORDS: RecordData[] = [...LIST, ...CHEN_FAMILY].map((r) => ({
   ...r,
   values: { contactOwner: userRef("Zach Ackerman"), ...r.values, ...(DETAILS[r.id] ?? {}) },
   related: r.id === ADAM_SAHN ? { affiliatedPlans: 3, contactHistory: 1 } : r.id === AARAV_ARAMANAI ? { affiliatedPlans: 2, contactHistory: 1 } : r.id === ANTOINETTE_MITCHAM ? { affiliatedPlans: 6, contactHistory: 2 } : undefined,

@@ -12,7 +12,7 @@ import { hasValue, isLookup } from "../widgets/fieldValues";
 export type ActionModalProps = {
   apiName: string;
   record: RecordData;
-  action: Extract<ActionConfig, { kind: "delete" | "form" }>;
+  action: Extract<ActionConfig, { kind: "delete" | "form" | "message" }>;
   currentUser?: LookupValue;
   /** Today's ISO date ("$today" defaults). */
   today: string;
@@ -57,6 +57,13 @@ export function ActionModal({ apiName, record, action, currentUser, today, onClo
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  if (action.kind === "message") {
+    return (
+      <Modal open heading={action.title} size={action.size ?? "default"} onClose={onClose} footer={<Button label={action.closeLabel} variant="brand" onClick={onClose} />}>
+        <p>{action.message}</p>
+      </Modal>
+    );
+  }
   if (action.kind === "delete") {
     return (
       <Modal

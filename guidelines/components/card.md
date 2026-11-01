@@ -7,3 +7,5 @@ File: `src/app/components/cards/Card.tsx`.
 `title?` (ds-v1.2: omit together with `actions` for a plain bordered container with no header — record tab containers, sidebar tab cards), `onTitleClick?` / `titleHref?` (link title), `meta?` (line under the title), `iconName?`, `actions?: ReactNode`, `children`, `bodyPadding?`, `footer?: { label; assistiveText?; onClick?; href? }`, `shaded?` (grey card, white body — related lists), `className?` (SLDS classes, e.g. `slds-card_boundary`).
 
 Card titles are 14 px (`--slds-c-card-heading-font-size`, theme block A — Figma).
+
+`boundary?: boolean` (ds-v1.7) — keeps the card border inside tabsets or other cards (`.slds-card_boundary`; Figma Claim Details, Benefit Snapshot, Claims).

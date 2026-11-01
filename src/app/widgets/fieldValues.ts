@@ -1,5 +1,11 @@
 import type { AddressValue, AuditValue, FieldDef, FieldValue, LinkValue, LocationValue, LookupValue, ObjectConfig, RecordData } from "../../config/types";
-import { formatUs } from "../components/utils/dates";
+import { formatUs, MONTH_NAMES, parseIso } from "../components/utils/dates";
+
+/** "2026-03-20" → "Mar 20, 2026". */
+export function formatMediumDate(iso: string): string {
+  const d = parseIso(iso.split("T")[0]);
+  return d ? `${MONTH_NAMES[d.getMonth()].slice(0, 3)} ${d.getDate()}, ${d.getFullYear()}` : "";
+}
 
 /*
  * Reading and formatting field values by field type (shared by every template). Values follow the
@@ -80,7 +86,7 @@ export function formatValue(def: FieldDef, v: FieldValue | undefined): string {
     return formatNumber(v, def.scale ?? 0);
   }
   if (typeof v === "string") {
-    if (def.type === "date") return formatUs(v);
+    if (def.type === "date") return def.dateStyle === "medium" ? formatMediumDate(v) : formatUs(v);
     if (def.type === "datetime") return formatDateTime(v);
     return v;
   }

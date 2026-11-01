@@ -41,14 +41,14 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 13 | C5 | Contacts | 2:13502 | ″ | RecordPage + composer | Note docked composer open | **built** 3.85 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view → Notes ▼ New` |
 | 14 | C6 | Contacts | 2:15450 | ″ | RecordPage | Notes (1) populated | **built** 3.62 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view (after saving a note)` |
 | 15 | C7 | Contacts | 2:17295 | ″ | RecordPage | highlights overflow ▼ open (22 items) | **built** 3.75 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view → ▼` |
-| 16 | CL1 | Claims | 2:19210 | Lightning Experience | ObjectListPage (split mode) | split-view list only, empty workspace | `/lightning/o/Claim/list?filterName=All` |
-| 17 | CL2 | Claims | 2:20051 | CLM-0000023 \| Claim | RecordPage | Audit & System tab | `/lightning/r/Claim/<id>/view?tab=audit` |
-| 18 | CL3 | Claims | 2:21357 | CLM-0000023 \| Claim | RecordPage | Details tab (empty Files + upload area) | `…?tab=details` |
-| 19 | CL4 | Claims | 2:22949 | CLM-0000020 \| Claim | RecordPage | Audit & System tab | `…?tab=audit` |
-| 20 | CL5 | Claims | 2:24222 | CLM-0000020 \| Claim | RecordPage + ActionModal | Delete Claim confirm | `…?action=delete` |
-| 21 | CL6 | Claims | 2:25897 | ″ | RecordPage + ActionModal | Repayment Recovery info modal | `…?action=repaymentRecovery` |
-| 22 | CL7 | Claims | 2:27571 | ″ | RecordPage + ActionModal (custom) | Split Approval calculator | `…?action=splitApproval` |
-| 23 | CL8 | Claims | 2:29432 | ″ | RecordPage | Details tab (Files (1), Adjudication History row) | `…?tab=details` |
+| 16 | CL1 | Claims | 2:19210 | Lightning Experience | ObjectListPage (split mode) | split-view list only, empty workspace | **built** 1.48 % · `/lightning/o/Claim/list` |
+| 17 | CL2 | Claims | 2:20051 | CLM-0000023 \| Claim | RecordPage | Audit & System tab | **built** 3.58 % · `/lightning/r/Claim/a0CEc00000000023AA/view?tab=auditSystem` |
+| 18 | CL3 | Claims | 2:21357 | CLM-0000023 \| Claim | RecordPage | Details tab (empty Files + upload area) | **built** 5.83 % · `/lightning/r/Claim/a0CEc00000000023AA/view` |
+| 19 | CL4 | Claims | 2:22949 | CLM-0000020 \| Claim | RecordPage | Audit & System tab | **built** 3.49 % · `/lightning/r/Claim/a0CEc00000000020AA/view?tab=auditSystem` |
+| 20 | CL5 | Claims | 2:24222 | CLM-0000020 \| Claim | RecordPage + ActionModal | Delete Claim confirm | **built** 5.49 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=delete` |
+| 21 | CL6 | Claims | 2:25897 | ″ | RecordPage + ActionModal | Repayment Recovery info modal | **built** 5.7 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=repaymentRecovery` |
+| 22 | CL7 | Claims | 2:27571 | ″ | RecordPage + ActionModal (custom) | Split Approval calculator | **built** 5.74 % · `/lightning/r/Claim/a0CEc00000000020AA/view?action=splitApproval` |
+| 23 | CL8 | Claims | 2:29432 | ″ | RecordPage | Details tab (Files (1), Adjudication History row) | **built** 5.58 % · `/lightning/r/Claim/a0CEc00000000020AA/view` |
 | 24 | R1 | Reports | 2:31085 | Shared with Me \| Reports | ReportsHomePage | Shared with Me (folders) | `/lightning/o/Report/home?queryScope=sharedWithMe` |
 | 25 | R2 | Reports | 2:32027 | AH Accounts and Contacts | ReportViewerPage | report tab (placeholder) | `/lightning/r/Report/<id>/view` |
 | 26 | R3 | Reports | 2:32271 | AH Sales & Marketing | ReportsHomePage | folder contents (breadcrumb), row hover | `/lightning/r/ReportFolder/<id>/view` |

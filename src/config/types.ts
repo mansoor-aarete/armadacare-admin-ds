@@ -79,6 +79,10 @@ export type FieldDef = {
   inlineHelp?: string;
   /** Checkbox with its label beside the box (Figma C3 "Send notification email") instead of a form label. */
   inlineLabel?: boolean;
+  /** Dates as "Mar 20, 2026" (Figma claim summary cards) instead of "3/20/2026". */
+  dateStyle?: "medium";
+  /** Checkbox shown as a read-only toggle with Yes / No (Figma CL3 "Place on Hold"). */
+  display?: "toggle";
 };
 
 export type FieldMap = Record<string, FieldDef>;
@@ -112,18 +116,24 @@ export type RelatedListConfig = {
   newAction?: string;
   /** Header buttons, e.g. Change Owner · New. */
   buttons?: Array<{ value: string; label: string }>;
-  /** Body: "tiles" (Notes) or "table" (columns); omit for a header-only card. */
-  display?: "tiles" | "table";
+  /** Body: "tiles" (Notes), "table" (columns) or "files" (upload area when empty, file tiles); omit for a header-only card. */
+  display?: "tiles" | "table" | "files";
   /** Tiles: title field + detail lines ({field} placeholders, formatted by type). */
   tileTitle?: string;
   tileLines?: string[];
   columns?: ListColumnConfig[];
   /** Body shown while loading in the captured state (?state=error). */
   backend?: BackendState;
+  /** Child records point at this field's lookup instead of the record itself (accumulators → the claim's subscriber). */
+  parentValueField?: string;
+  /** Lightning list-view meta line under the title ("1 item • Sorted by … • Updated …"), sorted by this field. */
+  sort?: { field: string; direction: "ascending" | "descending" };
+  /** List view controls (gear ▾) and refresh in the header. */
+  settings?: boolean;
 };
 
 /** How a region looks in the captured back-end state (`?state=error`, Figma). Default: working / empty. */
-export type BackendState = { error?: string; loading?: boolean };
+export type BackendState = { error?: string; loading?: boolean; /** Error text colour (Figma CL3 Benefit Snapshot: default text). */ errorTone?: "error" | "default" };
 
 export type FilterControlConfig = { kind: "picklist"; label: string; value: string; options: string[]; size: "1-of-3" | "1-of-4" } | { kind: "search"; placeholder: string };
 
@@ -132,8 +142,13 @@ export type CardBodyConfig =
   | { kind: "tabs"; tabs: Array<{ id: string; label: string; body: CardBodyConfig }> }
   | { kind: "filters"; filters: FilterControlConfig[][]; message: string }
   /** Fields of the record in a caps-label grid (Claim Details). */
-  | { kind: "fields"; fields: string[]; columns: 2 | 3 }
+  | { kind: "fields"; fields: Array<string | CardFieldConfig>; columns: 2 | 3 }
+  /** Child records in a plain table (Accumulator Balances). */
+  | { kind: "table"; objectApiName: string; parentField: string; parentValueField?: string; columns: ListColumnConfig[] }
   | { kind: "empty" };
+
+/** A field in a card grid with its own label / date style (the same value can read differently on two cards). */
+export type CardFieldConfig = { field: string; label?: string; dateStyle?: "medium" };
 
 /** One block of a record page column (Contact main column, tab content). */
 export type RegionConfig =
@@ -148,6 +163,8 @@ export type RegionConfig =
       subtitle?: { field: string; values: Record<string, string> };
       body: CardBodyConfig;
       backend?: BackendState;
+      /** Card border inside a tabset (Figma Claim Details). */
+      bordered?: boolean;
     }
   | { kind: "relatedList"; list: RelatedListConfig };
 
@@ -210,6 +227,7 @@ export type ListColumnConfig = {
   link?: "record" | "plain";
   /** Column width in rem. */
   width?: string;
+  align?: "left" | "right";
 };
 
 export type ListViewConfig = {
@@ -225,7 +243,7 @@ export type ListViewConfig = {
 };
 
 /** Split-view item lines: title = name field; optional right text and a second line. */
-export type SplitViewLinesConfig = { titleRight?: string; line2Left?: string; line2Right?: string };
+export type SplitViewLinesConfig = { titleRight?: string; line2Left?: string; line2Right?: string; /** "Search this list…" (default true; Figma Claims has none). */ search?: boolean };
 
 // ── Actions ─────────────────────────────────────────────────────────────────────────────────────
 
@@ -251,11 +269,20 @@ export type ActionSaveConfig =
   | { kind: "update"; map: Record<string, string> }
   | { kind: "create"; objectApiName: string; parentField: string; map: Record<string, string> };
 
-export type ActionConfig =
+/** Show the action only when a field has one of these values (claim actions by status). */
+export type ActionVisibility = { field: string; in: string[] };
+
+export type ActionConfig = { visibleWhen?: ActionVisibility } & (
   | { id: string; label: string; kind: "new" }
   | { id: string; label: string; kind: "edit" }
   | { id: string; label: string; kind: "hierarchy" }
   | { id: string; label: string; kind: "delete"; title: string; message: string; confirmLabel: string }
+  /** Sets field values right away (Approve → Status = Approved). */
+  | { id: string; label: string; kind: "update"; values: Record<string, FieldValue> }
+  /** Information modal with one button (Repayment Recovery). */
+  | { id: string; label: string; kind: "message"; title: string; message: string; closeLabel: string; size?: "default" | "small" | "medium" }
+  /** Object-specific widget in a modal (Split Approval calculator), from src/objects/widgets.ts. */
+  | { id: string; label: string; kind: "widget"; widget: string; title: string; size?: "default" | "small" | "medium" }
   | {
       id: string;
       label: string;
@@ -283,7 +310,8 @@ export type ActionConfig =
       emptyTitle: string;
     }
   /** Captured in Figma, no behaviour in the prototype. */
-  | { id: string; label: string; kind: "none" };
+  | { id: string; label: string; kind: "none" }
+);
 
 // ── Other pages ─────────────────────────────────────────────────────────────────────────────────
 
@@ -330,6 +358,8 @@ export type ObjectConfig = {
   recordTypes?: RecordTypeConfig[];
   /** Record type used when a record has none. */
   defaultRecordType?: string;
+  /** Object home: "list" (list view page, default) or "split" (split view only, empty workspace — Figma CL1). */
+  home?: "list" | "split";
   layouts: Record<string, RecordLayoutConfig>;
   forms?: Record<string, FormConfig>;
   actions: ActionConfig[];

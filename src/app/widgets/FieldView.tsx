@@ -1,6 +1,7 @@
 import profileAvatar from "@salesforce-ux/design-system/assets/images/profile_avatar_96.png";
 import type { FieldActionKind, FieldDef, FieldValue, LookupValue } from "../../config/types";
 import type { AvatarContent } from "../components/feedback/Avatar";
+import { Toggle } from "../components/forms/Toggle";
 import type { UtilityIconName } from "../components/icons/Icon";
 import { RecordField, type RecordFieldLayout, type RecordFieldValue } from "../components/record/RecordField";
 import { formatDateTime, formatValue, isAudit, isLink, isLookup } from "./fieldValues";
@@ -44,6 +45,13 @@ export function toRecordFieldValue(def: FieldDef, v: FieldValue | undefined, onO
 
 /** Read-only display of one field (record detail, read-only fields in forms). */
 export function FieldView({ def, value, layout = "horizontal", fullWidth, onEdit, onAction, onOpenLookup, caps }: FieldViewProps) {
+  if (def.display === "toggle") {
+    return (
+      <div className="slds-p-horizontal_xx-small">
+        <Toggle label={def.label} capsLabel={caps} layout="stacked" onLabel="Yes" offLabel="No" checked={value === true} disabled />
+      </div>
+    );
+  }
   const action = def.action && onAction ? { ...ACTION_ICON[def.action], onClick: () => onAction(def.action as FieldActionKind) } : undefined;
   return (
     <RecordField

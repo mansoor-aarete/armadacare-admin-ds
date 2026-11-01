@@ -45,7 +45,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
-| Card | `cards/Card.tsx` | `CardProps` | `title?`, `onTitleClick?`, `titleHref?`, `meta?`, `iconName?`, `actions?`, `children?`, `bodyPadding?`, `footer?`, `shaded?`, `className?` | `card.md` | component | **stable** |
+| Card | `cards/Card.tsx` | `CardProps` | `title?`, `onTitleClick?`, `titleHref?`, `meta?`, `iconName?`, `actions?`, `children?`, `bodyPadding?`, `footer?`, `shaded?`, `className?`, `boundary?` | `card.md` | component | **stable** |
 | EinsteinCard | `cards/EinsteinCard.tsx` | `EinsteinCardProps` | `title?`, `onTitleClick?`, **`children`**, `centered?`, `footer?` | `einstein-card.md` | component | **stable** |
 | MetricTile | `cards/MetricTile.tsx` | `MetricTileProps` | **`label`**, **`value`**, `selected?`, `onSelect?` | `metric-tile.md` | component | **stable** |
 | RelatedListCard | `cards/RelatedListCard.tsx` | `RelatedListCardProps` | **`iconName`**, **`title`**, **`count`**, `onTitleClick?`, `meta?`, `buttons?`, `onButton?`, `menuItems?`, `onMenuSelect?`, `settingsItems?`, `onRefresh?`, `records?`, `onRecordClick?`, `children?`, `loading?`, `onViewAll?` | `related-list-card.md` | component | **stable** |

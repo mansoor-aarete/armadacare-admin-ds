@@ -401,7 +401,7 @@ a:active {
 .slds-table td .slds-dropdown-trigger {
   display: inline-flex;
 }
-.slds-table tbody tr {
+.slds-table_resizable-cols tbody tr {
   height: 1.859375rem;
 }
 

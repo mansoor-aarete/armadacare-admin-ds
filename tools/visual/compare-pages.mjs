@@ -3,7 +3,7 @@
 // Each screen is opened with ?scenario=<id> at the Figma frame width (1920), driven into the captured state with
 // Playwright steps, screenshotted at the frame height, and compared with pixelmatch (threshold 0.15) at the
 // resolution of the Figma PNG (large frames were exported scaled down).
-// Capture glitch handled: frames with `band` contain a blank 35 px band under the global header (docs/known-differences);
+// Claims frames (1924 px, 1:1) are trimmed to 1920. Capture glitch handled: frames with `band` contain a blank 35 px band under the global header (docs/known-differences);
 // our screenshot is taken 35 px shorter and the Figma band rows are spliced in, so the band itself never counts.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,7 +21,7 @@ const BAND = 35;
 const STEPS = {
   // Test-only: Figma captured modals in a 911 px browser window and stitched the page below, so the fixed SLDS modal
   // sits in the top 911 px of the frame, not in the middle of the 3,348 px page. Emulate that window for the modal.
-  captureWindow: async (p) => p.addStyleTag({ content: '.slds-modal { height: 911px; bottom: auto; top: -35px; }' }),
+  captureWindow: async (p, s) => p.addStyleTag({ content: `.slds-modal { height: 911px; bottom: auto; top: ${s.band ? -35 : 0}px; }` }),
   focusSearch: async (p) => p.getByPlaceholder('Search User...').focus(),
   saveWithErrors: async (p) => {
     await p.getByRole('button', { name: 'Save', exact: true }).click();
@@ -63,6 +63,14 @@ export const SCREENS = [
   { id: 'C5', node: '2-13502', band: true, step: ['scrollSplitToAngela'] },
   { id: 'C6', node: '2-15450', band: true, step: ['scrollSplitToAngela'] },
   { id: 'C7', node: '2-17295', band: true, step: ['scrollSplitToAngela', 'openOverflow'] },
+  { id: 'CL1', node: '2-19210', band: false },
+  { id: 'CL2', node: '2-20051', band: false },
+  { id: 'CL3', node: '2-21357', band: false },
+  { id: 'CL4', node: '2-22949', band: false },
+  { id: 'CL5', node: '2-24222', band: false, step: ['captureWindow'] },
+  { id: 'CL6', node: '2-25897', band: false, step: ['captureWindow'] },
+  { id: 'CL7', node: '2-27571', band: false, step: ['captureWindow'] },
+  { id: 'CL8', node: '2-29432', band: false },
 ];
 
 /** Area-average resample to w × h. */
@@ -98,7 +106,13 @@ fs.mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch();
 const results = [];
 for (const s of SCREENS.filter((x) => !idFilter || idFilter.split(',').includes(x.id))) {
-  const fig = PNG.sync.read(fs.readFileSync(path.join(FIG, `${s.node}.png`)));
+  let fig = PNG.sync.read(fs.readFileSync(path.join(FIG, `${s.node}.png`)));
+  // Claims frames were exported 1:1 with the 2 px frame border on both sides (1924 px): trim to 1920.
+  if (fig.width === 1924) {
+    const t = new PNG({ width: 1920, height: fig.height });
+    PNG.bitblt(fig, t, 2, 0, 1920, fig.height, 0, 0);
+    fig = t;
+  }
   const scale = fig.width / 1920;
   const frameH = Math.round(fig.height / scale);
   const page = await browser.newPage({ viewport: { width: 1920, height: frameH - (s.band ? BAND : 0) } });
@@ -108,7 +122,7 @@ for (const s of SCREENS.filter((x) => !idFilter || idFilter.split(',').includes(
   await page.goto(`${baseUrl}/lightning/o/Account/list?scenario=${s.id}`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(400);
   for (const step of [s.step ?? []].flat()) {
-    await STEPS[step](page);
+    await STEPS[step](page, s);
     await page.waitForTimeout(300);
   }
   const shot = PNG.sync.read(await page.screenshot());

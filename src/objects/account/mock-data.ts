@@ -307,7 +307,7 @@ export const ACCOUNT_RECORDS: Array<RecordData & { recordType: AccountRecordType
     values: {
       accountName: "SAL952",
       accountRecordType: "Group",
-      accountOwner: userRef("mrath"),
+      accountOwner: userRef("Mehul Rathod"),
       accountOwnerAlias: "mrath",
       armadaBusinessUnit: "Armada Care",
       uhCoveredLives: 0,

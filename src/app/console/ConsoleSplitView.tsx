@@ -57,7 +57,7 @@ export function ConsoleSplitView({ apiName, listViewId, onListViewChange, curren
       controls={LIST_VIEW_CONTROLS}
       meta={selection.length ? `${selection.length} items selected` : `${itemCount} items • Updated ${updatedAgo(con.listUpdatedAt)}`}
       onRefresh={con.refreshList}
-      search={{ value: search, onChange: setSearch }}
+      search={lines.search === false ? undefined : { value: search, onChange: setSearch }}
       sort={{ label: sortLabel, direction }}
       listInfo={`Sorted by ${sortLabel}.`}
       items={items}

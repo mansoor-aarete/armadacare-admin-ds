@@ -23,10 +23,12 @@ export type CardProps = {
   shaded?: boolean;
   /** Extra SLDS classes on the article (e.g. "slds-card_boundary", spacing). */
   className?: string;
+  /** Keep the card border inside tabsets / other cards (.slds-card_boundary). ds-v1.7. */
+  boundary?: boolean;
 };
 
 /** SLDS Cards blueprint (article.slds-card › header › body › footer). Without title and actions the header is left out. */
-export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, children, bodyPadding, footer, shaded, className }: CardProps) {
+export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, children, bodyPadding, footer, shaded, className, boundary }: CardProps) {
   const isLink = Boolean(onTitleClick || titleHref);
   const header = title || actions ? (
     <div className="slds-card__header slds-grid">
@@ -65,7 +67,7 @@ export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, 
     </div>
   ) : null;
   return (
-    <article className={cx("slds-card", shaded && "slds-theme_shade", className)}>
+    <article className={cx("slds-card", shaded && "slds-theme_shade", boundary && "slds-card_boundary", className)}>
       {header}
       {children !== undefined && children !== null && children !== false ? (
         <div className={cx("slds-card__body", bodyPadding && "slds-card__body_inner", shaded && "slds-theme_default")}>{children}</div>

@@ -30,6 +30,11 @@ export function V12Section() {
           <Card bodyPadding>
             <p>We found no potential duplicates of this Account.</p>
           </Card>
+          <div className="slds-tabs_card slds-m-top_small">
+            <Card title="Boundary card (ds-v1.7)" boundary bodyPadding>
+              <p>Keeps its border inside a tabset.</p>
+            </Card>
+          </div>
         </ShowcaseExample>
         <ShowcaseExample title="EmptyState region — small / medium with message" visualId="empty-region">
           <div className="slds-m-bottom_small">

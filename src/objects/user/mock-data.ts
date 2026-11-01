@@ -23,7 +23,7 @@ const USERS: Array<[id: string, name: string, alias: string]> = [
   ["005Ec00000PJaka001", "pjaka", "pjaka"],
   ["005Ec00000Arma0001", "arma", "arma"],
   ["005Ec00000JSmit001", "jsmit", "jsmit"],
-  ["005Ec00000MRath001", "mrath", "mrath"],
+  ["005Ec00000MRath001", "Mehul Rathod", "mrath"],
   ["005Ec00000LMegh001", "lmegh", "lmegh"],
 ];
 
