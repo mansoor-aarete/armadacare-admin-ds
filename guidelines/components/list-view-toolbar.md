@@ -6,4 +6,4 @@ File: `src/app/components/layout/ListViewToolbar.tsx` — renders `div.slds-page
 ## Props — `ListViewToolbarProps`
 `search?: { value; onChange; placeholder? }`, `settingsItems?`, `displayItems?`, `onMenuSelect?(menu, value)`, `onRefresh?`, `onSort?`, `onEdit?`, `charts?: { pressed; onToggle }`, `filters?: { pressed; onToggle }`. Omit a prop to drop its control (related lists: settings + refresh only).
 
-Pressed charts / filters render SLDS blue (pressed icon button — decision pending, KD13).
+Pressed charts / filters are olive (pressed icon button, block B, derived).

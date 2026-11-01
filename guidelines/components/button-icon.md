@@ -18,4 +18,4 @@ File: `src/app/components/buttons/ButtonIcon.tsx` · `forwardRef` to the `<butto
 | `iconClassName` | `string` | — | extra SLDS classes on the glyph (blueprint `iconClassName`: `slds-button__icon_hint`, `slds-global-header__icon`) |
 
 ## Note
-- The pressed state renders SLDS blue — not themed (see `foundations/color.md`, decision pending).
+- The pressed state is olive (block B, **derived** — not captured in Figma).

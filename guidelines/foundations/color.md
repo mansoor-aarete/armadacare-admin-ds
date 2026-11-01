@@ -11,6 +11,7 @@ All colour values live in **`src/styles/slds-theme.css`** — nowhere else. Comp
 | `--ac-color-brand-base-tint` | `rgba(139, 154, 76, 0.1)` | Figma (active console tab / nav item background) | active backgrounds |
 | `--ac-color-page-background` | `var(--slds-g-color-neutral-base-100)` (white) | Figma | page background |
 | `--ac-color-icon-user` | `#34becd` | Figma (lookup / object-switcher user icon; SLDS 2.264.3 `standard:user` is `#107cad`) | `.slds-icon-standard-user` background — see `docs/known-differences.md` KD3 |
+| `--ac-color-environment-chip` | `#e0e5f8` | Figma (sandbox chip "Sandbox (CXDev)") | GlobalHeader environment badge (Block C) | Figma (lookup / object-switcher user icon; SLDS 2.264.3 `standard:user` is `#107cad`) | `.slds-icon-standard-user` background — see `docs/known-differences.md` KD3 |
 
 Contrast on white: `#57612d` 6.66:1 (AA text), `#373e1d` 11.37:1, `#8b9a4c` 3.08:1 (non-text indicators only — never text).
 Not used: the Broker Portal palette (`#8F993E` etc.) is a different product.
@@ -83,21 +84,31 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | | `.slds-utility-bar__action.slds-is-active` | `background` → brand-base-tint |
 | | `.slds-utility-bar__action.slds-is-active:after` | `background` → brand-base |
 | User object icon | `.slds-icon-standard-user` | `background-color` → icon-user |
+| Docked composer | `.slds-docked-composer__header` | `border-bottom-color` → brand-base (Figma C5) |
+| Pressed icon buttons — **DERIVED** | `.slds-button_icon-border.slds-is-selected`, `.slds-button_icon-container.slds-is-selected`, `.slds-button_icon-border-filled.slds-is-selected`, `.slds-button_icon-border-inverse.slds-is-selected` | `background-color`, `border-color` → brand |
+| | same selectors `:focus`, `:hover` | → brand-dark |
+| Brand spinner — **DERIVED** | `.slds-spinner_brand .slds-spinner__dot-a:after` / `:before`, `.slds-spinner_brand .slds-spinner__dot-b:after` / `:before`, `.slds-spinner_brand.slds-spinner:after` / `:before` | `background-color` → brand |
 | Listbox selection | `.slds-listbox__icon-selected` | `fill` → brand |
 | | `.slds-listbox__option.slds-is-selected .slds-listbox__option-icon` | `color` → brand |
 | | `.slds-dueling-list__options [aria-selected=true]`, `.slds-picklist__options [aria-selected=true]` | `background-color` → brand |
 | | `.slds-dueling-list__options [aria-selected=true]:hover`, `…:focus`, `.slds-picklist__options [aria-selected=true]:hover`, `…:focus` | `background` → brand-dark |
 
-### Hard-coded blue rules deliberately NOT overridden (outside the approved list)
-- Pressed stateful icon button (`.slds-button_icon-border-filled.slds-is-selected`, `.slds-button_icon-container.slds-is-selected`, …) — blue background; not seen pressed in Figma. **Decision pending.**
-- Brand spinner dots (`.slds-spinner_brand .slds-spinner__dot-a:before`, …) — blue; spinners not in Figma. **Decision pending.**
+### Hard-coded blue rules deliberately NOT overridden
+- File selector drag-over glow (`.slds-file-selector__dropzone.slds-has-drag-over`) — focus-like state, kept SLDS blue.
 - Sortable column header icon on hover / focus (`.slds-is-sortable .slds-th__action:hover .slds-is-sortable__icon` fill `#0176d3`) — hover state, not in Figma.
 - Unread indicators (`.slds-indicator_unread`, split view / utility bar) — read `--slds-g-color-brand-base-50`, which stays SLDS blue by design (brand-base palette not overridden).
 - Context bar notification state (`.slds-context-bar__item.slds-has-notification`) — not seen in Figma.
 - Focus glows (`box-shadow: 0 0 3px #0176d3`) — focus stays SLDS blue by design.
 
-### Figma colours with no SLDS hook or hard-coded rule (not themed)
-- Action-overflow trigger glyph in button groups (Figma A9 `▼` is `#57612d`): SLDS colours it with `--slds-g-color-neutral-base-50` (shared by every bordered icon button). Overriding would recolour all icon buttons — **decision pending**, logged in `docs/known-differences.md`.
+## Block C — approved Figma-matching overrides (not blue re-colours)
+| Area | Selector | Change |
+|---|---|---|
+| Global header logo | `.slds-global-header__logo` | `background-image: none` (logo is an optional slot) |
+| Sandbox chip | `.slds-global-header_container .slds-badge` | `background-color` → environment-chip, transparent border, 0.25rem radius |
+| List-view ▼ (object home actions only; record headers stay grey, as in Figma) | `.slds-page-header_object-home .slds-page-header__col-actions .slds-button_icon-border-filled` | `color` → brand |
+| Selected metric tile | `.slds-button_reset.slds-box[aria-pressed="true"]` | 2 px `--slds-g-color-border-base-4` border |
+| Quick links | `.slds-card__body_inner > .slds-grid > .slds-size_1-of-7 > a`, `.slds-card__body_inner > .slds-text-align_center > a` | `text-decoration: underline` |
+| Console object item | `.slds-context-bar__object-switcher` (width 11.5625rem), `.slds-is-active` (no item tint / animation / `:before` bar), `> .slds-context-bar__label-action` (12 px padding; active: tint + 3 px inset top bar), `> .slds-context-bar__icon-action` (own cell: left border, no negative margin) | ▼ in its own cell (Figma A1) |
 
 ## Do / Don't
 - **Do** use SLDS classes (`slds-button_brand`, `slds-text-color_weak`, …) and hooks.

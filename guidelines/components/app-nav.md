@@ -16,3 +16,4 @@ File: `src/app/components/shell/AppNav.tsx`.
 `AppNavItem` = `{ id; label; active?; menuItems?: MenuItem[]; href? }` — `menuItems` adds the ▼ button and its menu.
 
 Active item: olive 10 % tint + 3 px olive top bar (theme block B, including the SLDS `bkAnim` keyframes).
+Console object item: fixed 11.5625rem (Figma 185 px) with the ▼ in its own bordered cell; tint and top bar only on the label (theme Block C).

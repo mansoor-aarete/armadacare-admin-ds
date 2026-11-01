@@ -41,6 +41,7 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 | `components/data-table.md`, `tree-grid.md` | Data (Phase 3) |
 | `components/card.md`, `related-list-card.md`, `related-list-quick-links.md`, `metric-tile.md`, `empty-state.md` | Cards and states (Phase 3) |
 | `components/modal.md`, `form-footer.md`, `vertical-nav.md` | Dialogs, footer, navigation (Phase 3) |
+| `components/toggle.md`, `radio-group.md`, `file-selector.md`, `pill.md`, `rich-text-editor.md`, `docked-composer.md`, `pagination.md`, `einstein-card.md` | Phase 4 additions |
 
 ## Source layout
 ```
@@ -49,14 +50,14 @@ src/styles/index.css               imports slds-theme.css (nothing else)
 src/styles/slds-theme.css          the ONLY place with colour values
 src/app/components/icons/          Icon, IconSvg, registry.ts (generated)
 src/app/components/buttons/        Button, ButtonStateful, ButtonIcon, ButtonGroup, ButtonMenu, MenuDropdown
-src/app/components/forms/          FormElement, Input, Textarea, Checkbox, CheckboxGroup, Select, Combobox (+ listbox, object switcher), Datepicker (+ calendar), DualListbox, FormFooter
-src/app/components/feedback/       Avatar, Badge, Spinner, EmptyState, DesertIllustration
-src/app/components/overlays/       HelpText, Tooltip, Popover, Modal, ErrorPopover
+src/app/components/forms/          FormElement, Input, Textarea, Checkbox, CheckboxGroup, Select, Combobox (+ listbox, object switcher), Datepicker (+ calendar), DualListbox, FormFooter, Toggle, RadioGroup, FileSelector, RichTextEditor
+src/app/components/feedback/       Avatar, Badge, Spinner, EmptyState, DesertIllustration, Pill, PillContainer
+src/app/components/overlays/       HelpText, Tooltip, Popover, Modal, ErrorPopover, DockedComposer
 src/app/components/shell/          GlobalHeader, AppNav, WorkspaceTabs, WorkspaceSubTabs, SplitView, UtilityBar, ConsoleShell
 src/app/components/layout/         PageHeader, HighlightsPanel, ListViewToolbar, Tabs, ExpandableSection
 src/app/components/record/         RecordField, RecordFieldGrid
-src/app/components/data/           DataTable, TreeGrid
-src/app/components/cards/          Card, RelatedListCard, RelatedListQuickLinks, MetricTile
+src/app/components/data/           DataTable, TreeGrid, Pagination
+src/app/components/cards/          Card, RelatedListCard, RelatedListQuickLinks, MetricTile, EinsteinCard
 src/app/components/navigation/     Breadcrumb, VerticalNav
 src/app/components/utils/          cx, useDismiss, formIds, dates
 src/app/showcase/                  /showcase route

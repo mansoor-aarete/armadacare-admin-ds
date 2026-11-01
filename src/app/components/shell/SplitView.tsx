@@ -125,7 +125,7 @@ export function SplitView({
                   <Icon name={iconName} assistiveText={objectLabel} />
                 </div>
                 <div className="slds-media__body slds-grid slds-grid_vertical-align-center">
-                  <h1 className="slds-text-heading_small slds-text-color_default slds-p-right_x-small">
+                  <h1 className="slds-page-header__title slds-text-color_default slds-p-right_x-small">
                     {listViews?.length ? (
                       <div ref={pickerRef} className={cx("slds-dropdown-trigger slds-dropdown-trigger_click", pickerOpen && "slds-is-open")}>
                         <button

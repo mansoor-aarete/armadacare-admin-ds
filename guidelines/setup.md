@@ -56,3 +56,6 @@ Note: a bare `tsc --noEmit` (root `tsconfig.json`) reports one error in `vite.co
 ## Figma Make import checklist
 Copy: `index.html`, `package.json`, `vite.config.ts`, `tsconfig.json`, `tsconfig.app.json`, `postcss.config.mjs`, `pnpm-workspace.yaml`, `src/`, `guidelines/`, `ATTRIBUTIONS.md`. Optional: `docs/`, `scripts/`. Never: `node_modules/`, `dist/`, `tools/`.
 Then open the preview at `/showcase` and confirm every Environment check is PASS.
+
+## Images referenced by the SLDS CSS
+Some SLDS rules draw package images with `url(../images/…)` (Einstein header sky and figure). Vite resolves and bundles these from `@salesforce-ux/design-system/assets/images/` because the SLDS stylesheet is imported in `src/main.tsx`; no copy step is needed. When testing in Figma Make, check the Einstein card shows the sky and figure — if not, Make isn't resolving CSS `url()` inside `node_modules` (the card still renders, on the plain blue SLDS background colour). The SLDS default global-header logo image is switched off in the theme (Block C).

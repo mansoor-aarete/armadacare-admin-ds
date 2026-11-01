@@ -5,4 +5,4 @@ File: `src/app/components/cards/RelatedListQuickLinks.tsx`.
 
 ## Props — `RelatedListQuickLinksProps`
 `links: { id; label; count; iconName }[]`, `onSelect(id)`, `totalCount?` + `onShowAll?`, `title?`, `helpText?`.
-Links are not underlined (Figma: underlined) — SLDS has no underline utility.
+Links are underlined as in Figma (theme Block C).

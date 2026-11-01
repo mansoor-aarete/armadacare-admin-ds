@@ -12,7 +12,10 @@ const base = process.argv[2] ?? 'http://localhost:5173';
 const outDir = path.resolve(process.argv[3] ?? 'output', 'components');
 fs.mkdirSync(outDir, { recursive: true });
 const figDir = path.resolve('figma', 'components');
-const SELECTOR_OVERRIDE = { 'fig-overflow-menu': '[data-visual-id="fig-overflow-menu"] .slds-dropdown' };
+const SELECTOR_OVERRIDE = {
+  'fig-overflow-menu': '[data-visual-id="fig-overflow-menu"] .slds-dropdown',
+  'fig-p4-composer': '[data-visual-id="fig-p4-composer"] .slds-docked-composer',
+};
 
 const pad = (img, w, h) => {
   const out = new PNG({ width: w, height: h });
@@ -30,6 +33,18 @@ for (const f of fs.readdirSync(figDir).filter((n) => n.endsWith('.png')).sort())
   const sel = SELECTOR_OVERRIDE[id] ?? `[data-visual-id="${id}"]`;
   const loc = page.locator(sel).first();
   if ((await loc.count()) === 0) { rows.push({ id, error: 'not in showcase' }); continue; }
+  // Snap the element to whole pixels: content above it can leave it on a sub-pixel offset, which blurs text edges.
+  await loc.scrollIntoViewIfNeeded();
+  // (relative offsets, not transforms: a transform switches Chromium to greyscale anti-aliasing)
+  await loc.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    const dx = Math.round(r.left) - r.left, dy = Math.round(r.top) - r.top;
+    if (dx || dy) {
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.style.left = `${(parseFloat(el.style.left) || 0) + dx}px`;
+      el.style.top = `${(parseFloat(el.style.top) || 0) + dy}px`;
+    }
+  });
   const ours = PNG.sync.read(await loc.screenshot());
   const fig = PNG.sync.read(fs.readFileSync(path.join(figDir, f)));
   const w = Math.max(ours.width, fig.width), h = Math.max(ours.height, fig.height);

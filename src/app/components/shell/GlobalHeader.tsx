@@ -18,6 +18,8 @@ export type GlobalHeaderFavorites = {
 export type GlobalHeaderPosition = "fixed" | "inline";
 
 export type GlobalHeaderProps = {
+  /** Logo in the 12.5rem logo area (e.g. <img alt="ArmadaCare" src=…/>). Empty by default, as in Figma. */
+  logo?: ReactNode;
   /** Search control for the centre slot — e.g. <Input hideLabel iconLeft="utility:search" … />. */
   search?: ReactNode;
   /** Omit to hide the favourites pair. */
@@ -43,6 +45,7 @@ export type GlobalHeaderProps = {
 
 /** SLDS Global Header blueprint (skip links, logo, search slot, global actions). */
 export function GlobalHeader({
+  logo,
   search,
   favorites,
   onGlobalActions,
@@ -85,9 +88,7 @@ export function GlobalHeader({
       ) : null}
       <div className="slds-global-header slds-grid slds-grid_align-spread">
         <div className="slds-global-header__item">
-          <div className="slds-global-header__logo">
-            <span className="slds-assistive-text">Salesforce</span>
-          </div>
+          <div className="slds-global-header__logo">{logo}</div>
         </div>
         {search ? <div className="slds-global-header__item slds-global-header__item_search">{search}</div> : null}
         <div className="slds-global-header__item">

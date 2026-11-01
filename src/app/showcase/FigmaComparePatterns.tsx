@@ -19,6 +19,13 @@ import { AppNav } from "../components/shell/AppNav";
 import { GlobalHeader } from "../components/shell/GlobalHeader";
 import { SplitView, type SplitViewItem } from "../components/shell/SplitView";
 import { UtilityBar } from "../components/shell/UtilityBar";
+import { EinsteinCard } from "../components/cards/EinsteinCard";
+import { Pagination } from "../components/data/Pagination";
+import { FileSelector } from "../components/forms/FileSelector";
+import { RadioGroup } from "../components/forms/RadioGroup";
+import { Toggle } from "../components/forms/Toggle";
+import { DockedComposer } from "../components/overlays/DockedComposer";
+import { COMPOSER_FOOTER, NoteComposerBody, RECORD_TYPES } from "./Phase4Section";
 import { OVERFLOW_ITEMS } from "./ButtonsSection";
 import { DISPLAY_AS, LIST_CONTROLS, LIST_VIEWS, ROW_ACTIONS, USER_AVATAR } from "./patternData";
 
@@ -273,6 +280,26 @@ export function FigmaComparePatterns() {
             },
           ]}
         />
+      </Frame>
+      <Frame id="fig-p4-toggle" figmaNode="CL3 Place on Hold (2:21621 + 2:21623)" rem={7.5}>
+        <Toggle label="Place on Hold" capsLabel layout="stacked" onLabel="Yes" offLabel="No" checked={false} disabled onChange={() => undefined} />
+      </Frame>
+      <Frame id="fig-p4-radio" figmaNode="A7 record types (2:54505)" rem={39.375}>
+        <RadioGroup legend="Select a record type" hideLegend options={RECORD_TYPES.slice(0, 4)} value="group" onChange={() => undefined} />
+      </Frame>
+      <Frame id="fig-p4-file-area" figmaNode="2:21650" rem={90.4375}>
+        <FileSelector variant="area" onFiles={() => undefined} dropLabel="Or drop files" />
+      </Frame>
+      <Frame id="fig-p4-pagination" figmaNode="P5 pager (2:2423)" rem={120}>
+        <Pagination page={1} pageCount={2} onPageChange={() => undefined} pageSize={10} onPageSizeChange={() => undefined} />
+      </Frame>
+      <Frame id="fig-p4-composer" figmaNode="2:13515" rem={35}>
+        <DockedComposer position="inline" title="No new note" iconName="standard:note" footer={COMPOSER_FOOTER}>
+          <NoteComposerBody />
+        </DockedComposer>
+      </Frame>
+      <Frame id="fig-p4-einstein" figmaNode="2:47546" rem={30.125}>
+        <EinsteinCard centered>Einstein doesn't have any recommendations for you right now.</EinsteinCard>
       </Frame>
       <Frame id="fig-p3-utility-bar" figmaNode="A1 utility bar (2:42133)" rem={18.75}>
         <UtilityBar position="inline" items={[{ id: "omni", label: "Omni-Channel", iconName: "utility:omni_channel" }]} onSelect={() => undefined} />

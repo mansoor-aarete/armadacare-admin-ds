@@ -68,8 +68,8 @@ export function PageHeader({
   const name = (
     <div className="slds-page-header__name">
       <div className="slds-page-header__name-title">
-        <h1>
-          {objectLabel ? <span>{objectLabel}</span> : null}
+        <h1 className={variant === "record-home" ? "slds-line-height_reset" : undefined}>
+          {objectLabel ? <span className={variant === "record-home" ? "slds-text-body_small" : undefined}>{objectLabel}</span> : null}
           <span className="slds-page-header__title slds-truncate" title={title}>
             {title}
           </span>
@@ -114,7 +114,15 @@ export function PageHeader({
   );
 
   return (
-    <div className={cx("slds-page-header", VARIANT_CLASS[variant])}>
+    <div
+      className={cx(
+        "slds-page-header",
+        VARIANT_CLASS[variant],
+        // Figma record header is 52 px: compact vertical padding (the detail row keeps the SLDS bottom spacing).
+        variant === "record-home" && "slds-p-top_x-small",
+        variant === "record-home" && !details?.length && "slds-p-bottom_x-small",
+      )}
+    >
       <div className="slds-page-header__row">
         <div className="slds-page-header__col-title">
           {breadcrumbs?.length ? <Breadcrumb items={breadcrumbs} className="slds-m-bottom_xx-small" /> : null}
@@ -142,7 +150,7 @@ export function PageHeader({
       {meta !== undefined || controls !== undefined ? (
         <div className="slds-page-header__row">
           <div className="slds-page-header__col-meta">
-            {meta !== undefined ? <p className="slds-page-header__meta-text">{meta}</p> : null}
+            {meta !== undefined ? <p className="slds-page-header__meta-text slds-text-body_small">{meta}</p> : null}
           </div>
           {controls !== undefined ? <div className="slds-page-header__col-controls">{controls}</div> : null}
         </div>

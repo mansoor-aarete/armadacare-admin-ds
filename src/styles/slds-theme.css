@@ -11,6 +11,9 @@
  *   Block B        Re-colours the SLDS rules that hard-code Salesforce blue and have no hook.
  *                  Selectors are copied exactly from the SLDS CSS; only colour values change.
  *                  Every selector is listed in guidelines/foundations/color.md.
+ *   Block C        Approved Figma-matching overrides that are not blue re-colours (logo, sandbox chip,
+ *                  list-view ▼, selected metric tile, quick-link underline, object nav ▼ cell).
+ *                  Each one is logged in docs/known-differences.md and guidelines/foundations/color.md.
  *
  * Focus rings, error, success, warning and neutral colours stay SLDS defaults (they match Figma).
  */
@@ -29,6 +32,8 @@
   --ac-color-page-background: var(--slds-g-color-neutral-base-100);
   /* Figma: lookup object-switcher user icon (SLDS 2.264.3 standard:user is #107cad). */
   --ac-color-icon-user: #34becd;
+  /* Figma: sandbox environment chip in the header row ("Sandbox (CXDev)"). */
+  --ac-color-environment-chip: #e0e5f8;
 }
 /* @brand-tokens:end */
 
@@ -254,4 +259,94 @@ a:active {
 .slds-picklist__options [aria-selected=true]:hover,
 .slds-picklist__options [aria-selected=true]:focus {
   background: var(--ac-color-brand-dark);
+}
+
+/* Docked composer header underline — Figma C5: brand base instead of #1b96ff */
+.slds-docked-composer__header {
+  border-bottom-color: var(--ac-color-brand-base);
+}
+
+/* Pressed stateful icon buttons — DERIVED (pressed state not in Figma): brand instead of #0176d3 / #014486 */
+.slds-button_icon-border.slds-is-selected,
+.slds-button_icon-container.slds-is-selected,
+.slds-button_icon-border-filled.slds-is-selected,
+.slds-button_icon-border-inverse.slds-is-selected {
+  background-color: var(--ac-color-brand);
+  border-color: var(--ac-color-brand);
+}
+.slds-button_icon-border.slds-is-selected:focus,
+.slds-button_icon-border.slds-is-selected:hover,
+.slds-button_icon-container.slds-is-selected:focus,
+.slds-button_icon-container.slds-is-selected:hover,
+.slds-button_icon-border-filled.slds-is-selected:focus,
+.slds-button_icon-border-filled.slds-is-selected:hover,
+.slds-button_icon-border-inverse.slds-is-selected:focus,
+.slds-button_icon-border-inverse.slds-is-selected:hover {
+  background-color: var(--ac-color-brand-dark);
+  border-color: var(--ac-color-brand-dark);
+}
+
+/* Brand spinner — DERIVED (spinners not in Figma): brand instead of #1b96ff */
+.slds-spinner_brand .slds-spinner__dot-a:after,
+.slds-spinner_brand .slds-spinner__dot-a:before,
+.slds-spinner_brand .slds-spinner__dot-b:after,
+.slds-spinner_brand .slds-spinner__dot-b:before,
+.slds-spinner_brand.slds-spinner:after,
+.slds-spinner_brand.slds-spinner:before {
+  background-color: var(--ac-color-brand);
+}
+
+/* ============================================================================================
+ * Block C — approved Figma-matching overrides (not blue re-colours)
+ * ========================================================================================== */
+
+/* Global header logo: no default Salesforce logo; GlobalHeader renders an optional logo inside (Figma: empty) */
+.slds-global-header__logo {
+  background-image: none;
+}
+
+/* Sandbox environment chip (GlobalHeader environment row) */
+.slds-global-header_container .slds-badge {
+  background-color: var(--ac-color-environment-chip);
+  border-color: transparent;
+  border-radius: 0.25rem;
+}
+
+/* List-view header ▼ (object home actions): olive glyph (Figma A1; record headers keep the grey glyph) */
+.slds-page-header_object-home .slds-page-header__col-actions .slds-button_icon-border-filled {
+  color: var(--ac-color-brand);
+}
+
+/* Selected metric tile (MetricTile aria-pressed): 2 px dark border (Figma D1) */
+.slds-button_reset.slds-box[aria-pressed="true"] {
+  border: 2px solid var(--slds-g-color-border-base-4);
+}
+
+/* Related List Quick Links: underlined links (Figma C1) */
+.slds-card__body_inner > .slds-grid > .slds-size_1-of-7 > a,
+.slds-card__body_inner > .slds-text-align_center > a {
+  text-decoration: underline;
+}
+
+/* Console object item: ▼ in its own cell; tint and top bar only on the label (Figma A1) */
+.slds-context-bar__object-switcher.slds-is-active {
+  background-color: transparent;
+  animation: none;
+}
+.slds-context-bar__object-switcher.slds-is-active:before {
+  content: none;
+}
+.slds-context-bar__object-switcher.slds-is-active > .slds-context-bar__label-action {
+  background-color: var(--ac-color-brand-base-tint);
+  box-shadow: inset 0 3px 0 var(--ac-color-brand-base);
+}
+.slds-context-bar__object-switcher {
+  width: 11.5625rem;
+}
+.slds-context-bar__object-switcher > .slds-context-bar__label-action {
+  padding: 0 0.75rem;
+}
+.slds-context-bar__object-switcher > .slds-context-bar__icon-action {
+  margin-left: 0;
+  border-left: 1px solid var(--slds-g-color-border-base-1);
 }

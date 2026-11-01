@@ -7,7 +7,7 @@ File: `src/app/components/feedback/Spinner.tsx`.
 | Prop | Type | Default | Notes |
 |---|---|---|---|
 | `size` | `"xx-small" \| "x-small" \| "small" \| "medium" \| "large"` | `"medium"` | |
-| `variant` | `"base" \| "brand" \| "inverse"` | `"base"` | `brand` dots are SLDS blue (hard-coded; not themed — decision pending) |
+| `variant` | `"base" \| "brand" \| "inverse"` | `"base"` | `brand` dots are olive (block B, **derived**) |
 | `layout` | `"overlay" \| "inline"` | `"overlay"` | overlay covers its nearest positioned parent |
 | `assistiveText` | `string` | "Loading" | |
 

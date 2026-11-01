@@ -64,5 +64,14 @@ All in `/showcase` (sections Console shell · Page headers … · Data table · 
 | FormFooter · ErrorPopover | `forms/FormFooter.tsx`, `overlays/ErrorPopover.tsx` | `form-footer.md` | error popover (Phase 2 diff) | **done** |
 | VerticalNav | `navigation/VerticalNav.tsx` | `vertical-nav.md` | R1 Reports nav | **done** |
 
-### Not built (seen in Figma, outside the Phase 3 list — decision needed)
-Toggle (CL3), Radio group with descriptions (A7), File selector (CL3), Docked composer + rich-text editor (C5), Pagination (P5), Pills, Einstein header card (A2/A4/A9).
+## Phase 4 additions
+| Component | File | Doc | Figma diff | Status |
+|---|---|---|---|---|
+| Toggle | `forms/Toggle.tsx` | `toggle.md` | CL3 Place on Hold | **done** |
+| RadioGroup | `forms/RadioGroup.tsx` | `radio-group.md` | A7 record types | **done** |
+| FileSelector | `forms/FileSelector.tsx` | `file-selector.md` | CL3 Files drop area | **done** |
+| Pill · PillContainer | `feedback/Pill.tsx`, `feedback/PillContainer.tsx` | `pill.md` | (in composer) | **done** |
+| RichTextEditor | `forms/RichTextEditor.tsx` | `rich-text-editor.md` | (in composer) | **done** |
+| DockedComposer | `overlays/DockedComposer.tsx` | `docked-composer.md` | C5 note composer (resampled ×1.31) | **done** |
+| Pagination | `data/Pagination.tsx` | `pagination.md` | P5 pager | **done** |
+| EinsteinCard (Next Best Action) | `cards/EinsteinCard.tsx` | `einstein-card.md` | A4 Next Best Action (resampled ×1.28) | **done** |

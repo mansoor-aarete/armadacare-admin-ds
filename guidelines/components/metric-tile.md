@@ -5,3 +5,4 @@ File: `src/app/components/cards/MetricTile.tsx`.
 
 ## Props — `MetricTileProps`
 `label`, `value: string | number`, `selected?`, `onSelect?`.
+Selected border: 2 px `--slds-g-color-border-base-4` (theme Block C, Figma D1).

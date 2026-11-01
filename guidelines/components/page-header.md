@@ -13,4 +13,6 @@ Files: `src/app/components/layout/PageHeader.tsx`, `src/app/components/navigatio
 | `pin?` | `{ pinned; onToggle }` | Lightning pin button |
 | `actions?` | `ReactNode[]` | each wrapped in `.slds-page-header__control` |
 | `meta?`, `controls?` | `ReactNode` | meta row; `controls` is usually `<ListViewToolbar/>` |
-| `details?` | `{ label; value?; title? }[]` | record-home detail row |
+| `details?` | `{ label; value?; title? }[]` | record-home detail row (white, SLDS) |
+
+Figma sizing: meta text `slds-text-body_small` (12 px); record-home uses `slds-p-top_x-small` / `slds-p-bottom_x-small`, `slds-line-height_reset` on the title block and a 12 px object label (52 px header). Object-home ▼ in the actions is olive (Block C).

@@ -19,3 +19,4 @@ File: `src/app/components/shell/SplitView.tsx`.
 | `selection?` | `{ selectedIds; onChange }` | row + select-all checkboxes (Lightning addition) |
 
 The list scrolls inside the panel; give the panel a height (ConsoleShell does).
+List-view name uses `slds-page-header__title` (18 px bold, Figma) instead of the blueprint's `slds-text-heading_small`; rows use `slds-p-vertical_x-small` (Figma 35 px rows).
