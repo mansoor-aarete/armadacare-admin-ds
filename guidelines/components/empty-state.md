@@ -9,3 +9,5 @@ File: `src/app/components/feedback/EmptyState.tsx`.
 ### Region variant (ds-v1.2)
 A shaded placeholder block (`div.slds-theme_shade` + SLDS grid centering, `role="region"`) for content that renders as an empty grey area in Figma — embedded iframes / Visualforce pages (Participant/Members, Administrative Contacts) and report viewer frames. Heights: small 6.25rem (Figma iframe 100 px), medium 12.5rem, large 25rem. Optional centered weak `message`.
 Illustration colours come from the SLDS illustration classes (light blue, as in Figma).
+
+ds-v1.6: the region variant is shaded unless `shaded={false}` — a blank white body of the set height (Figma C1: open sections whose fields were not captured).

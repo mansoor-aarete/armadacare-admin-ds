@@ -114,6 +114,7 @@ export function FieldInput(props: FieldInputProps) {
         />
       );
     case "checkbox":
+      if (def.inlineLabel) return <Checkbox id={fieldKey} label={def.label} checked={value === true} onChange={(c) => onChange(c)} />;
       return (
         <FormElement inputId={fieldKey} label={def.label} layout={layout} fieldLevelHelp={def.helpText} helpText={def.dependencies ? DEPENDENCIES : undefined}>
           <Checkbox wrapper="none" id={fieldKey} label={def.label} hideLabel checked={value === true} onChange={(c) => onChange(c)} />
@@ -184,7 +185,7 @@ export function FieldInput(props: FieldInputProps) {
       );
     }
     case "textarea":
-      return <Textarea id={fieldKey} {...common} value={text} onChange={(v) => onChange(v)} />;
+      return <Textarea id={fieldKey} {...common} helpText={def.inlineHelp} value={text} onChange={(v) => onChange(v)} />;
     case "number":
     case "currency":
     case "percent":
@@ -207,7 +208,7 @@ export function FieldInput(props: FieldInputProps) {
     case "email":
       return <Input id={fieldKey} type="email" {...common} value={text} onChange={(v) => onChange(v)} />;
     default:
-      return <Input id={fieldKey || uid} {...common} value={text} onChange={(v) => onChange(v)} />;
+      return <Input id={fieldKey || uid} {...common} helpText={def.inlineHelp} value={text} onChange={(v) => onChange(v)} />;
   }
 }
 

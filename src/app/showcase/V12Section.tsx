@@ -36,6 +36,9 @@ export function V12Section() {
             <EmptyState variant="region" regionLabel="Participant/Members" />
           </div>
           <EmptyState variant="region" regionSize="medium" message="Embedded content" regionLabel="Report" />
+          <div className="slds-m-top_small slds-box">
+            <EmptyState variant="region" shaded={false} message="Blank body (shaded={false}, ds-v1.6)" regionLabel="Blank section" />
+          </div>
         </ShowcaseExample>
         <ShowcaseExample title="CompoundField — address (horizontal)" visualId="compound-address">
           <CompoundField

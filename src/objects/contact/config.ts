@@ -1,0 +1,385 @@
+import type { ActionConfig, FieldDef, FieldMap, ObjectConfig, RegionConfig, SectionConfig } from "../../config/types";
+
+/*
+ * Contact — config for the Contacts screens in Figma (C1–C7). The record page has no tabset: sections and
+ * cards are stacked in the main column. Field keys mirror the Figma labels.
+ */
+
+const number = (label: string): FieldDef => ({ label, type: "number" });
+const text = (label: string): FieldDef => ({ label, type: "text" });
+
+const FIELDS: FieldMap = {
+  // Contact Information — left
+  name: { label: "Name", type: "text", required: true },
+  middleInitial: text("Middle Initial/Name"),
+  ssn: { label: "Social Security Number", type: "text", helpText: "Masked value." },
+  cdexId: { label: "CDEX Id", type: "text", readOnly: true },
+  email: { label: "Email", type: "email" },
+  age: { label: "Age", type: "number", readOnly: true },
+  medicareCarrier: text("Medicare Carrier"),
+  employmentStatus: text("Employment Status"),
+  product: { label: "Product", type: "text", readOnly: true },
+  mailingAddress: { label: "Mailing Address", type: "address", addressPrefix: "Mailing" },
+  // Contact Information — right
+  accountName: { label: "Account Name", type: "lookup", lookup: { objectApiName: "Account", placeholder: "Search Accounts..." } },
+  homePhone: { label: "Home Phone", type: "phone" },
+  workPhone: { label: "Work Phone", type: "phone" },
+  mobile: { label: "Mobile", type: "phone" },
+  birthdate: { label: "Birthdate", type: "date" },
+  gender: { label: "Gender", type: "picklist", options: ["M", "F"] },
+  maritalStatus: { label: "Marital Status", type: "picklist", options: ["Single", "Married"] },
+  productPicklist: { label: "Product", type: "picklist", options: ["Ultimate Health", "Plena Health"] },
+  otherAddress: { label: "Other Address", type: "address", addressPrefix: "Other" },
+  portalAccess: text("Portal Access"),
+  lastCardRequestDate: { label: "Last Card Request Date", type: "date" },
+  // Coverage Information
+  employee: { label: "Employee", type: "lookup", lookup: { objectApiName: "Contact", placeholder: "Search Contacts..." } },
+  relationship: { label: "Relationship", type: "picklist", options: ["Participant", "Dependent"] },
+  maritalStatusEffectiveDate: { label: "Marital Status Effective Date", type: "date" },
+  activeEnrollmentsArmadaCare: number("Active Enrollments ArmadaCare"),
+  activeEnrollmentsArmadaHealth: number("Active Enrollments ArmadaHealth"),
+  activeEnrollmentsBHS: number("Active Enrollments BHS"),
+  activeEnrollmentsVision: number("Active Enrollments Vision"),
+  employmentStartDate: { label: "Employment Start Date", type: "date" },
+  employmentEndDate: { label: "Employment End Date", type: "date" },
+  depNo: text("Dep No"),
+  childCount: text("childCount"),
+  bhsUsage: text("BHS Usage"),
+  activeEnrollmentsMedical: number("Active Enrollments Medical"),
+  activeEnrollmentsDental: number("Active Enrollments Dental"),
+  activeEnrollmentsConcierge: number("Active Enrollments Concierge"),
+  // Highlights / system
+  portal: { label: "Portal", type: "url", readOnly: true },
+  contactOwner: { label: "Contact Owner", type: "lookup", readOnly: true, lookup: { objectApiName: "User", placeholder: "Search Users..." } },
+};
+
+const CONTACT_INFORMATION: SectionConfig = {
+  id: "contactInformation",
+  title: "Contact Information",
+  rows: [
+    ["name", "accountName"],
+    ["middleInitial", "homePhone"],
+    ["ssn", "workPhone"],
+    ["cdexId", "mobile"],
+    ["email", "birthdate"],
+    ["age", "gender"],
+    ["medicareCarrier", "maritalStatus"],
+    ["employmentStatus", "productPicklist"],
+    ["product", "otherAddress"],
+    ["mailingAddress", "portalAccess"],
+    [null, "lastCardRequestDate"],
+  ],
+};
+
+const COVERAGE_INFORMATION: SectionConfig = {
+  id: "coverageInformation",
+  title: "Coverage Information",
+  rows: [
+    ["employee", "employmentStartDate"],
+    ["relationship", "employmentEndDate"],
+    ["maritalStatus", "depNo"],
+    ["maritalStatusEffectiveDate", "childCount"],
+    ["activeEnrollmentsArmadaCare", "bhsUsage"],
+    ["activeEnrollmentsArmadaHealth", "activeEnrollmentsMedical"],
+    ["activeEnrollmentsBHS", "activeEnrollmentsDental"],
+    ["activeEnrollmentsVision", "activeEnrollmentsConcierge"],
+  ],
+};
+
+const MAIN: RegionConfig[] = [
+  { kind: "section", card: true, section: CONTACT_INFORMATION },
+  { kind: "section", card: true, section: COVERAGE_INFORMATION },
+  {
+    kind: "card",
+    id: "accountActivity",
+    title: "Account Activity",
+    iconName: "standard:event",
+    body: { kind: "empty" },
+    backend: {
+      error: 'We couldn\'t access the credential(s). You might not have the required permissions, or the external credential "Alegeus_Auth" might not exist.',
+    },
+  },
+  {
+    kind: "card",
+    id: "paymentHistory",
+    title: "Payment & Repayment History",
+    iconName: "standard:currency",
+    body: {
+      kind: "tabs",
+      tabs: [
+        {
+          id: "payments",
+          label: "Payments",
+          body: {
+            kind: "filters",
+            filters: [
+              [
+                { kind: "picklist", label: "Status", value: "All Statuses", options: ["All Statuses"], size: "1-of-3" },
+                { kind: "search", placeholder: "Search payments..." },
+              ],
+              [{ kind: "picklist", label: "Period", value: "All Time", options: ["All Time"], size: "1-of-4" }],
+            ],
+            message: "No payments found for this contact.",
+          },
+        },
+        { id: "repayments", label: "Repayments", body: { kind: "empty" } },
+        { id: "recovery", label: "Recovery", body: { kind: "empty" } },
+      ],
+    },
+  },
+  {
+    kind: "card",
+    id: "accountBalanceSummary",
+    title: "Account Balance Summary",
+    subtitle: {
+      field: "relationship",
+      values: {
+        Dependent: "(Dependent Account Balance Summary only)",
+        Participant: "(Including the balances of the Dependents of the Member)",
+      },
+    },
+    body: { kind: "message", text: "No account balance data is available for this member." },
+  },
+  {
+    kind: "card",
+    id: "planChangeOverview",
+    title: "Plan Change Overview",
+    iconName: "standard:document",
+    body: { kind: "message", text: "No plan changes detected for this subscriber.", align: "center" },
+  },
+  { kind: "section", card: true, blankHeight: "medium", section: { id: "emergencyContact", title: "Emergency Contact Information" } },
+  { kind: "section", card: true, blankHeight: "medium", section: { id: "enrollmentAndPlan", title: "Enrollment & Plan" } },
+  {
+    kind: "card",
+    id: "claimSubstantiation",
+    title: "Claim Substantiation Documents",
+    iconName: "standard:file",
+    body: { kind: "message", text: "No substantiation documents found for this member.", align: "center" },
+  },
+  { kind: "card", id: "repaymentObligations", title: "Repayment Obligations", iconName: "custom:custom12", body: { kind: "empty" }, backend: { loading: true } },
+];
+
+const ACTIONS: ActionConfig[] = [
+  { id: "new", label: "New", kind: "new" },
+  { id: "edit", label: "Edit", kind: "edit" },
+  { id: "delete", label: "Delete", kind: "delete", title: "Delete Contact", message: "Are you sure you want to delete this contact?", confirmLabel: "Delete" },
+  { id: "hierarchy", label: "View Contact Hierarchy", kind: "hierarchy" },
+  {
+    id: "changeOwner",
+    label: "Change Owner",
+    kind: "form",
+    title: "Change Contact Owner",
+    requiredLegend: true,
+    saveLabel: "Submit",
+    fields: [
+      {
+        key: "newOwner",
+        field: { label: "Select New Owner", type: "lookup", required: true, lookup: { objectApiName: "User", placeholder: "Search Users..." } },
+        objectSwitcher: ["User"],
+      },
+      { key: "sendEmail", field: { label: "Send notification email", type: "checkbox", inlineLabel: true } },
+    ],
+    notes: [
+      {
+        text: "The new owner will also become the owner of these records related to {recordName} that are owned by {ownerName}.",
+        bullets: ["Notes and attachments", "Open activities"],
+      },
+    ],
+    save: { kind: "update", map: { contactOwner: "newOwner" } },
+  },
+  {
+    id: "logActivity",
+    label: "Log an Activity",
+    kind: "form",
+    title: "Log an Activity",
+    size: "small",
+    requiredLegend: true,
+    saveLabel: "Save",
+    fields: [
+      { key: "subject", field: { label: "Subject", type: "text" } },
+      { key: "type", size: "1-of-2", field: { label: "Type", type: "picklist", options: ["Call", "Email", "Meeting", "Other"] } },
+      {
+        key: "assignedTo",
+        size: "1-of-2",
+        field: { label: "Assigned To", type: "lookup", required: true, lookup: { objectApiName: "User", placeholder: "Search People..." } },
+        defaultValue: "$currentUser",
+      },
+      { key: "dueDate", size: "1-of-2", field: { label: "Due Date", type: "date" }, defaultValue: "$today" },
+      { key: "status", size: "1-of-2", field: { label: "Status", type: "picklist", required: true, options: ["Not Started", "In Progress", "Completed"] }, defaultValue: "Completed" },
+      { key: "dateCompleted", size: "1-of-2", field: { label: "Date Completed", type: "date" }, defaultValue: "$today" },
+      { key: "priority", size: "1-of-2", field: { label: "Priority", type: "picklist", required: true, options: ["High", "Normal", "Low"] }, defaultValue: "Normal" },
+      { key: "salesTask", size: "1-of-2", field: { label: "Sales Task", type: "picklist", options: [] } },
+      { key: "name", size: "1-of-2", field: { label: "Name", type: "text", readOnly: true }, defaultValue: "$recordName" },
+      { key: "callResult", size: "1-of-2", field: { label: "Call Result", type: "text" } },
+      {
+        key: "relatedTo",
+        size: "1-of-2",
+        field: { label: "Related To", type: "lookup", lookup: { objectApiName: "AccountFunnelTracker", placeholder: "Search Account Funnel Trackers..." } },
+        objectSwitcher: ["AccountFunnelTracker"],
+      },
+      { key: "disposition", field: { label: "Disposition", type: "text" } },
+      { key: "process", field: { label: "Process", type: "checkbox" } },
+      { key: "comments", field: { label: "Comments", type: "textarea", inlineHelp: "Tip: Type Control + period to insert quick text." } },
+    ],
+    save: {
+      kind: "create",
+      objectApiName: "Task",
+      parentField: "who",
+      map: { subject: "subject", type: "type", assignedTo: "assignedTo", dueDate: "dueDate", status: "status", priority: "priority", comments: "comments" },
+    },
+  },
+  {
+    id: "newNote",
+    label: "New Note",
+    kind: "composer",
+    objectApiName: "Note",
+    parentField: "parent",
+    titleField: "title",
+    bodyField: "body",
+    emptyTitle: "No new note",
+  },
+  // Captured in Figma (highlights button group / C7 overflow menu); no behaviour in the prototype.
+  ...(
+    [
+      ["sendWithDocusign", "Send with Docusign"],
+      ["addDependent", "Add Dependent"],
+      ["printableView", "Printable View"],
+      ["sharing", "Sharing"],
+      ["changeRecordType", "Change Record Type"],
+      ["getSurveyInvitation", "Get Survey Invitation"],
+      ["checkForNewData", "Check for New Data"],
+      ["submitForApproval", "Submit for Approval"],
+      ["enableCustomerUser", "Enable Customer User"],
+      ["sharingHierarchy", "Sharing Hierarchy"],
+      ["clone", "Clone"],
+      ["sendToAccountEngagement", "Send to Account Engagement"],
+      ["emailPitch", "Email Pitch"],
+      ["map", "Map"],
+      ["participantSummary", "Participant Summary"],
+      ["docusignHipaaForm", "Docusign HIPAA Form"],
+      ["editEnrollments", "Edit Enrollments"],
+      ["syncDebitCardData", "Sync Debit Card Data"],
+      ["activateDebitCard", "Activate Debit Card"],
+      ["requestAdditionalCard", "Request Additional Card"],
+    ] as const
+  ).map(([id, label]): ActionConfig => ({ id, label, kind: "none" })),
+];
+
+export const CONTACT_CONFIG: ObjectConfig = {
+  apiName: "Contact",
+  label: "Contact",
+  labelPlural: "Contacts",
+  iconName: "standard:contact",
+  nameField: "name",
+  ownerField: "contactOwner",
+  keyPrefix: "003",
+  fields: FIELDS,
+  listViews: [
+    {
+      id: "AllMembers",
+      label: "All Members",
+      filter: { kind: "all" },
+      sort: { field: "name", direction: "ascending" },
+      pageSize: 50,
+      rowNumbers: "hidden",
+      columns: [
+        { field: "name", link: "record" },
+        { field: "accountName", link: "plain" },
+        { field: "employee", link: "plain" },
+        { field: "relationship" },
+        { field: "gender" },
+        { field: "birthdate" },
+      ],
+    },
+    {
+      id: "Recent",
+      label: "Recently Viewed",
+      filter: { kind: "recentlyViewed" },
+      sort: { field: "name", direction: "ascending" },
+      rowNumbers: "hidden",
+      columns: [{ field: "name", link: "record" }, { field: "accountName", link: "plain" }, { field: "birthdate" }],
+    },
+  ],
+  defaultListView: "AllMembers",
+  listHeaderActions: ["new", "printableView"],
+  splitView: { titleRight: "employee", line2Left: "gender", line2Right: "birthdate" },
+  layouts: {
+    contact: {
+      highlights: {
+        fields: ["cdexId", "employmentStartDate", "employmentStatus", "product", "accountName", "portal"],
+        actions: ["sendWithDocusign", "changeOwner", "logActivity"],
+        overflow: [
+          "addDependent",
+          "printableView",
+          "delete",
+          "edit",
+          "hierarchy",
+          "sharing",
+          "changeRecordType",
+          "getSurveyInvitation",
+          "checkForNewData",
+          "submitForApproval",
+          "enableCustomerUser",
+          "sharingHierarchy",
+          "clone",
+          "sendToAccountEngagement",
+          "emailPitch",
+          "map",
+          "participantSummary",
+          "docusignHipaaForm",
+          "editEnrollments",
+          "syncDebitCardData",
+          "activateDebitCard",
+          "requestAdditionalCard",
+        ],
+        hierarchy: true,
+      },
+      quickLinks: {
+        totalCount: 17,
+        links: [
+          { id: "notes", label: "Notes", iconName: "standard:note", objectApiName: "Note", parentField: "parent" },
+          { id: "notesAndAttachments", label: "Notes & Attachments", iconName: "standard:file" },
+          { id: "bankAccounts", label: "Bank Accounts", iconName: "standard:custom" },
+          { id: "bankingInfos", label: "Banking Infos", iconName: "custom:custom40" },
+          { id: "cardTransactions", label: "Card Transactions", iconName: "custom:custom16" },
+          { id: "claims", label: "Claims", iconName: "custom:custom70" },
+          { id: "plansPackages", label: "Plans/Packages", iconName: "custom:custom58" },
+          { id: "files", label: "Files", iconName: "standard:file" },
+          { id: "cases", label: "Cases", iconName: "standard:case" },
+          { id: "affiliatedPlans", label: "Affiliated Plans", iconName: "custom:custom18" },
+          { id: "openActivities", label: "Open Activities", iconName: "standard:custom" },
+          { id: "activityHistory", label: "Activity History", iconName: "standard:custom", objectApiName: "Task", parentField: "who" },
+          { id: "contactHistory", label: "Contact History", iconName: "standard:event" },
+          { id: "memberDocuments", label: "Member Documents", iconName: "standard:custom" },
+        ],
+      },
+      main: MAIN,
+      sidebar: [
+        {
+          kind: "relatedList",
+          list: {
+            id: "notes",
+            label: "Notes",
+            iconName: "standard:note",
+            objectApiName: "Note",
+            parentField: "parent",
+            newAction: "newNote",
+            display: "tiles",
+            tileTitle: "title",
+            tileLines: ["{createdDate} by {createdBy}", "{body}"],
+          },
+        },
+        { kind: "relatedList", list: { id: "memberDocuments", label: "Member Documents", iconName: "standard:custom" } },
+        { kind: "relatedList", list: { id: "notifications", label: "Notifications", iconName: "standard:custom" } },
+        { kind: "relatedList", list: { id: "cases", label: "Cases", iconName: "standard:case", menu: false } },
+        { kind: "relatedList", list: { id: "cardTransactions", label: "Card Transactions", iconName: "custom:custom16" } },
+      ],
+    },
+  },
+  forms: { contact: { sections: [CONTACT_INFORMATION, COVERAGE_INFORMATION], defaults: {} } },
+  actions: ACTIONS,
+  hierarchy: {
+    parentField: "employee",
+    columns: [{ field: "name", link: true }, { field: "relationship" }, { field: "birthdate" }, { field: "accountName" }],
+  },
+};

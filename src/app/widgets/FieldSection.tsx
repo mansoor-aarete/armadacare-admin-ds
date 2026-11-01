@@ -20,12 +20,14 @@ export type FieldSectionProps = {
   onEdit?: (key: string) => void;
   onFieldAction?: (key: string, action: FieldActionKind) => void;
   onOpenLookup?: (lookup: LookupValue) => void;
+  /** Blank body height (sections whose fields were not captured — Figma shows an empty body). */
+  blankHeight?: "small" | "medium" | "large";
 };
 
 const isFull = (row: SectionRow): row is { full: string } => !Array.isArray(row);
 
 /** One layout section from config: a two-column field grid (+ full-width rows, embedded region, custom links). */
-export function FieldSection({ config, section, values, mode, errors = {}, onChange, onEdit, onFieldAction, onOpenLookup }: FieldSectionProps) {
+export function FieldSection({ config, section, values, mode, errors = {}, onChange, onEdit, onFieldAction, onOpenLookup, blankHeight }: FieldSectionProps) {
   const [open, setOpen] = useState(true);
 
   const cell = (key: string | null, fullWidth = false): ReactNode => {
@@ -85,6 +87,7 @@ export function FieldSection({ config, section, values, mode, errors = {}, onCha
         />
       ) : null}
       {grids}
+      {blankHeight ? <EmptyState variant="region" shaded={false} regionSize={blankHeight} regionLabel={section.title} /> : null}
     </>
   );
 

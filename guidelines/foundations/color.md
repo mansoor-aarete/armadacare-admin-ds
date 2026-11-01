@@ -112,6 +112,8 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | Data table density (ds-v1.5) | `.slds-table .slds-th__action` (height 1.796875rem), `.slds-table td .slds-dropdown-trigger, .slds-table td .slds-checkbox` (vertical-align top; trigger inline-flex), `.slds-table tbody tr` (height 1.859375rem) | Lightning datatable: 28.75 px header, 29.75 px rows (Figma A1) instead of 32 / 30.75 px |
 | Inline record form / picker panel (ds-v1.5) | `.slds-template__container > .slds-modal__container` (45.875rem, padding-top 0.125rem), `.slds-template__container.slds-modal_medium > .slds-modal__container` (62.5rem), `.slds-template__container.slds-modal_medium .slds-modal__header` (left-aligned, 0.9375rem inset) | Figma A5/A6 panel 734 px, A7 picker 1,000 px with a left-aligned title |
 | Console workspace tabs (ds-v1.5) | `.slds-context-bar__item_tab` (width 13.75rem) | Figma 220 px tabs show full labels (SLDS 12rem) |
+| Small modal (ds-v1.6) | `.slds-modal_small .slds-modal__container` (min-width 48em) | max-width 59.125rem — Figma C4 Log an Activity 946 px |
+| Docked composer in the utility bar (ds-v1.6) | `.slds-utility-bar_container > .slds-docked_container` | bottom 2.5rem — docked above the utility bar (Figma C5) |
 | Console object item | `.slds-context-bar__object-switcher` (width 11.5625rem), `.slds-is-active` (no item tint / animation / `:before` bar), `> .slds-context-bar__label-action` (12 px padding; active: tint + 3 px inset top bar), `> .slds-context-bar__icon-action` (own cell: left border, no negative margin) | ▼ in its own cell (Figma A1) |
 
 ## Do / Don't

@@ -468,7 +468,7 @@ const ACTIONS: ActionConfig[] = [
         defaultValue: "Private",
       },
     ],
-    note: { text: "Shared with 5 groups of users.", linkLabel: "Edit" },
+    notes: [{ text: "Shared with 5 groups of users.", linkLabel: "Edit" }],
   },
   { id: "hierarchy", label: "View Account Hierarchy", kind: "hierarchy" },
   // Captured in Figma (highlights buttons / overflow menu); no behaviour in the prototype.

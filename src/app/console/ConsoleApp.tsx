@@ -2,8 +2,10 @@ import profileAvatar from "@salesforce-ux/design-system/assets/images/profile_av
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { getObjectConfig, NAV_OBJECTS } from "../../objects";
-import { getCurrentUser, listRecords, recordName } from "../../services/records";
-import { getScenario } from "../../services/session";
+import { createRecord, getCurrentUser, getRecord, listRecords, recordName } from "../../services/records";
+import { applyScenarioRecords, getScenario } from "../../services/session";
+import { toIso } from "../components/utils/dates";
+import { RecordComposer } from "../widgets/RecordComposer";
 import { Input } from "../components/forms/Input";
 import { AppNav } from "../components/shell/AppNav";
 import { ConsoleShell } from "../components/shell/ConsoleShell";
@@ -12,7 +14,7 @@ import { UtilityBar } from "../components/shell/UtilityBar";
 import { WorkspaceSubTabs } from "../components/shell/WorkspaceSubTabs";
 import { WorkspaceTabs, type WorkspaceTab } from "../components/shell/WorkspaceTabs";
 import { ConsoleContent } from "./ConsoleContent";
-import { ConsoleContext, type ConsoleApi } from "./ConsoleContext";
+import { ConsoleContext, type ComposerRequest, type ConsoleApi } from "./ConsoleContext";
 import { ConsoleSplitView } from "./ConsoleSplitView";
 import { listUrl, parseRoute, recordUrl, routeOf, subTabKeyOf, tabKeyOf } from "./urls";
 import { useServiceData } from "./useServiceData";
@@ -26,6 +28,7 @@ export function ConsoleApp() {
   const routerNavigate = useNavigate();
   const route = parseRoute(location.pathname, location.search);
   const scenarioId = new URLSearchParams(location.search).get("scenario");
+  const stateParam = new URLSearchParams(location.search).get("state");
 
   const [ready, setReady] = useState(!scenarioId);
   const [tabs, setTabs] = useState<WorkspaceTabState[]>([]);
@@ -33,12 +36,23 @@ export function ConsoleApp() {
   const [listViewId, setListViewId] = useState<string | undefined>(route.kind === "list" ? route.listViewId : undefined);
   const [selection, setSelection] = useState<string[]>([]);
   const [listUpdatedAt, setListUpdatedAt] = useState(() => Date.now());
+  // ?state=error switches back-end-dependent regions to the state the Figma capture shows (sticky for the session).
+  const [captured, setCaptured] = useState(stateParam === "error");
+  const [today, setToday] = useState(() => toIso(new Date()));
+  const [composer, setComposer] = useState<ComposerRequest | null>(null);
+
+  useEffect(() => {
+    if (stateParam === "error") setCaptured(true);
+  }, [stateParam]);
 
   // ?scenario=A4 — open the workspace tabs and selection of a Figma screen, then show its URL.
   useEffect(() => {
     if (!scenarioId) return;
-    getScenario(scenarioId).then((s) => {
+    getScenario(scenarioId).then(async (s) => {
       if (s) {
+        if (s.records) await applyScenarioRecords(s.records);
+        if (s.today) setToday(s.today);
+        setComposer(s.composer ?? null);
         setTabs(s.tabs.reduce(upsertTab, [] as WorkspaceTabState[]));
         setSelection(s.splitSelection ?? []);
         setListUpdatedAt(Date.now() - (s.listUpdatedMinutesAgo ?? 0) * 60000);
@@ -86,8 +100,11 @@ export function ConsoleApp() {
       },
       listUpdatedAt,
       refreshList: () => setListUpdatedAt(Date.now()),
+      captured,
+      today,
+      openComposer: setComposer,
     }),
-    [navigate, closeTab, activeKey, listUpdatedAt, routerNavigate],
+    [navigate, closeTab, activeKey, listUpdatedAt, routerNavigate, captured, today],
   );
 
   // Tab labels need record names.
@@ -97,6 +114,11 @@ export function ConsoleApp() {
     [apis.join(",")],
   );
   const { data: user } = useServiceData(() => getCurrentUser(), []);
+  const { data: composerParent } = useServiceData(
+    () => (composer ? getRecord(composer.apiName, composer.parentId) : Promise.resolve(null)),
+    [composer?.apiName, composer?.parentId],
+  );
+  const composerAction = composer ? getObjectConfig(composer.apiName).actions.find((a) => a.id === composer.actionId) : undefined;
 
   if (!ready) return null;
 
@@ -115,9 +137,28 @@ export function ConsoleApp() {
   const activeTab = tabs.find((t) => t.key === activeKey);
   const homeConfig = getObjectConfig(homeObject);
   const content = <ConsoleContent route={route} url={url} />;
+  const composerPanel =
+    composer && composerParent && composerAction?.kind === "composer" ? (
+        <RecordComposer
+          key={`${composer.parentId}:${composer.actionId}`}
+          action={composerAction}
+          parentApiName={composer.apiName}
+          parentName={recordName(composer.apiName, composerParent)}
+          initialValues={composer.values}
+          onClose={() => setComposer(null)}
+          onOpenParent={() => api.openRecord(composer.apiName, composer.parentId)}
+          onDone={(values) =>
+            createRecord(composerAction.objectApiName, undefined, {
+              ...values,
+              [composerAction.parentField]: { id: composer.parentId, name: recordName(composer.apiName, composerParent), objectApiName: composer.apiName },
+            }).then(() => setComposer(null))
+          }
+        />
+      ) : undefined;
 
   return (
     <ConsoleContext.Provider value={api}>
+
       <ConsoleShell
         fill="viewport"
         workspacePadding={route.kind === "record" || route.kind === "hierarchy" || route.kind === "new"}
@@ -173,7 +214,9 @@ export function ConsoleApp() {
             />
           ) : undefined
         }
-        utilityBar={<UtilityBar position="inline" items={[{ id: "omni", label: "Omni-Channel", iconName: "utility:omni_channel" }]} onSelect={() => undefined} />}
+        utilityBar={
+          <UtilityBar position="inline" items={[{ id: "omni", label: "Omni-Channel", iconName: "utility:omni_channel" }]} onSelect={() => undefined} panel={composerPanel} />
+        }
       >
         {activeTab && activeTab.subTabs.length > 1 ? (
           <WorkspaceSubTabs

@@ -4,7 +4,7 @@ import type { LookupValue, RecordData } from "../../config/types";
 export const CURRENT_USER_ID = "005Ec00000MAhmad01";
 
 /**
- * Users seen in the Figma file. Full names were captured for some users only; the others appear
+ * Users seen in the Figma file. Full names were captured for some users only (Zach Ackerman from the C3 owner text); the others appear
  * only as an owner alias (list views), so their name is the alias.
  */
 const USERS: Array<[id: string, name: string, alias: string]> = [
@@ -17,7 +17,7 @@ const USERS: Array<[id: string, name: string, alias: string]> = [
   ["005Ec00000DWalt001", "Donna Walter", "dwalt"],
   ["005Ec00000KBern001", "Kathryn Stacy Bernal", "kbern"],
   ["005Ec00000CEsse001", "Chris Esser", "cesse"],
-  ["005Ec00000Zach0001", "zachman", "zachman"],
+  ["005Ec00000Zach0001", "Zach Ackerman", "zachman"],
   ["005Ec00000ABhus001", "abhus", "abhus"],
   ["005Ec00000ARamo001", "aramo", "aramo"],
   ["005Ec00000PJaka001", "pjaka", "pjaka"],

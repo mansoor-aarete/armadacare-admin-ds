@@ -48,7 +48,7 @@ export function ObjectListPage({ apiName, listViewId }: ObjectListPageProps) {
   const rows = useMemo(() => {
     const term = search.trim().toLowerCase();
     const found = (data ?? []).filter((r) => !term || columns.some((c) => c.value(r).toLowerCase().includes(term)));
-    return sortRows(config, found, sort);
+    return sortRows(config, found, sort).slice(0, listView.pageSize ?? found.length);
   }, [data, search, sort]);
 
   const sortLabel = fieldAt(config, sort.field).label;
@@ -82,7 +82,7 @@ export function ObjectListPage({ apiName, listViewId }: ObjectListPageProps) {
             <ButtonMenu assistiveText="Show more actions" items={[{ value: "assignLabel", label: "Assign Label" }]} position="right" size="x-small" actions />
           </ButtonGroup>,
         ]}
-        meta={`${rows.length} items • Sorted by ${sortLabel} • Updated ${updatedAgo(con.listUpdatedAt)}`}
+        meta={`${listView.pageSize && (data?.length ?? 0) > listView.pageSize ? `${listView.pageSize}+` : rows.length} items • Sorted by ${sortLabel} • Updated ${updatedAgo(con.listUpdatedAt)}`}
         controls={
           <ListViewToolbar
             search={{ value: search, onChange: setSearch }}
@@ -111,7 +111,7 @@ export function ObjectListPage({ apiName, listViewId }: ObjectListPageProps) {
         onRowAction={(row, value) => (value === "delete" ? setDeleting(row) : con.openRecord(apiName, row.id))}
       />
       {deleting && deleteAction?.kind === "delete" ? (
-        <ActionModal apiName={apiName} record={deleting} action={deleteAction} onClose={() => setDeleting(null)} onDeleted={() => setDeleting(null)} />
+        <ActionModal apiName={apiName} record={deleting} action={deleteAction} today={con.today} onClose={() => setDeleting(null)} onDeleted={() => setDeleting(null)} />
       ) : null}
     </>
   );

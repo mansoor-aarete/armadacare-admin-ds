@@ -34,13 +34,13 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | `…?tab=claim&advanced=1&employer=…` |
 | 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | `…?tab=participant&advanced=1&lastName=A` |
 | 8 | D1 | Accounts Dashboard | 2:5437 | Account Intelligence View \| Accounts | IntelligenceViewPage | My Accounts, Total Accounts tile selected, empty state | **built** 2.36 % · `/lightning/o/Account/intelligence` |
-| 9 | C1 | Contacts | 2:5847 | Adam Sahn \| Contact | RecordPage (no tabs) | default; tabs Aarav · **Adam** | `/lightning/r/Contact/<id>/view` |
-| 10 | C2 | Contacts | 2:7726 | Aarav Aramanai \| Contact | RecordPage | Card Transactions card loading | ″ |
-| 11 | C3 | Contacts | 2:9562 | Antoinette Mitcham \| Contact | RecordPage + ActionModal | Change Contact Owner modal | `…/view?action=changeOwner` |
-| 12 | C4 | Contacts | 2:11470 | ″ | RecordPage + ActionModal (form) | Log an Activity modal | `…?action=logActivity` |
-| 13 | C5 | Contacts | 2:13502 | ″ | RecordPage + composer | Note docked composer open | `…?composer=note` |
-| 14 | C6 | Contacts | 2:15450 | ″ | RecordPage | Notes (1) populated | `…/view` |
-| 15 | C7 | Contacts | 2:17295 | ″ | RecordPage | highlights overflow ▼ open (22 items) | `…/view` (menu open) |
+| 9 | C1 | Contacts | 2:5847 | Adam Sahn \| Contact | RecordPage (no tabs) | default; tabs Aarav · **Adam** | **built** 3.84 % · `/lightning/r/Contact/003Ec0000a1962939d/view` |
+| 10 | C2 | Contacts | 2:7726 | Aarav Aramanai \| Contact | RecordPage | Card Transactions card loading | **built** 3.77 % · `/lightning/r/Contact/003Ec0000bB8A527B1/view` |
+| 11 | C3 | Contacts | 2:9562 | Antoinette Mitcham \| Contact | RecordPage + ActionModal | Change Contact Owner modal | **built** 4.32 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view?action=changeOwner` |
+| 12 | C4 | Contacts | 2:11470 | ″ | RecordPage + ActionModal (form) | Log an Activity modal | **built** 3.68 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view?action=logActivity` |
+| 13 | C5 | Contacts | 2:13502 | ″ | RecordPage + composer | Note docked composer open | **built** 3.85 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view → Notes ▼ New` |
+| 14 | C6 | Contacts | 2:15450 | ″ | RecordPage | Notes (1) populated | **built** 3.62 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view (after saving a note)` |
+| 15 | C7 | Contacts | 2:17295 | ″ | RecordPage | highlights overflow ▼ open (22 items) | **built** 3.75 % · `/lightning/r/Contact/003Ec00008CfF7Df83/view → ▼` |
 | 16 | CL1 | Claims | 2:19210 | Lightning Experience | ObjectListPage (split mode) | split-view list only, empty workspace | `/lightning/o/Claim/list?filterName=All` |
 | 17 | CL2 | Claims | 2:20051 | CLM-0000023 \| Claim | RecordPage | Audit & System tab | `/lightning/r/Claim/<id>/view?tab=audit` |
 | 18 | CL3 | Claims | 2:21357 | CLM-0000023 \| Claim | RecordPage | Details tab (empty Files + upload area) | `…?tab=details` |

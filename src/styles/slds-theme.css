@@ -432,3 +432,15 @@ a:active {
 .slds-global-header__item_search {
   flex: 0 1 25rem;
 }
+
+/* Small modal (ds-v1.6): Figma C4 "Log an Activity" is 946 px wide; SLDS small caps at 52.0625rem (833 px). */
+@media (min-width: 48em) {
+  .slds-modal_small .slds-modal__container {
+    max-width: 59.125rem;
+  }
+}
+
+/* Docked composer in the utility bar (ds-v1.6): Figma C5 docks the composer above the utility bar, not over it. */
+.slds-utility-bar_container > .slds-docked_container {
+  bottom: 2.5rem;
+}

@@ -14,6 +14,8 @@ export type FieldViewProps = {
   onEdit?: () => void;
   onAction?: (action: FieldActionKind) => void;
   onOpenLookup?: (lookup: LookupValue) => void;
+  /** Caps label (summary cards). */
+  caps?: boolean;
 };
 
 const ACTION_ICON: Record<FieldActionKind, { iconName: UtilityIconName; assistiveText: string }> = {
@@ -41,7 +43,7 @@ export function toRecordFieldValue(def: FieldDef, v: FieldValue | undefined, onO
 }
 
 /** Read-only display of one field (record detail, read-only fields in forms). */
-export function FieldView({ def, value, layout = "horizontal", fullWidth, onEdit, onAction, onOpenLookup }: FieldViewProps) {
+export function FieldView({ def, value, layout = "horizontal", fullWidth, onEdit, onAction, onOpenLookup, caps }: FieldViewProps) {
   const action = def.action && onAction ? { ...ACTION_ICON[def.action], onClick: () => onAction(def.action as FieldActionKind) } : undefined;
   return (
     <RecordField
@@ -50,6 +52,7 @@ export function FieldView({ def, value, layout = "horizontal", fullWidth, onEdit
       layout={layout}
       helpText={def.helpText}
       fullWidth={fullWidth}
+      capsLabel={caps}
       action={action}
       onEdit={!def.readOnly && !def.action ? onEdit : undefined}
     />

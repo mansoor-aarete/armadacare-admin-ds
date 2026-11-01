@@ -21,7 +21,7 @@ const BAND = 35;
 const STEPS = {
   // Test-only: Figma captured modals in a 911 px browser window and stitched the page below, so the fixed SLDS modal
   // sits in the top 911 px of the frame, not in the middle of the 3,348 px page. Emulate that window for the modal.
-  captureWindow: async (p) => p.addStyleTag({ content: '.slds-modal { height: 911px; bottom: auto; }' }),
+  captureWindow: async (p) => p.addStyleTag({ content: '.slds-modal { height: 911px; bottom: auto; top: -35px; }' }),
   focusSearch: async (p) => p.getByPlaceholder('Search User...').focus(),
   saveWithErrors: async (p) => {
     await p.getByRole('button', { name: 'Save', exact: true }).click();
@@ -34,6 +34,13 @@ const STEPS = {
     await p.locator('#accountName').focus();
     await p.locator('#accountName').blur();
   },
+  // C3–C7: the split-view list is scrolled so "Angela Alley" is the first visible row.
+  scrollSplitToAngela: async (p) => p.locator('.slds-split-view [title="Angela Alley"]').first().evaluate((el) => {
+    let box = el.parentElement;
+    while (box && !/(auto|scroll)/.test(getComputedStyle(box).overflowY)) box = box.parentElement;
+    const li = el.closest('li');
+    if (box && li) box.scrollTop = li.offsetTop - box.querySelector('li').offsetTop;
+  }),
   openOverflow: async (p) => p.locator('.slds-page-header').getByRole('button', { name: /more actions/i }).first().click(),
 };
 
@@ -49,6 +56,13 @@ export const SCREENS = [
   { id: 'A8', node: '2-55068', band: true },
   { id: 'A9', node: '2-55718', band: true, step: 'openOverflow' },
   { id: 'D1', node: '2-5437', band: false },
+  { id: 'C1', node: '2-5847', band: true },
+  { id: 'C2', node: '2-7726', band: true },
+  { id: 'C3', node: '2-9562', band: true, step: ['captureWindow', 'scrollSplitToAngela'] },
+  { id: 'C4', node: '2-11470', band: true, step: ['captureWindow', 'scrollSplitToAngela'] },
+  { id: 'C5', node: '2-13502', band: true, step: ['scrollSplitToAngela'] },
+  { id: 'C6', node: '2-15450', band: true, step: ['scrollSplitToAngela'] },
+  { id: 'C7', node: '2-17295', band: true, step: ['scrollSplitToAngela', 'openOverflow'] },
 ];
 
 /** Area-average resample to w × h. */
@@ -133,4 +147,8 @@ for (const s of SCREENS.filter((x) => !idFilter || idFilter.split(',').includes(
   console.log(`${pct.toFixed(2).padStart(6)}%  ${s.id}  figma ${s.node} ${w}x${h} (×${scale.toFixed(3)})  console errors: ${errors.length}`);
 }
 await browser.close();
-fs.writeFileSync(path.join(outDir, 'results.json'), JSON.stringify(results, null, 1));
+// Merge with earlier runs (a filtered run updates only its screens).
+const resultsFile = path.join(outDir, 'results.json');
+const previous = fs.existsSync(resultsFile) ? JSON.parse(fs.readFileSync(resultsFile, 'utf8')) : [];
+const merged = [...previous.filter((p) => !results.some((r) => r.id === p.id)), ...results];
+fs.writeFileSync(resultsFile, JSON.stringify(merged, null, 1));

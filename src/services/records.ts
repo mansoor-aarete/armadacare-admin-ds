@@ -48,6 +48,7 @@ function derive(apiName: string, record: RecordData, created: boolean): RecordDa
   }
   const audit: AuditValue = { by: currentUserRef(), at: nowIso() };
   if (created && config.fields.createdBy) values.createdBy = audit;
+  if (created && config.fields.createdDate) values.createdDate = audit.at;
   if (config.fields.lastModifiedBy) values.lastModifiedBy = audit;
   return { ...record, values };
 }
@@ -120,3 +121,13 @@ export async function getCurrentUser(): Promise<LookupValue> {
 
 /** Subscribe to record changes (any create / update / delete). Returns the unsubscribe function. */
 export { subscribe as onDataChange } from "./store";
+
+/** Child records of a parent (related lists): records of `apiName` whose lookup `parentField` points at `parentId`. */
+export async function listRelated(apiName: string, parentField: string, parentId: string): Promise<RecordData[]> {
+  return readTable(apiName)
+    .filter((r) => {
+      const v = r.values[parentField];
+      return isLookup(v) && v.id === parentId;
+    })
+    .map(copy);
+}

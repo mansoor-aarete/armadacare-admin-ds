@@ -32,7 +32,7 @@ export function ConsoleSplitView({ apiName, listViewId, onListViewChange, curren
   const items: SplitViewItem[] = useMemo(() => {
     const term = search.trim().toLowerCase();
     const rows = sortRows(config, data ?? [], { field: listView.sort.field, direction }).filter((r) => !term || recordName(apiName, r).toLowerCase().includes(term));
-    return rows.map((r) => {
+    return rows.slice(0, listView.pageSize ?? rows.length).map((r) => {
       const left = text(lines.line2Left, r);
       const right = text(lines.line2Right, r);
       return { id: r.id, title: recordName(apiName, r), titleRight: text(lines.titleRight, r) || undefined, rows: left || right ? [{ left, right }] : undefined };
@@ -40,6 +40,9 @@ export function ConsoleSplitView({ apiName, listViewId, onListViewChange, curren
   }, [data, search, direction, apiName]);
 
   const sortLabel = fieldAt(config, listView.sort.field).label;
+  // Lightning loads one page (50) and says "50+" when there are more.
+  const total = data?.length ?? 0;
+  const itemCount = listView.pageSize && total > listView.pageSize ? `${listView.pageSize}+` : String(items.length);
   return (
     <SplitView
       open={open}
@@ -52,7 +55,7 @@ export function ConsoleSplitView({ apiName, listViewId, onListViewChange, curren
       pinned={pinned}
       onPin={() => setPinned((p) => !p)}
       controls={LIST_VIEW_CONTROLS}
-      meta={selection.length ? `${selection.length} items selected` : `${items.length} items • Updated ${updatedAgo(con.listUpdatedAt)}`}
+      meta={selection.length ? `${selection.length} items selected` : `${itemCount} items • Updated ${updatedAgo(con.listUpdatedAt)}`}
       onRefresh={con.refreshList}
       search={{ value: search, onChange: setSearch }}
       sort={{ label: sortLabel, direction }}

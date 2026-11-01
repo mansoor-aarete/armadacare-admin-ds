@@ -19,7 +19,7 @@ export type EmptyStateProps = {
   message?: ReactNode;
   /** Illustration size. */
   size?: "small" | "large";
-  /** Shaded background (Figma D1 list area). */
+  /** Shaded background (Figma D1 list area). Region variant: shaded unless `false` (ds-v1.6 — blank section bodies, Figma C1). */
   shaded?: boolean;
   /** Height of the "region" variant. Default "small". */
   regionSize?: EmptyStateRegionSize;
@@ -34,7 +34,7 @@ export function EmptyState({ variant = "illustration", heading, message, size = 
   if (variant === "region") {
     return (
       <div
-        className="slds-theme_shade slds-grid slds-grid_align-center slds-grid_vertical-align-center"
+        className={cx(shaded !== false && "slds-theme_shade", "slds-grid slds-grid_align-center slds-grid_vertical-align-center")}
         style={{ height: REGION_HEIGHT[regionSize] }}
         role="region"
         aria-label={regionLabel}

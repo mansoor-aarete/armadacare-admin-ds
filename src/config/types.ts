@@ -75,6 +75,10 @@ export type FieldDef = {
   dependencies?: boolean;
   /** Address sub-field label prefix, e.g. "Corporate" → "Corporate Street", "Corporate City" … */
   addressPrefix?: string;
+  /** Help line under the input in forms (Figma C4: "Tip: Type Control + period to insert quick text."). */
+  inlineHelp?: string;
+  /** Checkbox with its label beside the box (Figma C3 "Send notification email") instead of a form label. */
+  inlineLabel?: boolean;
 };
 
 export type FieldMap = Record<string, FieldDef>;
@@ -95,11 +99,61 @@ export type SectionConfig = {
   links?: LinkValue[];
 };
 
-export type RecordTabConfig = { id: string; label: string; sections: SectionConfig[] };
+/** Related list: count and records come from `objectApiName` records whose `parentField` is this record, else `RecordData.related`. */
+export type RelatedListConfig = {
+  id: string;
+  label: string;
+  iconName: ObjectIconName;
+  objectApiName?: string;
+  parentField?: string;
+  /** ▼ menu (default true). */
+  menu?: boolean;
+  /** Menu "New" opens this action (e.g. the note composer). */
+  newAction?: string;
+  /** Header buttons, e.g. Change Owner · New. */
+  buttons?: Array<{ value: string; label: string }>;
+  /** Body: "tiles" (Notes) or "table" (columns); omit for a header-only card. */
+  display?: "tiles" | "table";
+  /** Tiles: title field + detail lines ({field} placeholders, formatted by type). */
+  tileTitle?: string;
+  tileLines?: string[];
+  columns?: ListColumnConfig[];
+  /** Body shown while loading in the captured state (?state=error). */
+  backend?: BackendState;
+};
 
-export type QuickLinkConfig = { id: string; label: string; iconName: ObjectIconName };
+/** How a region looks in the captured back-end state (`?state=error`, Figma). Default: working / empty. */
+export type BackendState = { error?: string; loading?: boolean };
 
-export type RelatedListConfig = { id: string; label: string; iconName: ObjectIconName };
+export type FilterControlConfig = { kind: "picklist"; label: string; value: string; options: string[]; size: "1-of-3" | "1-of-4" } | { kind: "search"; placeholder: string };
+
+export type CardBodyConfig =
+  | { kind: "message"; text: string; align?: "left" | "center" }
+  | { kind: "tabs"; tabs: Array<{ id: string; label: string; body: CardBodyConfig }> }
+  | { kind: "filters"; filters: FilterControlConfig[][]; message: string }
+  /** Fields of the record in a caps-label grid (Claim Details). */
+  | { kind: "fields"; fields: string[]; columns: 2 | 3 }
+  | { kind: "empty" };
+
+/** One block of a record page column (Contact main column, tab content). */
+export type RegionConfig =
+  /** Field section; `card` wraps it in its own card (Contact). `blankHeight` keeps the empty body height Figma shows. */
+  | { kind: "section"; section: SectionConfig; card?: boolean; blankHeight?: "small" | "medium" | "large" }
+  | {
+      kind: "card";
+      id: string;
+      title: string;
+      iconName?: ObjectIconName;
+      /** Line under the title chosen by a field value (Account Balance Summary by Relationship). */
+      subtitle?: { field: string; values: Record<string, string> };
+      body: CardBodyConfig;
+      backend?: BackendState;
+    }
+  | { kind: "relatedList"; list: RelatedListConfig };
+
+export type RecordTabConfig = { id: string; label: string; sections?: SectionConfig[]; regions?: RegionConfig[] };
+
+export type QuickLinkConfig = { id: string; label: string; iconName: ObjectIconName; objectApiName?: string; parentField?: string };
 
 export type SidebarTabContent =
   | { kind: "message"; iconName: ObjectIconName; text: string }
@@ -108,6 +162,7 @@ export type SidebarTabContent =
 
 export type SidebarRegionConfig =
   | { kind: "einstein"; title: string; message: string }
+  | { kind: "relatedList"; list: RelatedListConfig }
   | { kind: "tabs"; id: string; tabs: Array<{ id: string; label: string; content: SidebarTabContent }> };
 
 export type HighlightsConfig = {
@@ -127,8 +182,11 @@ export type HighlightsConfig = {
 export type RecordLayoutConfig = {
   highlights: HighlightsConfig;
   quickLinks?: { links: QuickLinkConfig[]; totalCount?: number };
-  tabs: RecordTabConfig[];
-  defaultTab: string;
+  /** Tabset (Details · Related …). Omit for pages without tabs (Contact) and use `main`. */
+  tabs?: RecordTabConfig[];
+  defaultTab?: string;
+  /** Main column regions when there are no tabs. */
+  main?: RegionConfig[];
   sidebar: SidebarRegionConfig[];
 };
 
@@ -162,6 +220,8 @@ export type ListViewConfig = {
   sort: { field: string; direction: "ascending" | "descending" };
   /** Lightning row-number column (Figma A1: present, numbers not shown). */
   rowNumbers?: "hidden" | "numbers";
+  /** Lightning loads 50 rows at a time: meta says "50+ items" when the list is longer. */
+  pageSize?: number;
 };
 
 /** Split-view item lines: title = name field; optional right text and a second line. */
@@ -174,10 +234,22 @@ export type ActionFieldConfig = {
   field: FieldDef;
   /** Lookup object switcher options (object api names). */
   objectSwitcher?: string[];
-  /** Grid width inside the modal. */
-  size?: "1-of-1" | "1-of-4";
+  /** Grid width inside the modal (default full width). */
+  size?: "1-of-1" | "1-of-2" | "1-of-4";
+  /** Initial value. Tokens: "$today", "$currentUser", "$recordName". */
   defaultValue?: FieldValue;
+  /** Field label hidden (Figma C4: labels lost in the capture are still rendered for accessibility). */
+  hideLabel?: boolean;
 };
+
+/** Paragraph under a form; {recordName} / {ownerName} are replaced and wrapped in bold. */
+export type ActionNoteConfig = { text: string; linkLabel?: string; bullets?: string[] };
+
+/** What Save does: close only, update this record (field ← form key), or create a related record. */
+export type ActionSaveConfig =
+  | { kind: "close" }
+  | { kind: "update"; map: Record<string, string> }
+  | { kind: "create"; objectApiName: string; parentField: string; map: Record<string, string> };
 
 export type ActionConfig =
   | { id: string; label: string; kind: "new" }
@@ -190,9 +262,25 @@ export type ActionConfig =
       kind: "form";
       title: string;
       fields: ActionFieldConfig[];
-      /** Text line under the fields with an inline link, e.g. "Shared with 5 groups of users." + "Edit". */
-      note?: { text: string; linkLabel: string };
+      /** Paragraphs under the fields, e.g. "Shared with 5 groups of users." + "Edit". */
+      notes?: ActionNoteConfig[];
       saveLabel: string;
+      save?: ActionSaveConfig;
+      /** "* = Required Information" legend. */
+      requiredLegend?: boolean;
+      size?: "default" | "small" | "medium";
+    }
+  /** Docked composer creating a related record (Note). */
+  | {
+      id: string;
+      label: string;
+      kind: "composer";
+      objectApiName: string;
+      parentField: string;
+      titleField: string;
+      bodyField: string;
+      /** Header text while the title is empty. */
+      emptyTitle: string;
     }
   /** Captured in Figma, no behaviour in the prototype. */
   | { id: string; label: string; kind: "none" };
@@ -264,5 +352,11 @@ export type ConsoleScenario = {
   splitSelection?: string[];
   /** List views say "Updated N minutes ago" (Figma A1: 2). */
   listUpdatedMinutesAgo?: number;
+  /** Records added to the store first (state after an action, e.g. the saved note of C6). */
+  records?: Record<string, RecordData[]>;
+  /** Pin "today" (ISO) to the capture date (Figma C4: 10/21/2026). */
+  today?: string;
+  /** Open composer: action id, parent record id and its draft values (Figma C5). */
+  composer?: { apiName: string; actionId: string; parentId: string; values: Record<string, FieldValue> };
 };
 

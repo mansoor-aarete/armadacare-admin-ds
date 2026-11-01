@@ -99,3 +99,14 @@ export function hasValue(v: FieldValue | undefined): boolean {
   if (Array.isArray(v)) return v.length > 0;
   return true;
 }
+
+/** "{createdDate} by {createdBy}" → field values formatted by type (missing fields become empty). */
+export function formatTemplate(config: ObjectConfig, record: RecordData, template: string): string {
+  return template.replace(/\{([\w.]+)\}/g, (_, path: string) => {
+    const key = path.split(".")[0];
+    if (!config.fields[key]) return "";
+    const v = getValue(record, path);
+    // Audit values in templates read as the user's name; the time comes from a separate field.
+    return isAudit(v) ? v.by.name : formatValue(fieldAt(config, path), v);
+  });
+}

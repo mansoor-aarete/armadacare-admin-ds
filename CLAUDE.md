@@ -1,4 +1,4 @@
-# ArmadaCare Admin Portal — design system (SLDS 1) · v1.5
+# ArmadaCare Admin Portal — design system (SLDS 1) · v1.6
 
 **Read `guidelines/Guidelines.md` first.** It is the source of truth: hard rules, file index, source layout and the checks to run. Component APIs are in `guidelines/components/overview-components.md` (one row per component) and `guidelines/components/<component-name>.md` (one file per component). Colour rules and every theme override: `guidelines/foundations/color.md`. Intentional differences from Figma: `docs/known-differences.md`.
 

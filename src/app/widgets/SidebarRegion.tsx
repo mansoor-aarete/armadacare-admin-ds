@@ -5,10 +5,15 @@ import { RelatedListCard } from "../components/cards/RelatedListCard";
 import { Card } from "../components/cards/Card";
 import { Icon } from "../components/icons/Icon";
 import { Tabs } from "../components/layout/Tabs";
+import { RelatedList } from "./RelatedList";
 
 export type SidebarRegionProps = {
   region: SidebarRegionConfig;
   record: RecordData;
+  /** Captured back-end state (?state=error). */
+  captured?: boolean;
+  onAction?: (actionId: string) => void;
+  onOpenRecord?: (apiName: string, id: string) => void;
 };
 
 function TabContent({ content, record }: { content: SidebarTabContent; record: RecordData }) {
@@ -41,8 +46,11 @@ function TabContent({ content, record }: { content: SidebarTabContent; record: R
 }
 
 /** One right-sidebar region of a record page: Einstein card, or a tab card (Duplicates, Activity …). */
-export function SidebarRegion({ region, record }: SidebarRegionProps) {
+export function SidebarRegion({ region, record, captured, onAction, onOpenRecord }: SidebarRegionProps) {
   const [active, setActive] = useState(region.kind === "tabs" ? region.tabs[0]?.id ?? "" : "");
+  if (region.kind === "relatedList") {
+    return <RelatedList list={region.list} parent={record} captured={captured} onAction={onAction} onOpenRecord={onOpenRecord} />;
+  }
   if (region.kind === "einstein") {
     return (
       <div className="slds-m-bottom_small">

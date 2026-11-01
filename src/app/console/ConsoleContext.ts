@@ -1,4 +1,8 @@
 import { createContext, useContext } from "react";
+import type { FieldValue } from "../../config/types";
+
+/** Composer request: the parent record and the composer action of its object. */
+export type ComposerRequest = { apiName: string; actionId: string; parentId: string; values: Record<string, FieldValue> };
 
 /** Console actions available to every template (workspace tabs, navigation, shared list state). */
 export type ConsoleApi = {
@@ -12,6 +16,11 @@ export type ConsoleApi = {
   /** Time the list views were last refreshed (ms) — "Updated 2 minutes ago". */
   listUpdatedAt: number;
   refreshList: () => void;
+  /** Captured back-end state (`?state=error`): regions show the errors / loading the Figma capture shows. */
+  captured: boolean;
+  /** Today's ISO date ("$today" defaults; a scenario can pin it to the capture date). */
+  today: string;
+  openComposer: (request: ComposerRequest) => void;
 };
 
 export const ConsoleContext = createContext<ConsoleApi | null>(null);
