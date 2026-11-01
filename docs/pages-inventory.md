@@ -1,7 +1,9 @@
-# Pages inventory and plan — ArmadaCare Admin Portal (built on ds-v1.0)
+# Pages inventory and plan — ArmadaCare Admin Portal (built on ds-v1.4)
 
 Figma: `iiZjEBlMVcWNHALIB4qKBB` (page 0:1) — 10 sections, 48 screens (frames 1920 px wide).
-Status: **P0 (audit + plan) — no page code yet.**
+Status: **P1 done — console, templates and Accounts (A1–A9, D1) built.** Other sections: planned.
+
+Open any built screen in its Figma state with `?scenario=<code>` on a console URL (e.g. `http://localhost:5173/lightning/o/Account/list?scenario=A4`); scenarios open the same workspace tabs and split-view selection as the capture. Normal navigation never needs them.
 
 ## 1. Method and sources
 - Figma MCP `get_metadata` of the whole page (cached in Phase 0) → every text layer with absolute position and its Salesforce component ancestors (`Header Cell - …`, `RecordsHighlightsDetailsItem`, `Record_flexipageRecordField`, `Article - …`, `Button - <field>` …). Dumped per screen and read in reading order.
@@ -20,9 +22,9 @@ Capture glitches are ignored as listed in `docs/known-differences.md` / `docs/in
 
 ## 2. Screens → templates (48)
 
-Status for every screen: **planned**. Planned URL in the last column (see §6).
+Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visual/compare-pages.mjs`) or **planned**. URL in the last column (see §7).
 
-| # | Code | Section | Node | Frame | Template | State shown | Planned URL |
+| # | Code | Section | Node | Frame | Template | State shown | Status · URL |
 |---|---|---|---|---|---|---|---|
 | 1 | P1 | Participant | 2:3 | Account Intelligence View \| Accounts | SearchPage | Participant Search tab, basic, no search run | `/lightning/n/Participant_Search?tab=participant` |
 | 2 | P2 | Participant | 2:260 | ″ | SearchPage | Claim Search tab, basic (17 status checkboxes, All checked) | `…?tab=claim` |
@@ -31,7 +33,7 @@ Status for every screen: **planned**. Planned URL in the last column (see §6).
 | 5 | P5 | Participant | 2:2423 | ″ | SearchPage | Employer results, 13 found, page 1 of 2 (10/page) | `…?tab=employer&name=A` |
 | 6 | P6 | Participant | 2:3068 | ″ | SearchPage | Claim Search advanced ("Show Less"), no records found | `…?tab=claim&advanced=1&employer=…` |
 | 7 | P7 | Participant | 2:3781 | ″ | SearchPage | Participant advanced, all statuses checked, results | `…?tab=participant&advanced=1&lastName=A` |
-| 8 | D1 | Accounts Dashboard | 2:5437 | Account Intelligence View \| Accounts | IntelligenceViewPage | My Accounts, Total Accounts tile selected, empty state | `/lightning/o/Account/intelligence` |
+| 8 | D1 | Accounts Dashboard | 2:5437 | Account Intelligence View \| Accounts | IntelligenceViewPage | My Accounts, Total Accounts tile selected, empty state | **built** 2.36 % · `/lightning/o/Account/intelligence` |
 | 9 | C1 | Contacts | 2:5847 | Adam Sahn \| Contact | RecordPage (no tabs) | default; tabs Aarav · **Adam** | `/lightning/r/Contact/<id>/view` |
 | 10 | C2 | Contacts | 2:7726 | Aarav Aramanai \| Contact | RecordPage | Card Transactions card loading | ″ |
 | 11 | C3 | Contacts | 2:9562 | Antoinette Mitcham \| Contact | RecordPage + ActionModal | Change Contact Owner modal | `…/view?action=changeOwner` |
@@ -63,15 +65,15 @@ Status for every screen: **planned**. Planned URL in the last column (see §6).
 | 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | `/lightning/r/PortalInformation/<id>/view` |
 | 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | `/lightning/r/PlanYearEnrollment/<id>/view` |
 | 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | ″ |
-| 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | `/lightning/o/Account/list?filterName=NewThisWeek` |
-| 41 | A2 | Accounts | 2:42291 | AGent 1 \| Account | RecordPage + ActionModal | Delete Account confirm (Broker Agency layout) | `/lightning/r/Account/<id>/view?action=delete` |
-| 42 | A3 | Accounts | 2:44211 | AGent 1 \| Account | RecordPage + ActionModal (form) | Share modal, lookup focused | `…?action=share` |
-| 43 | A4 | Accounts | 2:46225 | AGent 1 \| Account | RecordPage | Broker Agency layout, Details | `/lightning/r/Account/<id>/view` |
-| 44 | A5 | Accounts | 2:48122 | New Account: Group | RecordFormPage | Group form, scrolled, error popover open | `/lightning/o/Account/new?recordType=Group` (+ Save with errors) |
-| 45 | A6 | Accounts | 2:51331 | New Account: Group | RecordFormPage | top of form, Account Name error | ″ |
-| 46 | A7 | Accounts | 2:54505 | New Account | RecordTypePicker | Group selected | `/lightning/o/Account/new` |
-| 47 | A8 | Accounts | 2:55068 | Account Hierarchy | HierarchyPage (sub-tab) | tree grid, "current" badge | `/lightning/r/Account/<id>/hierarchy` |
-| 48 | A9 | Accounts | 2:55718 | Blalock Development Co \| Account | RecordPage | Group layout, overflow ▼ open (24 items) | `/lightning/r/Account/<id>/view` (menu open) |
+| 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | **built** 5.71 % · `/lightning/o/Account/list?filterName=NewThisWeek` |
+| 41 | A2 | Accounts | 2:42291 | AGent 1 \| Account | RecordPage + ActionModal | Delete Account confirm (Broker Agency layout) | **built** 4.04 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=delete` |
+| 42 | A3 | Accounts | 2:44211 | AGent 1 \| Account | RecordPage + ActionModal (form) | Share modal, lookup focused | **built** 4.17 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=sharing` |
+| 43 | A4 | Accounts | 2:46225 | AGent 1 \| Account | RecordPage | Broker Agency layout, Details | **built** 3.16 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view` |
+| 44 | A5 | Accounts | 2:48122 | New Account: Group | RecordFormPage | Group form, scrolled, error popover open | **built** 3.54 % · `/lightning/o/Account/new?recordType=Group` → Save with Account Name empty |
+| 45 | A6 | Accounts | 2:51331 | New Account: Group | RecordFormPage | top of form, Account Name error | **built** 3.8 % · `/lightning/o/Account/new?recordType=Group` → leave Account Name empty |
+| 46 | A7 | Accounts | 2:54505 | New Account | RecordTypePicker | Group selected | **built** 2.78 % · `/lightning/o/Account/new` |
+| 47 | A8 | Accounts | 2:55068 | Account Hierarchy | HierarchyPage (sub-tab) | tree grid, "current" badge | **built** 2.43 % · `/lightning/r/Account/001Ec00001fY0zTIAS/hierarchy` |
+| 48 | A9 | Accounts | 2:55718 | Blalock Development Co \| Account | RecordPage | Group layout, overflow ▼ open (24 items) | **built** 3.24 % · `/lightning/r/Account/001Ec00001fY0zTIAS/view` → ▼ |
 
 ## 3. Templates (confirmed)
 The expected list holds, with four additions found in the audit (marked **new**). All are generic — no object names inside.
@@ -218,3 +220,23 @@ Note: D1 (Accounts Dashboard) is planned in P1 because the Accounts phase includ
 2. **Content not captured** (Contact Emergency Contact / Enrollment & Plan fields, Card Transaction Amounts / Merchant / Adjudication / Participant sections, Contact Repayments / Recovery tabs, Claim Benefit Snapshot): render the sections empty as in Figma (proposed), or invent fields?
 3. **Backend error texts in Figma** (Account Activity credential error, Benefit Snapshot and Split Approval "No such column …"): reproduce the error states as captured (proposed, matches Figma), or show the intended content?
 4. P5 Employer Code column shows record URLs in Figma (misconfigured column) — reproduce as captured (proposed)?
+
+## 11. P1 result (Accounts)
+
+| Code | Screen | Template | Diff % | Notes |
+|---|---|---|---|---|
+| A1 | List view Accounts New This Week | ObjectListPage | 5.71 | explained: data-table rows 1 px taller than Lightning (KD48) → 22 px drift at the bottom, text anti-aliasing; blank Figma header row masked (KD30) |
+| A2 | Delete Account modal | RecordPage + ActionModal | 4.04 | modal placed in the 911 px capture window (KD58) |
+| A3 | Share modal | RecordPage + ActionModal | 4.17 | search lookup focused |
+| A4 | AGent 1 — Broker Agency layout | RecordPage | 3.16 |  |
+| A5 | New Account: Group — error popover | RecordFormPage | 3.54 | panel width 640 vs 734 px (KD49); header stays (KD51) |
+| A6 | New Account: Group — Account Name error | RecordFormPage | 3.8 | error shown on blur, as Lightning |
+| A7 | Record type picker | RecordTypePicker | 2.78 | centred SLDS header (KD50) |
+| A8 | Account Hierarchy sub-tab | HierarchyPage | 2.43 |  |
+| A9 | Blalock — Group layout, ▼ open | RecordPage | 3.24 | menu shows all 24 items (Figma: 400 px scrolling list, KD60) |
+| D1 | Account Intelligence View | IntelligenceViewPage | 2.36 |  |
+
+Interactions (Playwright, `tools/visual/interactions-accounts.mjs`, 22 checks, 0 console errors): list search, sort, row selection / select-all, list view switching, row ▼ → Delete, open record → workspace tab + split view, split-view item → second tab, switch / close workspace tabs, section expand / collapse, record tab switching, inline edit (pencil → Save), inline-edit validation (error + "We hit a snag."), Delete / Sharing modals, overflow ▼, hierarchy sub-tab open / close, New → record type → form → validation → Save (record tab replaces the New tab), Delete from the record page (tab closes), Cancel, Intelligence View tiles → List View.
+
+Design-system additions made for P1 (all approved): ds-v1.2 Card without title, Modal `inline`, CompoundField, EmptyState `region`; ds-v1.3 ConsoleShell `workspacePadding` / `fill`; ds-v1.4 record density, split-view toggle column, DataTable `rowNumberColumn`.
+

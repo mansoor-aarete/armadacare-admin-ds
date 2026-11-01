@@ -3,7 +3,7 @@
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 
 ## What this is
-A React + TypeScript design system that reproduces **Salesforce Lightning Design System 1** (`@salesforce-ux/design-system` **2.264.3**, pinned) with the ArmadaCare olive brand. It mirrors a Salesforce Lightning **console** app. Design system only — no pages.
+A React + TypeScript design system that reproduces **Salesforce Lightning Design System 1** (`@salesforce-ux/design-system` **2.264.3**, pinned) with the ArmadaCare olive brand. It mirrors a Salesforce Lightning **console** app. Design system plus the console pages built from it (templates + config, see "Pages" below).
 
 ## Hard rules
 1. **SLDS 1 blueprints only.** Same elements, classes and ARIA attributes as the SLDS 1 blueprint for 2.264.3. Never SLDS 2 / Cosmos.
@@ -17,6 +17,16 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 9. **Reuse before create.** Extend an existing component with a prop. Never duplicate one.
 10. **Every icon-only control has `assistiveText`.**
 11. **Config-driven.** Pages pass data and behaviour through props and config arrays (`items`, `columns`, `options`, `tabs`, `actions`, `details` …). Never fork a component or hard-code page content inside it.
+
+## Pages (templates + config)
+Pages are built from templates; object content is config. **Adding an object = `src/objects/<object>/` (config.ts · mock-data.ts · types.ts) + one line in `src/objects/index.ts` and `src/objects/seeds.ts`. Zero page code.**
+- `src/config/types.ts` — config and data shapes (fields, layouts, sections, forms, list views, actions, scenarios).
+- `src/app/console/` — ConsoleApp (routing, workspace tabs / sub-tabs, split view), `urls.ts`, `useServiceData`.
+- `src/app/templates/` — ObjectListPage, RecordPage, RecordFormPage, RecordTypePicker, ActionModal, HierarchyPage, IntelligenceViewPage.
+- `src/app/widgets/` — FieldSection, FieldView, FieldInput, SidebarRegion, value formatting.
+- `src/services/` — async data access (Promises) over an in-memory store seeded from mock data; swap for Salesforce APIs without touching pages. Pages never import mock data.
+- Page code composes design-system components only: no CSS, no inline styles, no hex; SLDS classes limited to grid, spacing and text utilities (`npm run verify` enforces this).
+- `?scenario=<code>` opens a Figma screen state (tabs, selection) for review and diffs — see `docs/pages-inventory.md`.
 
 ## Before you finish any change
 - `npm run verify` — fails on unknown `slds-*` classes, Tailwind, hex / rgb / px in components, unverified hooks.

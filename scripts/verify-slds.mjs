@@ -11,6 +11,8 @@
  *     px only in slds-theme.css (box-shadow geometry copied from SLDS); every --slds-* hook the
  *     theme sets must be read somewhere in the SLDS CSS (verified hooks only).
  *  6. Tailwind (incl. Preflight) is never imported.
+ *  7. Page code (src/app/console, templates, widgets; src/objects, src/services, src/config) uses no inline styles and
+ *     only SLDS grid / spacing / text utilities (pages compose components; all other styling lives in the DS).
  *
  * Dev-only (Node fs). Figma Make never runs it.
  */
@@ -118,6 +120,19 @@ for (const abs of files) {
     }
     // 6
     if (/@import\s+['"]tailwindcss|@tailwind\b|tailwindcss\/preflight/.test(noComments)) err(file, 1, 'imports Tailwind / Preflight');
+  }
+}
+
+// 7: page code — grid / spacing / text utilities only, no inline styles
+const PAGE_DIRS = ['src/app/console/', 'src/app/templates/', 'src/app/widgets/', 'src/objects/', 'src/services/', 'src/config/'];
+const PAGE_CLASS = /^slds-(grid|col|size_|medium-size_|large-size_|gutters|wrap|nowrap|grow|shrink|no-flex|has-flexi-truncate|m-|p-|text-|required$|truncate$|line-height_reset$)/;
+for (const abs of files) {
+  const file = rel(abs);
+  if (!PAGE_DIRS.some((d) => file.startsWith(d)) || !/\.tsx?$/.test(file)) continue;
+  const text = fs.readFileSync(abs, 'utf8');
+  for (const m of text.matchAll(/\bstyle=\{/g)) err(file, lineOf(text, m.index), 'inline style in page code');
+  for (const m of text.matchAll(/(?<![\w-])slds-[A-Za-z0-9_-]+/g)) {
+    if (!PAGE_CLASS.test(m[0])) err(file, lineOf(text, m.index), `"${m[0]}" in page code — pages may use only SLDS grid / spacing / text utilities`);
   }
 }
 

@@ -6,6 +6,7 @@ node_modules/
 
 # Local visual-verification output (tools/visual is local-only, not part of Figma Make)
 tools/visual/output/
+tools/visual/output-pages/
 
 # Local environment
 .env
