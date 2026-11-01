@@ -5,6 +5,7 @@ import { CARD_TRANSACTION_RECORDS, CARD_TRANSACTION_SCENARIOS } from "./cardTran
 import { CONTACT_RECORDS, CONTACT_SCENARIOS } from "./contact/mock-data";
 import { PLAN_YEAR_HISTORY_RECORDS, PLAN_YEAR_RECORDS, PLAN_YEAR_SCENARIOS } from "./planYear/mock-data";
 import { PLAN_YEAR_ENROLLMENT_MEMBER_RECORDS, PLAN_YEAR_ENROLLMENT_RECORDS, PLAN_YEAR_ENROLLMENT_SCENARIOS } from "./planYearEnrollment/mock-data";
+import { PORTAL_INFORMATION_RECORDS, PORTAL_INFORMATION_SCENARIOS } from "./portalInformation/mock-data";
 import { REPORT_FOLDER_RECORDS, REPORT_RECORDS, REPORT_SCENARIOS } from "./report/mock-data";
 import { CURRENT_USER_ID, USER_RECORDS } from "./user/mock-data";
 
@@ -23,6 +24,7 @@ export const SEED_RECORDS: Record<string, RecordData[]> = {
   PlanYearEnrollment: PLAN_YEAR_ENROLLMENT_RECORDS,
   PlanYearEnrollmentMember: PLAN_YEAR_ENROLLMENT_MEMBER_RECORDS,
   CardTransaction: CARD_TRANSACTION_RECORDS,
+  PortalInformation: PORTAL_INFORMATION_RECORDS,
   User: USER_RECORDS,
   Note: [],
   Task: [],
@@ -40,4 +42,5 @@ export const SEED_SCENARIOS: Record<string, ConsoleScenario> = {
   ...PLAN_YEAR_SCENARIOS,
   ...PLAN_YEAR_ENROLLMENT_SCENARIOS,
   ...CARD_TRANSACTION_SCENARIOS,
+  ...PORTAL_INFORMATION_SCENARIOS,
 };

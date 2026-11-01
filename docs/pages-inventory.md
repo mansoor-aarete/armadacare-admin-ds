@@ -62,7 +62,7 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 34 | PY1 | Plan Years | 2:36529 | 2026 Meridian \| Plan Year | RecordPage | Related tab (Plan Year History 6+), 5 workspace tabs | **built** 3.4 % · `/lightning/r/PlanYear/a1PEc00000PY26MER1/view?tab=related` |
 | 35 | PY2 | Plan Years | 2:37382 | 2026 Meridian \| Plan Year | RecordPage | Details tab | **built** 3.31 % · `/lightning/r/PlanYear/a1PEc00000PY26MER1/view?tab=details` |
 | 36 | PY3 | Plan Years | 2:38258 | 2026 Double Platinum \| Plan Year | RecordPage | Details tab | **built** 3.25 % · `/lightning/r/PlanYear/<2026 Double Platinum>/view?tab=details` |
-| 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | `/lightning/r/PortalInformation/<id>/view` |
+| 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | **built** 4.13 % · `/lightning/r/PortalInformation/a3PEc00000PINF0001/view` |
 | 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | **built** 4.19 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00001/view` |
 | 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | **built** 3.6 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00114/view` |
 | 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | **built** 5.71 % · `/lightning/o/Account/list?filterName=NewThisWeek` |

@@ -6,6 +6,7 @@ import { CARD_TRANSACTION_CONFIG } from "./cardTransaction/config";
 import { CONTACT_CONFIG } from "./contact/config";
 import { PLAN_YEAR_CONFIG, PLAN_YEAR_HISTORY_CONFIG } from "./planYear/config";
 import { PLAN_YEAR_ENROLLMENT_CONFIG, PLAN_YEAR_ENROLLMENT_MEMBER_CONFIG } from "./planYearEnrollment/config";
+import { PORTAL_INFORMATION_CONFIG } from "./portalInformation/config";
 import { REPORT_CONFIG, REPORT_FOLDER_CONFIG } from "./report/config";
 import { USER_CONFIG } from "./user/config";
 
@@ -28,6 +29,7 @@ export const OBJECTS: Record<string, ObjectConfig> = {
   PlanYearEnrollment: PLAN_YEAR_ENROLLMENT_CONFIG,
   PlanYearEnrollmentMember: PLAN_YEAR_ENROLLMENT_MEMBER_CONFIG,
   CardTransaction: CARD_TRANSACTION_CONFIG,
+  PortalInformation: PORTAL_INFORMATION_CONFIG,
   User: USER_CONFIG,
   Note: NOTE_CONFIG,
   Task: TASK_CONFIG,
@@ -35,7 +37,7 @@ export const OBJECTS: Record<string, ObjectConfig> = {
 };
 
 /** Objects listed in the console navigation menu, in order. */
-export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report", "PlanYear", "PlanYearEnrollment", "CardTransaction"];
+export const NAV_OBJECTS = ["Account", "Contact", "Claim", "Report", "PlanYear", "PlanYearEnrollment", "CardTransaction", "PortalInformation"];
 
 export function getObjectConfig(apiName: string): ObjectConfig {
   const config = OBJECTS[apiName];

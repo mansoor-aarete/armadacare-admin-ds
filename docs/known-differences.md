@@ -99,3 +99,5 @@ Intentional or unavoidable differences, kept here so they can be revisited. Upda
 | KD93 | Card Transaction sections Amounts / Merchant & Description / Adjudication & Status / Participant & Receipt Info | Headers only (fields not captured) | Empty sections from config — fields can be added without code | Answer 2 | Yes — supply the fields |
 | KD94 | Card Transaction ▼ menu | Only ▼ in the highlights, items not captured | Edit · Delete · Sharing · Printable View | Answer 2 | Yes |
 | KD95 | T1 Created By | Name and date overlapped in the capture | Rendered normally | Capture glitch | No |
+| KD96 | Portal Information split view lines | Line 2 message; severity on line 2 or wrapped to line 3 (long message) | Line 2: message left, severity right (SplitView truncates the message) | Mapping inferred from the capture | No |
+| KD97 | New Portal Information form | Not captured | Form from the Details fields with defaults Severity Info, Display Location Dashboard, Approval Status Draft, Is Active | Answer 2 | Yes — confirm |
