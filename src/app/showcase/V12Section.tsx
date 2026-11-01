@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "../components/buttons/Button";
+import { DataTable } from "../components/data/DataTable";
 import { Card } from "../components/cards/Card";
 import { EmptyState } from "../components/feedback/EmptyState";
 import { CompoundField } from "../components/forms/CompoundField";
@@ -104,6 +105,25 @@ export function V12Section() {
               <Button label="Next" variant="brand" className="slds-m-left_x-small" />
             </div>
           </Modal>
+        </ShowcaseExample>
+        <ShowcaseExample title="ds-v1.4 — DataTable row-number column (hidden / numbers)" visualId="datatable-row-numbers" full>
+          {(["hidden", "numbers"] as const).map((mode) => (
+            <div key={mode} className="slds-m-bottom_small">
+              <DataTable
+                label={`Accounts (${mode})`}
+                rowNumberColumn={mode}
+                selection={{ selectedIds: [], onChange: () => undefined }}
+                columns={[
+                  { key: "name", label: "Account Name", value: (r) => r.name, link: () => true },
+                  { key: "alias", label: "Account Owner Alias", value: (r) => r.alias },
+                ]}
+                rows={[
+                  { id: "1", name: "AGent 1", alias: "gkaly" },
+                  { id: "2", name: "ArmadaCare", alias: "zachman" },
+                ]}
+              />
+            </div>
+          ))}
         </ShowcaseExample>
         <ShowcaseExample title="ds-v1.3 — Console shell, flush workspace (workspacePadding={false})" visualId="console-shell-flush" full>
           <div style={{ height: "16rem" }}>

@@ -107,6 +107,8 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | List-view ▼ (object home actions only; record headers stay grey, as in Figma) | `.slds-page-header_object-home .slds-page-header__col-actions .slds-button_icon-border-filled` | `color` → brand |
 | Selected metric tile | `.slds-button_reset.slds-box[aria-pressed="true"]` | 2 px `--slds-g-color-border-base-4` border |
 | Quick links | `.slds-card__body_inner > .slds-grid > .slds-size_1-of-7 > a`, `.slds-card__body_inner > .slds-text-align_center > a` | `text-decoration: underline` |
+| Record detail density (ds-v1.4) | `.slds-form-element_readonly .slds-form-element__control` (padding 0, line-height 1), `… .slds-form-element__static` (0.8125rem, line-height 1.5, min-height 0), `.slds-form-element_readonly.slds-form-element_horizontal .slds-form-element__label` (padding-top 0.125rem, line-height 1.25) | Lightning record rows: 26 px empty / 28.5 px with a value / 41 px two-line label (Figma A4 / A9) instead of 34 px |
+| Split-view toggle column (ds-v1.4) | `.slds-split-view__toggle-button` (width 1.5rem, right −1.5rem); ConsoleShell adds `slds-m-left_large` to the workspace when a split view is shown | Lightning's 24 px toggle column (Figma: list ends x 378, workspace x 402) instead of a 12 px strip over the workspace |
 | Console object item | `.slds-context-bar__object-switcher` (width 11.5625rem), `.slds-is-active` (no item tint / animation / `:before` bar), `> .slds-context-bar__label-action` (12 px padding; active: tint + 3 px inset top bar), `> .slds-context-bar__icon-action` (own cell: left border, no negative margin) | ▼ in its own cell (Figma A1) |
 
 ## Do / Don't

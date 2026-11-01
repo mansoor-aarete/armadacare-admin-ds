@@ -37,7 +37,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
-| DataTable | `data/DataTable.tsx` | `DataTableProps` | **`label`**, **`columns`**, **`rows`**, `variant?`, `firstColumnIsRowHeader?`, `onLinkClick?`, `selection?`, `sort?`, `onSort?`, `columnMenus?`, `onColumnMenu?`, `resizable?`, `rowActions?`, `onRowAction?` | `data-table.md` | component | **stable** |
+| DataTable | `data/DataTable.tsx` | `DataTableProps` | **`label`**, **`columns`**, **`rows`**, `variant?`, `firstColumnIsRowHeader?`, `onLinkClick?`, `rowNumberColumn?`, `selection?`, `sort?`, `onSort?`, `columnMenus?`, `onColumnMenu?`, `resizable?`, `rowActions?`, `onRowAction?` | `data-table.md` | component | **stable** |
 | Pagination | `data/Pagination.tsx` | `PaginationProps` | **`page`**, **`pageCount`**, **`onPageChange`**, `pageSize?`, `pageSizeOptions?`, `onPageSizeChange?`, `label?` | `pagination.md` | component | **stable** |
 | TreeGrid | `data/TreeGrid.tsx` | `TreeGridProps` | **`label`**, **`columns`**, **`rows`**, **`expandedIds`**, **`onToggle`**, `onLinkClick?`, `capsHeader?`, `rowActions?`, `onRowAction?` | `tree-grid.md` | component | **stable** |
 

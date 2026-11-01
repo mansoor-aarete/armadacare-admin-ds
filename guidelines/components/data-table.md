@@ -11,6 +11,7 @@ File: `src/app/components/data/DataTable.tsx` — generic over `Row extends { id
 | `rows` | `Row[]` | |
 | `variant` | `"advanced" \| "base"` | default advanced |
 | `firstColumnIsRowHeader` | `boolean` | default true |
+| `rowNumberColumn?` | `"hidden" \| "numbers"` | ds-v1.4 — Lightning row-number column (3.25rem) before the checkboxes; `hidden` = column without numbers (Figma A1), `numbers` = SLDS `slds-row-number` counter. With it the selection column is 2rem |
 | `selection?` | `{ selectedIds; onChange }` | checkboxes + indeterminate select-all |
 | `sort?`, `onSort?` | `{ key; direction }`, `(key) => void` | one arrow glyph; SLDS rotates it for ascending |
 | `columnMenus?`, `onColumnMenu?` | | header ▾ buttons |

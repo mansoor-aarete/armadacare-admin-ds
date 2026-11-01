@@ -41,7 +41,8 @@ export function ConsoleShell({ globalHeader, appNav, splitView, utilityBar, chil
             {splitView}
           </div>
         ) : null}
-        <main id="main-content" className={cx("slds-col slds-scrollable_y", workspacePadding && "slds-p-around_small")}>
+        {/* With a split view, the left margin reserves the 1.5rem toggle column (theme block C, Figma). */}
+        <main id="main-content" className={cx("slds-col slds-scrollable_y", workspacePadding && "slds-p-around_small", splitView ? "slds-m-left_large" : undefined)}>
           {children}
         </main>
       </div>

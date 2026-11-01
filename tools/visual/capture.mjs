@@ -7,7 +7,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
 
-const base = process.argv[2] ?? 'http://localhost:5199';
+// Accepts the server root or the /showcase URL (as documented in Guidelines.md).
+const base = (process.argv[2] ?? 'http://localhost:5199').replace(/\/showcase\/?$/, '');
 const outDir = path.resolve(process.argv[3] ?? 'output');
 fs.mkdirSync(path.join(outDir, 'elements'), { recursive: true });
 

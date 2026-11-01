@@ -42,6 +42,12 @@ export type DataTableProps<Row extends DataTableRow> = {
   /** First column is the row header (th scope=row). Default true. */
   firstColumnIsRowHeader?: boolean;
   onLinkClick?: (row: Row, columnKey: string) => void;
+  /**
+   * Row-number column before the selection column (Lightning `show-row-number-column`, advanced; ds-v1.4).
+   * "hidden" keeps the 3.25rem column without numbers (Figma A1), "numbers" shows 1, 2, 3 … With it the selection
+   * column narrows to 2rem, as in Lightning.
+   */
+  rowNumberColumn?: "hidden" | "numbers";
   /** Row selection checkboxes (advanced). */
   selection?: { selectedIds: string[]; onChange: (ids: string[]) => void };
   sort?: { key: string; direction: SortDirection };
@@ -103,6 +109,7 @@ export function DataTable<Row extends DataTableRow>({
   variant = "advanced",
   firstColumnIsRowHeader = true,
   onLinkClick,
+  rowNumberColumn,
   selection,
   sort,
   onSort,
@@ -162,8 +169,13 @@ export function DataTable<Row extends DataTableRow>({
     >
       <thead>
         <tr className="slds-line-height_reset">
+          {rowNumberColumn ? (
+            <th scope="col" style={{ width: "3.25rem" }}>
+              <span className="slds-assistive-text">Row Number</span>
+            </th>
+          ) : null}
           {selection ? (
-            <th className="slds-text-align_right" scope="col" style={{ width: "3.25rem" }}>
+            <th className="slds-text-align_right" scope="col" style={{ width: rowNumberColumn ? "2rem" : "3.25rem" }}>
               <span className="slds-assistive-text">Choose a row</span>
               <div className="slds-th__action slds-th__action_form">
                 <Checkbox
@@ -276,6 +288,11 @@ export function DataTable<Row extends DataTableRow>({
               aria-selected={selection ? (isSelected ? "true" : "false") : undefined}
               className={cx("slds-hint-parent", isSelected && "slds-is-selected")}
             >
+              {rowNumberColumn ? (
+                <td className="slds-text-align_right" role="gridcell">
+                  {rowNumberColumn === "numbers" ? <span className="slds-row-number slds-text-body_small slds-text-color_weak" /> : null}
+                </td>
+              ) : null}
               {selection ? (
                 <td className="slds-text-align_right" role="gridcell">
                   <Checkbox

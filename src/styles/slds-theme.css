@@ -363,3 +363,28 @@ a:active {
   height: 9.25rem;
   margin-top: -4.5rem;
 }
+
+/* Record detail density (ds-v1.4): Lightning record layouts render 13 px values in 26–28.5 px rows (Figma A4 / A9
+   RecordsRecordLayoutItem); SLDS 2.264.3 gives 14 px values with 2 px control padding (34 px rows). */
+.slds-form-element_readonly .slds-form-element__control {
+  padding-top: 0;
+  padding-bottom: 0;
+  /* Empty values: the row height comes from the label (Figma 26 px), not from the pencil's line box. */
+  line-height: 1;
+}
+.slds-form-element_readonly .slds-form-element__static {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  min-height: 0;
+}
+.slds-form-element_readonly.slds-form-element_horizontal .slds-form-element__label {
+  padding-top: 0.125rem;
+  line-height: 1.25;
+}
+
+/* Split view toggle (ds-v1.4): Lightning's toggle is its own 24 px column between the list and the workspace
+   (Figma: list ends x 378, workspace x 402); SLDS draws a 12 px strip over the workspace. ConsoleShell reserves the column. */
+.slds-split-view__toggle-button {
+  right: -1.5rem;
+  width: 1.5rem;
+}
