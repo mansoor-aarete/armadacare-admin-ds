@@ -168,7 +168,15 @@ const CHEN_FAMILY: RecordData[] = [
 ];
 export const CHEN_IDS = { david: DAVID_CHEN, lisa: LISA_CHEN, natasha: NATASHA_CHEN, ryan: RYAN_CHEN };
 
-export const CONTACT_RECORDS: RecordData[] = [...LIST, ...CHEN_FAMILY].map((r) => ({
+/** Plan Year Enrollment subscribers / members (Figma E1, E2). */
+export const ENROLLMENT_CONTACT_IDS = { sofia: "003Ec00000SMart001", carlos: "003Ec00000CMart001", vs: "003Ec00000VSlast01" };
+const ENROLLMENT_CONTACTS: RecordData[] = [
+  { id: ENROLLMENT_CONTACT_IDS.sofia, values: { name: "Sofia Martinez", relationship: "Participant", gender: "F" } },
+  { id: ENROLLMENT_CONTACT_IDS.carlos, values: { name: "Carlos Martinez", relationship: "Dependent", employee: contact(ENROLLMENT_CONTACT_IDS.sofia, "Sofia Martinez"), gender: "M" } },
+  { id: ENROLLMENT_CONTACT_IDS.vs, values: { name: "vsfirst1 vslast1", relationship: "Participant" } },
+];
+
+export const CONTACT_RECORDS: RecordData[] = [...LIST, ...CHEN_FAMILY, ...ENROLLMENT_CONTACTS].map((r) => ({
   ...r,
   values: { contactOwner: userRef("Zach Ackerman"), ...r.values, ...(DETAILS[r.id] ?? {}) },
   related: r.id === ADAM_SAHN ? { affiliatedPlans: 3, contactHistory: 1 } : r.id === AARAV_ARAMANAI ? { affiliatedPlans: 2, contactHistory: 1 } : r.id === ANTOINETTE_MITCHAM ? { affiliatedPlans: 6, contactHistory: 2 } : undefined,

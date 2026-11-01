@@ -8,6 +8,7 @@ import { FileSelector } from "../components/forms/FileSelector";
 import { toIso } from "../components/utils/dates";
 import { updatedAgo, useConsole } from "../console/ConsoleContext";
 import { useServiceData } from "../console/useServiceData";
+import { ActionModal } from "../templates/ActionModal";
 import { LIST_VIEW_CONTROLS, ROW_ACTIONS, sortRows } from "../templates/listShared";
 import { fieldAt, formatTemplate, formatValue, getValue, hasValue, isLookup } from "./fieldValues";
 
@@ -35,6 +36,7 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
   const shown = list.pageSize ? records.slice(0, list.pageSize) : records;
   const count = childApi ? (list.pageSize && records.length >= list.pageSize ? `${list.pageSize}+` : records.length) : parent.related?.[list.id] ?? 0;
   const [selected, setSelected] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState<RecordData | null>(null);
   const loading = Boolean(captured && list.backend?.loading);
 
   const menu = list.menu === false || list.buttons ? undefined : [{ value: "new", label: "New" }];
@@ -74,7 +76,13 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
         rows={shown}
         rowActions={list.rowActions === false ? undefined : ROW_ACTIONS}
         selection={list.selectable ? { selectedIds: selected, onChange: setSelected } : undefined}
-        onLinkClick={(r) => childApi && onOpenRecord?.(childApi, r.id)}
+        onLinkClick={(r, key) => {
+          const v = getValue(r, key);
+          const c = list.columns?.find((x) => x.field === key);
+          if (c?.link === "lookup" && isLookup(v)) onOpenRecord?.(v.objectApiName, v.id);
+          else if (childApi) onOpenRecord?.(childApi, r.id);
+        }}
+        onRowAction={(r, action) => (action === "delete" ? setDeleting(r) : childApi && onOpenRecord?.(childApi, r.id))}
       />
     );
   } else if (child && list.display === "files" && !records.length) {
@@ -114,6 +122,16 @@ export function RelatedList({ list, parent, captured, onAction, onOpenRecord }: 
       >
         {body ?? undefined}
       </RelatedListCard>
+      {deleting && child ? (
+        <ActionModal
+          apiName={child.apiName}
+          record={deleting}
+          action={{ id: "delete", label: "Delete", kind: "delete", title: `Delete ${child.label}`, message: `Are you sure you want to delete this ${child.label.toLowerCase()}?`, confirmLabel: "Delete" }}
+          today={con.today}
+          onClose={() => setDeleting(null)}
+          onDeleted={() => setDeleting(null)}
+        />
+      ) : null}
     </div>
   );
 }

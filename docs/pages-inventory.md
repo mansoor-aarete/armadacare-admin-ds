@@ -63,8 +63,8 @@ Status: **built** (diff % = full-page pixel diff vs the Figma frame, `tools/visu
 | 35 | PY2 | Plan Years | 2:37382 | 2026 Meridian \| Plan Year | RecordPage | Details tab | **built** 3.31 % · `/lightning/r/PlanYear/a1PEc00000PY26MER1/view?tab=details` |
 | 36 | PY3 | Plan Years | 2:38258 | 2026 Double Platinum \| Plan Year | RecordPage | Details tab | **built** 3.25 % · `/lightning/r/PlanYear/<2026 Double Platinum>/view?tab=details` |
 | 37 | PI1 | Portal Informations | 2:39060 | Portal Info Name 1 \| Portal Information | RecordPage | Details | `/lightning/r/PortalInformation/<id>/view` |
-| 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | `/lightning/r/PlanYearEnrollment/<id>/view` |
-| 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | ″ |
+| 38 | E1 | Plan Year Enrollments | 2:39648 | PYE-0000001 \| Plan Year Enrollment | RecordPage | Details + members related list (2) | **built** 4.19 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00001/view` |
+| 39 | E2 | Plan Year Enrollments | 2:40422 | PYE-0000114 \| Plan Year Enrollment | RecordPage | Details + members (0) | **built** 3.6 % · `/lightning/r/PlanYearEnrollment/a1EEc00000PYE00114/view` |
 | 40 | A1 | Accounts | 2:41037 | Accounts New This Week \| Accounts | ObjectListPage | list view, 22 rows | **built** 5.71 % · `/lightning/o/Account/list?filterName=NewThisWeek` |
 | 41 | A2 | Accounts | 2:42291 | AGent 1 \| Account | RecordPage + ActionModal | Delete Account confirm (Broker Agency layout) | **built** 4.04 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=delete` |
 | 42 | A3 | Accounts | 2:44211 | AGent 1 \| Account | RecordPage + ActionModal (form) | Share modal, lookup focused | **built** 4.17 % · `/lightning/r/Account/001Ec00002JBm5RIAT/view?action=sharing` |

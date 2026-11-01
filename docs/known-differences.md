@@ -94,3 +94,5 @@ Intentional or unavoidable differences, kept here so they can be revisited. Upda
 | KD88 | Plan Year History count | "6+" with 6 rows | List `pageSize: 6` → "6+" once 6 rows exist (only 6 were captured) | Lightning paging | No |
 | KD89 | New Plan Year form | Not captured | Form built from the Details fields (config `forms.planYear`) | Answer 2 | Yes — confirm the form layout |
 | KD90 | Plan lookups | "Ultimate Health Diamond", "Double Platinum" (Plan records) | Lookup values without a Plan page (no Plan screens in Figma) | Not captured | No |
+| KD91 | Plan Year Enrollment Members "New" / "Change Owner" | Buttons captured, forms not | New opens a small form (Member, Status) and creates a member; Change Owner has no action | Answer 2 | Yes — confirm the New member form |
+| KD92 | Plan Year Tier lookups (E1, E2) | "a7LEc00000TIcXb" / "…TIcXe" link values | Lookup values without a Plan Year Tier page (not captured) | Not captured | No |
