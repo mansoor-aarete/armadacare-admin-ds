@@ -5,4 +5,4 @@ File: `src/app/components/navigation/VerticalNav.tsx`.
 
 ## Props — `VerticalNavProps`
 `label`, `sections: { id; title; items: { id; label; href? }[] }[]`, `activeId`, `onSelect(id)`, `shaded?`, `compact?`, `capsTitles?` (default true — Figma Reports caps titles).
-Active item: olive tint + olive bar (theme block B).
+Active item: olive tint, bold, **no left bar** (Figma R1 — theme block B removes the SLDS bar; keyboard focus keeps the SLDS focus ring).

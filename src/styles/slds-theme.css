@@ -195,35 +195,25 @@ a:active {
   background: var(--ac-color-brand);
 }
 
-/* Vertical navigation (Reports) — Figma: olive-tinted active row */
+/* Vertical navigation (Reports) — Figma: olive-tinted active row, NO left bar (KD5).
+   SLDS draws a hard-coded blue inset bar on hover / active; removed here. Keyboard focus keeps the SLDS
+   focus shadow and the blue-40 outline (not overridden). */
 .slds-nav-vertical__item:hover:before,
 .slds-nav-vertical__item.slds-is-active:before {
   background: var(--ac-color-brand-base-tint);
 }
-.slds-nav-vertical__action {
-  box-shadow: inset 0 0 0 var(--ac-color-brand-base);
-}
-.slds-nav-vertical__action:hover {
-  box-shadow: inset 2px 0 0 var(--ac-color-brand-base);
-}
-[dir=rtl] .slds-nav-vertical__action:hover {
-  box-shadow: inset -2px 0 0 var(--ac-color-brand-base);
-}
-.slds-nav-vertical__action:focus:hover {
-  box-shadow: inset 2px 0 0 var(--ac-color-brand-base);
-}
-.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action {
-  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
-}
-.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action:focus {
-  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
-}
+.slds-nav-vertical__action,
+.slds-nav-vertical__action:hover,
+[dir=rtl] .slds-nav-vertical__action:hover,
+.slds-nav-vertical__action:focus:hover,
+.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action,
+.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action:focus,
 [dir=rtl] .slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action {
-  box-shadow: inset -4px 0 0 var(--ac-color-brand-base);
+  box-shadow: none;
 }
 .slds-nav-vertical__item [type=radio]:checked + .slds-nav-vertical__action {
   background-color: var(--ac-color-brand-base-tint);
-  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+  box-shadow: none;
 }
 
 /* Utility bar — DERIVED (active state not in Figma): same treatment as the console tabs */

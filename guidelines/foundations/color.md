@@ -74,12 +74,8 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | | `.slds-datepicker .slds-has-multi-row-selection .slds-is-selected-multi:first-child > .slds-day:before`, `… :last-child > .slds-day:after` | `background` → brand |
 | | `.slds-datepicker td.slds-is-selected-multi + .slds-is-selected-multi > .slds-day:before` | `background` → brand |
 | Vertical navigation (Reports) | `.slds-nav-vertical__item:hover:before`, `.slds-nav-vertical__item.slds-is-active:before` | `background` → brand-base-tint |
-| | `.slds-nav-vertical__action` | `box-shadow` inset 0 → brand-base |
-| | `.slds-nav-vertical__action:hover`, `.slds-nav-vertical__action:focus:hover` | inset 2px bar → brand-base |
-| | `[dir=rtl] .slds-nav-vertical__action:hover` | inset −2px bar → brand-base |
-| | `.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action`, `… :focus` | inset 4px bar → brand-base |
-| | `[dir=rtl] .slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action` | inset −4px bar → brand-base |
-| | `.slds-nav-vertical__item [type=radio]:checked + .slds-nav-vertical__action` | `background-color` → brand-base-tint, inset 4px bar → brand-base |
+| | `.slds-nav-vertical__action`, `:hover`, `[dir=rtl] …:hover`, `:focus:hover`, `.slds-is-active …` (+ `:focus`, rtl) | `box-shadow: none` — no left bar (Figma, KD5); focus keeps the SLDS focus shadow / blue-40 outline |
+| | `.slds-nav-vertical__item [type=radio]:checked + .slds-nav-vertical__action` | `background-color` → brand-base-tint, no bar |
 | Utility bar — **DERIVED** (active state not in Figma; same treatment as console tabs) | `.slds-utility-bar__action:hover`, `.slds-utility-bar__action:focus` | `background` → brand-base-tint |
 | | `.slds-utility-bar__action.slds-is-active` | `background` → brand-base-tint |
 | | `.slds-utility-bar__action.slds-is-active:after` | `background` → brand-base |
