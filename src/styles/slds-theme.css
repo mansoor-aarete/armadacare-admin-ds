@@ -1,0 +1,257 @@
+/*
+ * ArmadaCare theme for SLDS 1 — @salesforce-ux/design-system 2.264.3
+ *
+ * The ONLY file in the project that may contain colour values. Loaded after the SLDS stylesheet
+ * (see src/main.tsx), so every rule below wins over the SLDS rule with the same selector.
+ *
+ *   Brand tokens   Each brand colour defined once (between the @brand-tokens markers).
+ *                  scripts/verify-slds fails if a hex / rgb() value appears anywhere else in src/.
+ *   Block A        Styling-hook overrides. Only hooks that the SLDS CSS actually reads
+ *                  (verified by scripts/verify-slds).
+ *   Block B        Re-colours the SLDS rules that hard-code Salesforce blue and have no hook.
+ *                  Selectors are copied exactly from the SLDS CSS; only colour values change.
+ *                  Every selector is listed in guidelines/foundations/color.md.
+ *
+ * Focus rings, error, success, warning and neutral colours stay SLDS defaults (they match Figma).
+ */
+
+/* @brand-tokens:start */
+:root {
+  /* Figma: brand buttons, neutral-button text, links, menu items, checkbox/radio marks. */
+  --ac-color-brand: #57612d;
+  /* DERIVED (not in Figma): #57612d with SLDS's hover step (#0176d3 → #014486, lightness × 0.637). */
+  --ac-color-brand-dark: #373e1d;
+  /* Figma: active indicators — console-tab top bar, tab underline, split-view selected bar. */
+  --ac-color-brand-base: #8b9a4c;
+  /* Figma: active console tab / object nav item background (#8b9a4c at 10 %). */
+  --ac-color-brand-base-tint: rgba(139, 154, 76, 0.1);
+  /* Figma: page background is white — reuse the SLDS neutral token, no new value. */
+  --ac-color-page-background: var(--slds-g-color-neutral-base-100);
+  /* Figma: lookup object-switcher user icon (SLDS 2.264.3 standard:user is #107cad). */
+  --ac-color-icon-user: #34becd;
+}
+/* @brand-tokens:end */
+
+/* ============================================================================================
+ * Block A — styling-hook overrides
+ * ========================================================================================== */
+:root {
+  /* Links (where SLDS reads the link hooks) */
+  --slds-g-link-color: var(--ac-color-brand);
+  --slds-g-link-color-hover: var(--ac-color-brand-dark);
+  --slds-g-link-color-focus: var(--ac-color-brand-dark);
+
+  /* Brand button (.slds-button_brand) */
+  --slds-c-button-brand-color-background: var(--ac-color-brand);
+  --slds-c-button-brand-color-background-hover: var(--ac-color-brand-dark);
+  --slds-c-button-brand-color-background-active: var(--ac-color-brand-dark);
+  --slds-c-button-brand-color-border: var(--ac-color-brand);
+  --slds-c-button-brand-color-border-hover: var(--ac-color-brand-dark);
+  --slds-c-button-brand-color-border-active: var(--ac-color-brand-dark);
+
+  /* Base / neutral button text (.slds-button) */
+  --slds-c-button-text-color: var(--ac-color-brand);
+  --slds-c-button-text-color-hover: var(--ac-color-brand-dark);
+  --slds-c-button-text-color-active: var(--ac-color-brand-dark);
+
+  /* Checkbox, toggle, radio */
+  --slds-c-checkbox-mark-color-foreground: var(--ac-color-brand);
+  --slds-c-checkbox-toggle-color-background-checked: var(--ac-color-brand);
+  --slds-c-checkbox-toggle-color-background-checked-hover: var(--ac-color-brand-dark);
+  --slds-c-checkbox-toggle-color-background-checked-focus: var(--ac-color-brand-dark);
+  --slds-c-checkbox-toggle-color-border-checked: var(--ac-color-brand);
+  --slds-c-radio-mark-color-foreground: var(--ac-color-brand);
+
+  /* Tabs (.slds-tabs_default) — active underline uses the base olive, hover the accessible olive */
+  --slds-c-tabs-item-color-border-active: var(--ac-color-brand-base);
+  --slds-c-tabs-item-color-border-hover: var(--ac-color-brand);
+
+  /* Card titles (.slds-card__header-title): Figma related-list / card titles are 14 px bold (SLDS default 1rem) */
+  --slds-c-card-heading-font-size: var(--slds-g-font-scale-1);
+
+  /* Dropdown menu items: olive at rest, default text colour when hovered/focused/pressed (Figma A9) */
+  --slds-c-dropdown-item-color: var(--ac-color-brand);
+  --slds-c-dropdown-item-color-hover: var(--slds-g-color-neutral-base-10);
+  --slds-c-dropdown-item-color-focus: var(--slds-g-color-neutral-base-10);
+  --slds-c-dropdown-item-color-active: var(--slds-g-color-neutral-base-10);
+}
+
+/* ============================================================================================
+ * Block B — hard-coded Salesforce-blue rules (no hook available)
+ * ========================================================================================== */
+
+/* Page background */
+html {
+  background: var(--ac-color-page-background);
+}
+
+/* Links */
+a {
+  color: var(--ac-color-brand);
+}
+a:hover,
+a:focus {
+  color: var(--ac-color-brand-dark);
+}
+a:active {
+  color: var(--ac-color-brand-dark);
+}
+.slds-text-link {
+  color: var(--ac-color-brand);
+}
+.slds-text-link:hover,
+.slds-text-link:focus {
+  color: var(--ac-color-brand-dark);
+}
+.slds-text-link:active {
+  color: var(--ac-color-brand-dark);
+}
+/* Action overflow menus: SLDS hard-codes #0b5cab on .slds-dropdown_actions links (Figma A9 menu text is olive).
+   Hover/focus/active keep the Block A dropdown-item hooks (higher-specificity SLDS rules). */
+.slds-dropdown_actions a {
+  color: var(--ac-color-brand);
+}
+
+/* Console tabs (context bar) */
+.slds-context-bar {
+  border-bottom-color: var(--slds-g-color-border-base-1);
+}
+.slds-context-bar__item:not(.slds-no-hover):hover,
+.slds-context-bar__item.slds-is-active {
+  background-color: var(--ac-color-brand-base-tint);
+}
+.slds-context-bar__item.slds-is-active:before {
+  background: var(--ac-color-brand-base);
+}
+.slds-context-bar__item.slds-is-active:hover {
+  border-bottom-color: var(--ac-color-brand-base-tint);
+}
+/* The active item's entry animation (fill-mode both) ends on a hard-coded blue tint — same keyframes, olive tint. */
+@keyframes bkAnim {
+  50% {
+    background-color: var(--slds-g-color-neutral-base-100);
+  }
+  100% {
+    background-color: var(--ac-color-brand-base-tint);
+  }
+}
+
+/* Console sub-tabs */
+.slds-sub-tabs__item.slds-active,
+.slds-sub-tabs__item.slds-is-open {
+  background: var(--ac-color-brand-base-tint);
+}
+.slds-has-pinned-regions .slds-sub-tabs__item.slds-active:before,
+.slds-has-pinned-regions .slds-sub-tabs__item.slds-is-open:before {
+  background: var(--ac-color-brand-base);
+}
+
+/* Split view selection (focus parts keep the SLDS focus blue via SLDS hooks) */
+.slds-split-view__list-item-action[aria-selected=true] {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+}
+.slds-split-view__list-item-action[aria-selected=true]:focus {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base), inset 0 0 0 1px var(--slds-g-color-brand-base-50);
+}
+.slds-split-view__list-item-action[aria-current=page] {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+}
+.slds-split-view__list-item-action[aria-current=page]:focus {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base), 0 0 0 2px var(--slds-g-color-brand-base-40) inset, 0 0 0 4px var(--slds-g-color-neutral-base-100) inset;
+}
+
+/* Brand icon button */
+.slds-button_icon-brand {
+  background-color: var(--ac-color-brand);
+  border-color: var(--ac-color-brand);
+}
+.slds-button_icon-brand:hover,
+.slds-button_icon-brand:focus {
+  background-color: var(--ac-color-brand-dark);
+  border-color: var(--ac-color-brand-dark);
+}
+.slds-button_icon-brand:active {
+  background-color: var(--ac-color-brand-dark);
+  border-color: var(--ac-color-brand-dark);
+}
+
+/* Datepicker selection */
+.slds-datepicker tbody > tr > td.slds-is-selected > .slds-day {
+  background: var(--ac-color-brand);
+}
+.slds-datepicker tbody > tr > td.slds-is-selected:focus > .slds-day {
+  background: var(--ac-color-brand-dark);
+}
+.slds-datepicker .slds-has-multi-row-selection .slds-is-selected-multi:first-child > .slds-day:before,
+.slds-datepicker .slds-has-multi-row-selection .slds-is-selected-multi:last-child > .slds-day:after {
+  background: var(--ac-color-brand);
+}
+.slds-datepicker td.slds-is-selected-multi + .slds-is-selected-multi > .slds-day:before {
+  background: var(--ac-color-brand);
+}
+
+/* Vertical navigation (Reports) — Figma: olive-tinted active row */
+.slds-nav-vertical__item:hover:before,
+.slds-nav-vertical__item.slds-is-active:before {
+  background: var(--ac-color-brand-base-tint);
+}
+.slds-nav-vertical__action {
+  box-shadow: inset 0 0 0 var(--ac-color-brand-base);
+}
+.slds-nav-vertical__action:hover {
+  box-shadow: inset 2px 0 0 var(--ac-color-brand-base);
+}
+[dir=rtl] .slds-nav-vertical__action:hover {
+  box-shadow: inset -2px 0 0 var(--ac-color-brand-base);
+}
+.slds-nav-vertical__action:focus:hover {
+  box-shadow: inset 2px 0 0 var(--ac-color-brand-base);
+}
+.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+}
+.slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action:focus {
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+}
+[dir=rtl] .slds-nav-vertical__item.slds-is-active .slds-nav-vertical__action {
+  box-shadow: inset -4px 0 0 var(--ac-color-brand-base);
+}
+.slds-nav-vertical__item [type=radio]:checked + .slds-nav-vertical__action {
+  background-color: var(--ac-color-brand-base-tint);
+  box-shadow: inset 4px 0 0 var(--ac-color-brand-base);
+}
+
+/* Utility bar — DERIVED (active state not in Figma): same treatment as the console tabs */
+.slds-utility-bar__action:hover,
+.slds-utility-bar__action:focus {
+  background: var(--ac-color-brand-base-tint);
+}
+.slds-utility-bar__action.slds-is-active {
+  background: var(--ac-color-brand-base-tint);
+}
+.slds-utility-bar__action.slds-is-active:after {
+  background: var(--ac-color-brand-base);
+}
+
+/* Lookup user icon — Figma colour instead of the SLDS 2.264.3 default */
+.slds-icon-standard-user {
+  background-color: var(--ac-color-icon-user);
+}
+
+/* Listbox / dueling-list selection */
+.slds-listbox__icon-selected {
+  fill: var(--ac-color-brand);
+}
+.slds-listbox__option.slds-is-selected .slds-listbox__option-icon {
+  color: var(--ac-color-brand);
+}
+.slds-dueling-list__options [aria-selected=true],
+.slds-picklist__options [aria-selected=true] {
+  background-color: var(--ac-color-brand);
+}
+.slds-dueling-list__options [aria-selected=true]:hover,
+.slds-dueling-list__options [aria-selected=true]:focus,
+.slds-picklist__options [aria-selected=true]:hover,
+.slds-picklist__options [aria-selected=true]:focus {
+  background: var(--ac-color-brand-dark);
+}

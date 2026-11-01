@@ -1,0 +1,5 @@
+{
+  "//": "Typecheck for design-system code. Extends the Figma Make tsconfig unchanged (strict) but excludes vite.config.ts, which must stay byte-identical to the Make template (it has an implicit-any parameter we are not allowed to edit).",
+  "extends": "./tsconfig.json",
+  "include": ["src"]
+}

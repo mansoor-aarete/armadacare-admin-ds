@@ -1,0 +1,7 @@
+/*
+ * Global stylesheet entry (imported by src/main.tsx right after the SLDS stylesheet).
+ *
+ * Do NOT add `@import 'tailwindcss'` (or tailwind.css / Preflight) here or anywhere else:
+ * Tailwind's global reset breaks SLDS icons, buttons and headings. See guidelines/setup.md.
+ */
+@import './slds-theme.css';

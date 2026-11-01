@@ -1,0 +1,61 @@
+{
+  "$comment": "Classes that appear in official SLDS 1 blueprint markup but have NO rule in the installed CSS (@salesforce-ux/design-system 2.264.3). scripts/verify-slds accepts them ONLY from this list. Blueprint source: salesforce-ux/design-system@main (2.28.1), ui/components/*. Add an entry only when a component copies blueprint markup that contains the class. Never invent classes.",
+  "classes": {
+    "slds-dropdown__list": {
+      "blueprint": "Menus — dropdown (ui/components/menus/dropdown/example.jsx: ul.slds-dropdown__list[role=menu])",
+      "reason": "Structural hook on the menu list; styling comes from .slds-dropdown and .slds-dropdown__item."
+    },
+    "slds-is-required": {
+      "blueprint": "Checkbox — group (ui/components/checkbox/base/example.jsx: fieldset.slds-form-element.slds-is-required)",
+      "reason": "State marker on required checkbox groups; the visible asterisk is .slds-required."
+    },
+    "slds-listbox__item": {
+      "blueprint": "Combobox listbox / Dueling picklist (ui/components/combobox/listbox/index.jsx, dueling-picklist/index.jsx: li.slds-listbox__item)",
+      "reason": "Structural hook on listbox rows; styling comes from .slds-listbox__option."
+    },
+    "slds-listbox__option-text": {
+      "blueprint": "Combobox listbox — entity option (ui/components/combobox/listbox/index.jsx: span.slds-listbox__option-text.slds-listbox__option-text_entity)",
+      "reason": "Base element class of the option text; only the _entity modifier has CSS."
+    },
+    "slds-listbox__option-meta_entity": {
+      "blueprint": "Combobox listbox — entity option meta (ui/components/combobox/listbox/index.jsx: span.slds-listbox__option-meta.slds-listbox__option-meta_entity)",
+      "reason": "Entity modifier of the meta line; styling comes from .slds-listbox__option-meta."
+    },
+    "slds-global-actions__help": {
+      "blueprint": "Global Header — global actions (ui/components/global-header/global-actions/index.jsx: Help button)",
+      "reason": "Identifies the Help & Training action button; no CSS rule in 2.264.3."
+    },
+    "slds-global-actions__setup": {
+      "blueprint": "Global Header — global actions (ui/components/global-header/global-actions/index.jsx: Setup button)",
+      "reason": "Identifies the Setup action button; no CSS rule in 2.264.3."
+    },
+    "slds-page-header_record-home": {
+      "blueprint": "Page Headers — record home (ui/components/page-headers/index.jsx: PageHeader isRecordHome)",
+      "reason": "Variant marker on the record-home header; no CSS rule in 2.264.3."
+    },
+    "slds-page-header_related-list": {
+      "blueprint": "Page Headers — related list (ui/components/page-headers/index.jsx: PageHeader isRelatedList)",
+      "reason": "Variant marker on the related-list header; no CSS rule in 2.264.3."
+    },
+    "slds-is-sorted_desc": {
+      "blueprint": "Data Tables — advanced (ui/components/data-tables/index.jsx: ColumnTh sortDirection=descending)",
+      "reason": "Sort-state marker for descending columns (ascending has CSS); the arrow is flipped by the icon choice."
+    },
+    "slds-form": {
+      "blueprint": "Form Element — record detail (ui/components/form-element/record-detail/index.jsx: div.slds-form[role=list])",
+      "reason": "Record-detail form container; rows and items carry the layout (.slds-form__row / .slds-form__item)."
+    },
+    "slds-tile__title": {
+      "blueprint": "Tiles — base (ui/components/tiles/base/example.jsx: h3.slds-tile__title.slds-truncate)",
+      "reason": "Title element of a tile; typography comes from the heading / link inside."
+    }
+  },
+  "patterns": [
+    {
+      "prefix": "slds-icon-utility-",
+      "values": "utility icon names in src/app/components/icons/registry.ts (raw symbol names)",
+      "blueprint": "Icons — utility icon container (ui/components/icons/base/example.jsx: 'slds-icon_container slds-icon-utility-' + symbol)",
+      "reason": "Blueprint names the utility icon on its container; SLDS has no CSS for it (only per-icon hooks in other components)."
+    }
+  ]
+}

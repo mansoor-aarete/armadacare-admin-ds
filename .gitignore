@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+/dist/
+
+# Local visual-verification output (tools/visual is local-only, not part of Figma Make)
+tools/visual/output/
+
+# Local environment
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+
+# Local Figma Make simulation output
+tools/visual/output-make-sim/
