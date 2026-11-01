@@ -12,7 +12,7 @@ File: `src/app/components/shell/GlobalHeader.tsx`.
 | `onGlobalActions`, `onHelp`, `onSetup` | `() => void` | — | each one shows its button |
 | `notificationCount` / `onNotifications` | `number` / `() => void` | `0` | count > 0 shows the badge |
 | `avatar` / `userName` / `onAvatar` | `AvatarContent` / `string` / `() => void` | — | round medium avatar button |
-| `environment` | `{ label; onTogglePanel? }` | — | sandbox row above the header (Figma "Sandbox (CXDev)"); chip colour `--ac-color-environment-chip` (#e0e5f8, Block C); not in the SLDS blueprint |
+| `environment` | `{ label; onTogglePanel?; onOpenMenu?; menuExpanded? }` | — | sandbox row above the header (Figma "Sandbox (CXDev)"): panel toggle (Salesforce header blue), chip (`--ac-color-environment-chip` #e0e5f8, regular weight), round ▼ menu button at the far right when `onOpenMenu` is set (Block C rounds the SLDS bordered icon button); not in the SLDS blueprint |
 | `position` | `"fixed" \| "inline"` | `"fixed"` | SLDS pins the header to the viewport; `inline` (adds `slds-is-relative`) for ConsoleShell / showcase |
 
 ## Notes

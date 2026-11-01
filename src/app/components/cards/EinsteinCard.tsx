@@ -8,7 +8,7 @@ export type EinsteinCardProps = {
   onTitleClick?: () => void;
   /** Body (Figma: "Einstein doesn't have any recommendations for you right now."). */
   children: ReactNode;
-  /** Centre the body text (Figma empty recommendations). */
+  /** Empty-recommendations layout: centred text with extra top spacing (Figma A4). */
   centered?: boolean;
   /** Footer link, e.g. "View All". */
   footer?: { label: string; onClick: () => void };
@@ -47,7 +47,7 @@ export function EinsteinCard({ title = "Next Best Action", onTitleClick, childre
           <div className="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3" />
         </header>
       </div>
-      <div className={cx("slds-card__body slds-card__body_inner", centered && "slds-text-align_center")}>{children}</div>
+      <div className={cx("slds-card__body slds-card__body_inner", centered && "slds-text-align_center slds-p-top_small")}>{children}</div>
       {footer ? (
         <footer className="slds-card__footer">
           <a

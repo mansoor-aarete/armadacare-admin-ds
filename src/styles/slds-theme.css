@@ -310,6 +310,16 @@ a:active {
   background-color: var(--ac-color-environment-chip);
   border-color: transparent;
   border-radius: 0.25rem;
+  font-weight: 400;
+}
+/* Sandbox row panel toggle: Salesforce header blue (Figma #0b5cab = SLDS palette blue-40, platform chrome, not the org brand) */
+.slds-global-header_container > .slds-border_bottom .slds-button_icon-container {
+  color: var(--slds-g-color-palette-blue-40);
+}
+
+/* Sandbox row: round ▼ menu button at the far right (Figma A1; SLDS has no circular icon-button class) */
+.slds-global-header_container > .slds-border_bottom .slds-button_icon-border {
+  border-radius: 50%;
 }
 
 /* List-view header ▼ (object home actions): olive glyph (Figma A1; record headers keep the grey glyph) */
@@ -349,4 +359,17 @@ a:active {
 .slds-context-bar__object-switcher > .slds-context-bar__icon-action {
   margin-left: 0;
   border-left: 1px solid var(--slds-g-color-border-base-1);
+}
+
+/* Einstein header (Next Best Action): Figma A4 figure is about twice the SLDS size and is clipped by the header edges */
+.slds-einstein-header {
+  overflow: hidden;
+}
+.slds-einstein-header.slds-card__header {
+  padding-left: 0.75rem;
+}
+.slds-einstein-header .slds-einstein-header__figure,
+.slds-einstein-header .slds-einstein-header__figure:last-child {
+  height: 9.25rem;
+  margin-top: -4.5rem;
 }

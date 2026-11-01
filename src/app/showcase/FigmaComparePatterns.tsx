@@ -86,6 +86,14 @@ export function FigmaComparePatterns() {
           userName="Feng Yue"
         />
       </Frame>
+      <Frame id="fig-p3-env-row" figmaNode="A1 sandbox row (2:41037)" rem={120}>
+        <GlobalHeader
+          position="inline"
+          environment={{ label: "Sandbox (CXDev)", onOpenMenu: () => undefined }}
+          avatar={USER_AVATAR}
+          userName="Feng Yue"
+        />
+      </Frame>
       <Frame id="fig-p3-app-nav" figmaNode="A1 context bar (2:41037)" rem={28.75}>
         <AppNav appName="ArmadaCare Admin Portal" objectItem={{ id: "accounts", label: "Accounts", active: true, menuItems: LIST_VIEWS }} tabs={null} />
       </Frame>
@@ -295,11 +303,13 @@ export function FigmaComparePatterns() {
       </Frame>
       <Frame id="fig-p4-composer" figmaNode="2:13515" rem={35}>
         <DockedComposer position="inline" title="No new note" iconName="standard:note" footer={COMPOSER_FOOTER}>
-          <NoteComposerBody />
+          <NoteComposerBody autoFocus />
         </DockedComposer>
       </Frame>
       <Frame id="fig-p4-einstein" figmaNode="2:47546" rem={30.125}>
-        <EinsteinCard centered>Einstein doesn't have any recommendations for you right now.</EinsteinCard>
+        <EinsteinCard centered>
+          <p className="slds-text-body_small slds-text-color_weak">Einstein doesn't have any recommendations for you right now.</p>
+        </EinsteinCard>
       </Frame>
       <Frame id="fig-p3-utility-bar" figmaNode="A1 utility bar (2:42133)" rem={18.75}>
         <UtilityBar position="inline" items={[{ id: "omni", label: "Omni-Channel", iconName: "utility:omni_channel" }]} onSelect={() => undefined} />

@@ -3,7 +3,10 @@
  * Markup copied verbatim; the one literal white fill is expressed with the SLDS neutral-base-100 hook (same colour).
  * Stroke / fill colours come from the SLDS illustration stroke / fill classes.
  */
-export function DesertIllustration() {
+/** No props: the illustration is decorative (aria-hidden); the heading / message live in EmptyState. */
+export type DesertIllustrationProps = Record<string, never>;
+
+export function DesertIllustration(_props: DesertIllustrationProps) {
   return (
     <svg
       className="slds-illustration__svg"

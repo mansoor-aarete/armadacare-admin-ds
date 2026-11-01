@@ -1,4 +1,4 @@
-# Guidelines — ArmadaCare Admin Portal design system (SLDS 1)
+# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.0
 
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 
@@ -16,11 +16,13 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 8. **Generic components.** Nothing Salesforce-object-specific (Account, Claim, …) inside the design system. Content comes in through props / config arrays.
 9. **Reuse before create.** Extend an existing component with a prop. Never duplicate one.
 10. **Every icon-only control has `assistiveText`.**
+11. **Config-driven.** Pages pass data and behaviour through props and config arrays (`items`, `columns`, `options`, `tabs`, `actions`, `details` …). Never fork a component or hard-code page content inside it.
 
 ## Before you finish any change
 - `npm run verify` — fails on unknown `slds-*` classes, Tailwind, hex / rgb / px in components, unverified hooks.
 - `npm run typecheck` — must be 0 errors.
 - Check `/showcase` — every component in every variant and state; the **Environment checks** panel must be all PASS.
+- Local only (not part of Figma Make): `cd tools/visual && node capture.mjs http://localhost:5173/showcase output && node compare-components.mjs http://localhost:5173 output` — environment checks, tokens and per-component pixel diffs against the Figma captures.
 
 ## File index
 | File | Contents |
@@ -30,18 +32,17 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 | `foundations/typography.md` | Font stack and SLDS type classes mapped to Figma sizes |
 | `foundations/spacing.md` | SLDS spacing scale and utility classes |
 | `foundations/icons.md` | Icon registry, sizes, tones, licence, how to add an icon |
-| `components/overview-components.md` | Registry of every component: props, status |
-| `components/icon.md` | Icon |
-| `components/button.md`, `button-stateful.md`, `button-icon.md`, `button-group.md`, `button-menu.md` | Buttons and menus |
-| `components/form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `datepicker.md`, `dual-listbox.md` | Form controls |
-| `components/avatar.md`, `badge.md`, `spinner.md` | Feedback |
-| `components/help-text.md`, `tooltip.md`, `popover.md` | Overlays |
-| `components/global-header.md`, `app-nav.md`, `workspace-tabs.md`, `split-view.md`, `utility-bar.md`, `console-shell.md` | Console shell (Phase 3) |
-| `components/page-header.md`, `highlights-panel.md`, `list-view-toolbar.md`, `tabs.md`, `expandable-section.md`, `record-field.md` | Page and record layout (Phase 3) |
-| `components/data-table.md`, `tree-grid.md` | Data (Phase 3) |
-| `components/card.md`, `related-list-card.md`, `related-list-quick-links.md`, `metric-tile.md`, `empty-state.md` | Cards and states (Phase 3) |
-| `components/modal.md`, `form-footer.md`, `vertical-nav.md` | Dialogs, footer, navigation (Phase 3) |
-| `components/toggle.md`, `radio-group.md`, `file-selector.md`, `pill.md`, `rich-text-editor.md`, `docked-composer.md`, `pagination.md`, `einstein-card.md` | Phase 4 additions |
+| `components/overview-components.md` | Registry of every component: file, props type, props, doc, role, status (generated from the source) |
+| `components/<component-name>.md` | **One file per component**, named after the component in kebab-case (`RelatedListCard` → `related-list-card.md`). 62 files, all listed with props and status in `overview-components.md`. |
+| Buttons and menus | `button.md`, `button-stateful.md`, `button-icon.md`, `button-group.md`, `button-menu.md`, `menu-dropdown.md` |
+| Forms | `form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `combobox-listbox.md`, `combobox-object-switcher.md`, `datepicker.md`, `datepicker-calendar.md`, `dual-listbox.md`, `toggle.md`, `radio-group.md`, `file-selector.md`, `rich-text-editor.md`, `form-footer.md` |
+| Feedback | `avatar.md`, `badge.md`, `spinner.md`, `pill.md`, `pill-container.md`, `empty-state.md`, `desert-illustration.md` |
+| Icons | `icon.md`, `icon-svg.md` |
+| Overlays | `help-text.md`, `tooltip.md`, `popover.md`, `error-popover.md`, `modal.md`, `docked-composer.md` |
+| Console shell | `global-header.md`, `app-nav.md`, `workspace-tabs.md`, `workspace-sub-tabs.md`, `split-view.md`, `utility-bar.md`, `console-shell.md` |
+| Page and record | `page-header.md`, `breadcrumb.md`, `highlights-panel.md`, `list-view-toolbar.md`, `tabs.md`, `expandable-section.md`, `record-field.md`, `record-field-grid.md`, `vertical-nav.md` |
+| Data | `data-table.md`, `tree-grid.md`, `pagination.md` |
+| Cards | `card.md`, `related-list-card.md`, `related-list-quick-links.md`, `metric-tile.md`, `einstein-card.md` |
 
 ## Source layout
 ```

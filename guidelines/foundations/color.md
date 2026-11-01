@@ -104,7 +104,10 @@ Selectors are copied verbatim from the SLDS 2.264.3 CSS; only the colour changes
 | Area | Selector | Change |
 |---|---|---|
 | Global header logo | `.slds-global-header__logo` | `background-image: none` (logo is an optional slot) |
-| Sandbox chip | `.slds-global-header_container .slds-badge` | `background-color` → environment-chip, transparent border, 0.25rem radius |
+| Sandbox chip | `.slds-global-header_container .slds-badge` | `background-color` → environment-chip, transparent border, 0.25rem radius, regular weight |
+| Sandbox row panel toggle | `.slds-global-header_container > .slds-border_bottom .slds-button_icon-container` | `color` → `--slds-g-color-palette-blue-40` (Figma #0b5cab — Salesforce header chrome, not the org brand) |
+| Sandbox row round ▼ | `.slds-global-header_container > .slds-border_bottom .slds-button_icon-border` | `border-radius: 50%` |
+| Einstein header (Next Best Action) | `.slds-einstein-header` (overflow hidden), `.slds-einstein-header.slds-card__header` (padding-left 0.75rem), `.slds-einstein-header .slds-einstein-header__figure` (height 9.25rem, margin-top −4.5rem) | Figma A4 figure size and position |
 | List-view ▼ (object home actions only; record headers stay grey, as in Figma) | `.slds-page-header_object-home .slds-page-header__col-actions .slds-button_icon-border-filled` | `color` → brand |
 | Selected metric tile | `.slds-button_reset.slds-box[aria-pressed="true"]` | 2 px `--slds-g-color-border-base-4` border |
 | Quick links | `.slds-card__body_inner > .slds-grid > .slds-size_1-of-7 > a`, `.slds-card__body_inner > .slds-text-align_center > a` | `text-decoration: underline` |

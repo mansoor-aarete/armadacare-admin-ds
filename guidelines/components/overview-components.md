@@ -1,77 +1,124 @@
 # Component registry
 
-Status: **done** (built, in `/showcase`, verified) · **planned** (phase in brackets).
+Every exported component in `src/app/components`, generated from the TypeScript source (exported `XxxProps` type and its props). **Bold** = required prop; `?` = optional. All components: SLDS 1 blueprint markup (or SLDS-class composition where SLDS 1 has no blueprint — noted in each doc), shown in every variant and state on `/showcase`, checked by `npm run verify` and `npm run typecheck`.
 
-## Foundations (Phase 1)
-| Component | File | Props | Status |
-|---|---|---|---|
-| Icon | `src/app/components/icons/Icon.tsx` | `name: IconName`, `size?: "xx-small" \| "x-small" \| "small" \| "medium" \| "large"`, `tone?: "default" \| "light" \| "warning" \| "error" \| "success" \| "current"` (utility only), `assistiveText?: string`, `className?: string` (SLDS utilities) | **done** — see `icon.md` |
-| IconSvg | `src/app/components/icons/IconSvg.tsx` | `name: IconName`, `className: string` (blueprint svg class) | **done** — internal building block for blueprints that own their wrapper |
+Status **stable** = API frozen for v1.0 (changes are additive). Role **building block** = used inside another component; prefer the parent in pages.
 
-## Primitives (Phase 2)
-All are in `/showcase`; typecheck, `verify-slds` and the Playwright checks pass. "Figma diff" means the element was rebuilt in the showcase *Figma comparison set* and pixel-diffed against the Figma node (`tools/visual/compare-components.mjs`).
+## Console shell
 
-| Component | File | Doc | Figma diff | Status |
-|---|---|---|---|---|
-| Button | `buttons/Button.tsx` | `button.md` | footer actions, list-view buttons, related-list actions | **done** |
-| ButtonStateful | `buttons/ButtonStateful.tsx` | `button-stateful.md` | Follow | **done** |
-| ButtonIcon | `buttons/ButtonIcon.tsx` | `button-icon.md` | pin, list-view toolbar | **done** |
-| ButtonGroup | `buttons/ButtonGroup.tsx` | `button-group.md` | list-view buttons, related-list actions | **done** |
-| ButtonMenu · MenuDropdown | `buttons/ButtonMenu.tsx`, `buttons/MenuDropdown.tsx` | `button-menu.md` | action overflow menu, toolbar gear / table triggers | **done** |
-| FormElement | `forms/FormElement.tsx` | `form-element.md` | (via Input / Combobox) | **done** |
-| Input | `forms/Input.tsx` | `input.md` | required + error field | **done** |
-| Textarea | `forms/Textarea.tsx` | `textarea.md` | — (no isolated Figma node) | **done** |
-| Checkbox | `forms/Checkbox.tsx` | `checkbox.md` | — (visual check only) | **done** |
-| CheckboxGroup | `forms/CheckboxGroup.tsx` | `checkbox-group.md` | — (visual check only) | **done** |
-| Select | `forms/Select.tsx` | `select.md` | — (not in Figma; used by the datepicker) | **done** |
-| Combobox · ComboboxListbox · ComboboxObjectSwitcher | `forms/Combobox.tsx`, `forms/ComboboxListbox.tsx`, `forms/ComboboxObjectSwitcher.tsx` | `combobox.md` | picklist, lookup with object switcher, selected lookup | **done** |
-| Datepicker · DatepickerCalendar | `forms/Datepicker.tsx`, `forms/DatepickerCalendar.tsx` | `datepicker.md` | — (Figma node can't be captured) | **done** |
-| DualListbox | `forms/DualListbox.tsx` | `dual-listbox.md` | Participant Summary | **done** |
-| Avatar | `feedback/Avatar.tsx` | `avatar.md` | — | **done** |
-| Badge | `feedback/Badge.tsx` | `badge.md` | "current" badge | **done** |
-| Spinner | `feedback/Spinner.tsx` | `spinner.md` | — (not in Figma) | **done** |
-| HelpText | `overlays/HelpText.tsx` | `help-text.md` | info glyph (icon diff) | **done** |
-| Tooltip | `overlays/Tooltip.tsx` | `tooltip.md` | — (not in Figma) | **done** |
-| Popover | `overlays/Popover.tsx` | `popover.md` | "We hit a snag." error popover | **done** |
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| AppNav | `shell/AppNav.tsx` | `AppNavProps` | **`appName`**, `onAppLauncher?`, `objectItem?`, `items?`, `tabs?`, `onSelect?`, `onMenuSelect?` | `app-nav.md` | component | **stable** |
+| ConsoleShell | `shell/ConsoleShell.tsx` | `ConsoleShellProps` | **`globalHeader`**, **`appNav`**, `splitView?`, `utilityBar?`, **`children`** | `console-shell.md` | component | **stable** |
+| GlobalHeader | `shell/GlobalHeader.tsx` | `GlobalHeaderProps` | `logo?`, `search?`, `favorites?`, `onGlobalActions?`, `onHelp?`, `onSetup?`, `notificationCount?`, `onNotifications?`, **`avatar`**, **`userName`**, `onAvatar?`, `environment?`, `position?` | `global-header.md` | component | **stable** |
+| SplitView | `shell/SplitView.tsx` | `SplitViewProps` | **`open`**, **`onToggle`**, **`iconName`**, **`objectLabel`**, **`listViewName`**, `listViews?`, `onListViewSelect?`, `pinned?`, `onPin?`, `controls?`, `onControlSelect?`, **`meta`**, `onRefresh?`, `search?`, `sort?`, `listInfo?`, **`items`**, `currentId?`, **`onOpen`**, `selection?` | `split-view.md` | component | **stable** |
+| UtilityBar | `shell/UtilityBar.tsx` | `UtilityBarProps` | **`items`**, `activeId?`, **`onSelect`**, `panel?`, `position?` | `utility-bar.md` | component | **stable** |
+| WorkspaceSubTabs | `shell/WorkspaceSubTabs.tsx` | `WorkspaceSubTabsProps` | **`tabs`**, **`activeId`**, **`onSelect`**, `onClose?`, `onMenu?`, `children?` | `workspace-sub-tabs.md` | component | **stable** |
+| WorkspaceTabs | `shell/WorkspaceTabs.tsx` | `WorkspaceTabsProps` | **`tabs`**, `activeId?`, **`onSelect`**, `onClose?`, `onMenuSelect?` | `workspace-tabs.md` | component | **stable** |
 
-Shared utilities (not components): `utils/cx.ts`, `utils/useDismiss.ts` (outside click + Escape), `utils/formIds.ts`, `utils/dates.ts`.
+## Page and record layout
 
-## Patterns (Phase 3)
-All in `/showcase` (sections Console shell · Page headers … · Data table · Cards … · Modal …); "Figma diff" = rebuilt in *Figma comparison set — patterns* and pixel-diffed.
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| ExpandableSection | `layout/ExpandableSection.tsx` | `ExpandableSectionProps` | **`title`**, **`children`**, `collapsible?`, `open?`, `onToggle?` | `expandable-section.md` | component | **stable** |
+| HighlightsPanel | `layout/HighlightsPanel.tsx` | `HighlightsPanelProps` | **`iconName`**, **`objectLabel`**, **`title`**, `actions?`, `overflowActions?`, `onAction?`, `follow?`, `onHierarchy?`, `details?`, `extraActions?` | `highlights-panel.md` | component | **stable** |
+| ListViewToolbar | `layout/ListViewToolbar.tsx` | `ListViewToolbarProps` | `search?`, `settingsItems?`, `displayItems?`, `onMenuSelect?`, `onRefresh?`, `onSort?`, `onEdit?`, `charts?`, `filters?` | `list-view-toolbar.md` | component | **stable** |
+| PageHeader | `layout/PageHeader.tsx` | `PageHeaderProps` | `variant?`, **`title`**, `iconName?`, `objectLabel?`, `breadcrumbs?`, `listViews?`, `onListViewSelect?`, `pin?`, `actions?`, `meta?`, `controls?`, `details?` | `page-header.md` | component | **stable** |
+| Tabs | `layout/Tabs.tsx` | `TabsProps` | **`items`**, **`activeId`**, **`onSelect`**, `size?`, `card?` | `tabs.md` | component | **stable** |
 
-| Component | File | Doc | Figma diff | Status |
-|---|---|---|---|---|
-| GlobalHeader | `shell/GlobalHeader.tsx` | `global-header.md` | A1 header row | **done** |
-| AppNav | `shell/AppNav.tsx` | `app-nav.md` | A1 context bar | **done** |
-| WorkspaceTabs · WorkspaceSubTabs | `shell/WorkspaceTabs.tsx`, `shell/WorkspaceSubTabs.tsx` | `workspace-tabs.md` | — (visual check: PY1, A8) | **done** |
-| SplitView | `shell/SplitView.tsx` | `split-view.md` | PY1 split view | **done** |
-| UtilityBar | `shell/UtilityBar.tsx` | `utility-bar.md` | A1 utility bar | **done** |
-| ConsoleShell | `shell/ConsoleShell.tsx` | `console-shell.md` | — (layout) | **done** |
-| PageHeader · Breadcrumb | `layout/PageHeader.tsx`, `navigation/Breadcrumb.tsx` | `page-header.md` | A1 object home | **done** |
-| HighlightsPanel | `layout/HighlightsPanel.tsx` | `highlights-panel.md` | PY1 record header | **done** |
-| ListViewToolbar | `layout/ListViewToolbar.tsx` | `list-view-toolbar.md` | A1 (in object home) | **done** |
-| DataTable | `data/DataTable.tsx` | `data-table.md` | E1 related table | **done** |
-| TreeGrid | `data/TreeGrid.tsx` | `tree-grid.md` | A8 account hierarchy | **done** |
-| Tabs | `layout/Tabs.tsx` | `tabs.md` | E2 record tabs | **done** |
-| ExpandableSection | `layout/ExpandableSection.tsx` | `expandable-section.md` | — (visual check: C1) | **done** |
-| RecordField · RecordFieldGrid | `record/RecordField.tsx`, `record/RecordFieldGrid.tsx` | `record-field.md` | E2 details grid | **done** |
-| Card | `cards/Card.tsx` | `card.md` | (via related lists) | **done** |
-| RelatedListCard | `cards/RelatedListCard.tsx` | `related-list-card.md` | E1 / E2 related lists | **done** |
-| RelatedListQuickLinks | `cards/RelatedListQuickLinks.tsx` | `related-list-quick-links.md` | — (Figma frame scaled; visual check C1) | **done** |
-| MetricTile | `cards/MetricTile.tsx` | `metric-tile.md` | D1 KPI tiles | **done** |
-| EmptyState (+ DesertIllustration) | `feedback/EmptyState.tsx`, `feedback/DesertIllustration.tsx` | `empty-state.md` | — (visual check D1) | **done** |
-| Modal | `overlays/Modal.tsx` | `modal.md` | — (visual check CL5 / CL6 / C3) | **done** |
-| FormFooter · ErrorPopover | `forms/FormFooter.tsx`, `overlays/ErrorPopover.tsx` | `form-footer.md` | error popover (Phase 2 diff) | **done** |
-| VerticalNav | `navigation/VerticalNav.tsx` | `vertical-nav.md` | R1 Reports nav | **done** |
+## Record fields
 
-## Phase 4 additions
-| Component | File | Doc | Figma diff | Status |
-|---|---|---|---|---|
-| Toggle | `forms/Toggle.tsx` | `toggle.md` | CL3 Place on Hold | **done** |
-| RadioGroup | `forms/RadioGroup.tsx` | `radio-group.md` | A7 record types | **done** |
-| FileSelector | `forms/FileSelector.tsx` | `file-selector.md` | CL3 Files drop area | **done** |
-| Pill · PillContainer | `feedback/Pill.tsx`, `feedback/PillContainer.tsx` | `pill.md` | (in composer) | **done** |
-| RichTextEditor | `forms/RichTextEditor.tsx` | `rich-text-editor.md` | (in composer) | **done** |
-| DockedComposer | `overlays/DockedComposer.tsx` | `docked-composer.md` | C5 note composer (resampled ×1.31) | **done** |
-| Pagination | `data/Pagination.tsx` | `pagination.md` | P5 pager | **done** |
-| EinsteinCard (Next Best Action) | `cards/EinsteinCard.tsx` | `einstein-card.md` | A4 Next Best Action (resampled ×1.28) | **done** |
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| RecordField | `record/RecordField.tsx` | `RecordFieldProps` | **`label`**, `value?`, `layout?`, `helpText?`, `required?`, `onEdit?`, `action?`, `capsLabel?`, `fullWidth?` | `record-field.md` | component | **stable** |
+| RecordFieldGrid | `record/RecordFieldGrid.tsx` | `RecordFieldGridProps` | **`fields`**, `columns?` | `record-field-grid.md` | component | **stable** |
+
+## Data
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| DataTable | `data/DataTable.tsx` | `DataTableProps` | **`label`**, **`columns`**, **`rows`**, `variant?`, `firstColumnIsRowHeader?`, `onLinkClick?`, `selection?`, `sort?`, `onSort?`, `columnMenus?`, `onColumnMenu?`, `resizable?`, `rowActions?`, `onRowAction?` | `data-table.md` | component | **stable** |
+| Pagination | `data/Pagination.tsx` | `PaginationProps` | **`page`**, **`pageCount`**, **`onPageChange`**, `pageSize?`, `pageSizeOptions?`, `onPageSizeChange?`, `label?` | `pagination.md` | component | **stable** |
+| TreeGrid | `data/TreeGrid.tsx` | `TreeGridProps` | **`label`**, **`columns`**, **`rows`**, **`expandedIds`**, **`onToggle`**, `onLinkClick?`, `capsHeader?`, `rowActions?`, `onRowAction?` | `tree-grid.md` | component | **stable** |
+
+## Cards
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Card | `cards/Card.tsx` | `CardProps` | **`title`**, `onTitleClick?`, `titleHref?`, `meta?`, `iconName?`, `actions?`, `children?`, `bodyPadding?`, `footer?`, `shaded?`, `className?` | `card.md` | component | **stable** |
+| EinsteinCard | `cards/EinsteinCard.tsx` | `EinsteinCardProps` | `title?`, `onTitleClick?`, **`children`**, `centered?`, `footer?` | `einstein-card.md` | component | **stable** |
+| MetricTile | `cards/MetricTile.tsx` | `MetricTileProps` | **`label`**, **`value`**, `selected?`, `onSelect?` | `metric-tile.md` | component | **stable** |
+| RelatedListCard | `cards/RelatedListCard.tsx` | `RelatedListCardProps` | **`iconName`**, **`title`**, **`count`**, `onTitleClick?`, `meta?`, `buttons?`, `onButton?`, `menuItems?`, `onMenuSelect?`, `settingsItems?`, `onRefresh?`, `records?`, `onRecordClick?`, `children?`, `loading?`, `onViewAll?` | `related-list-card.md` | component | **stable** |
+| RelatedListQuickLinks | `cards/RelatedListQuickLinks.tsx` | `RelatedListQuickLinksProps` | **`links`**, **`onSelect`**, `totalCount?`, `onShowAll?`, `title?`, `helpText?` | `related-list-quick-links.md` | component | **stable** |
+
+## Navigation
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Breadcrumb | `navigation/Breadcrumb.tsx` | `BreadcrumbProps` | **`items`**, `className?` | `breadcrumb.md` | component | **stable** |
+| VerticalNav | `navigation/VerticalNav.tsx` | `VerticalNavProps` | **`label`**, **`sections`**, **`activeId`**, **`onSelect`**, `shaded?`, `compact?`, `capsTitles?` | `vertical-nav.md` | component | **stable** |
+
+## Overlays
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| DockedComposer | `overlays/DockedComposer.tsx` | `DockedComposerProps` | **`title`**, **`iconName`**, `minimized?`, `focused?`, `onMinimize?`, `onExpand?`, `onClose?`, **`children`**, `footer?`, `position?` | `docked-composer.md` | component | **stable** |
+| ErrorPopover | `overlays/ErrorPopover.tsx` | `ErrorPopoverProps` | **`fields`**, `heading?`, `intro?`, `messages?`, **`onClose`**, `nubbin?` | `error-popover.md` | component | **stable** |
+| HelpText | `overlays/HelpText.tsx` | `HelpTextProps` | **`content`**, `assistiveText?`, `defaultOpen?` | `help-text.md` | component | **stable** |
+| Modal | `overlays/Modal.tsx` | `ModalProps` | **`open`**, `heading?`, `tagline?`, `headless?`, **`children`**, `footer?`, **`onClose`**, `size?`, `hideClose?`, `bodyPadding?` | `modal.md` | component | **stable** |
+| Popover | `overlays/Popover.tsx` | `PopoverProps` | **`heading`**, **`children`**, `variant?`, `iconName?`, `nubbin?`, `onClose?`, `footer?`, `id?`, `className?` | `popover.md` | component | **stable** |
+| Tooltip | `overlays/Tooltip.tsx` | `TooltipProps` | **`id`**, **`children`**, `nubbin?`, `placement?` | `tooltip.md` | component | **stable** |
+
+## Forms
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Checkbox | `forms/Checkbox.tsx` | `CheckboxProps` | **`label`**, `checked?`, `defaultChecked?`, `indeterminate?`, `onChange?`, `disabled?`, `required?`, `error?`, `hideLabel?`, `name?`, `value?`, `id?`, `wrapper?`, `className?` | `checkbox.md` | component | **stable** |
+| CheckboxGroup | `forms/CheckboxGroup.tsx` | `CheckboxGroupProps` | **`legend`**, **`options`**, **`value`**, **`onChange`**, `layout?`, `required?`, `disabled?`, `error?` | `checkbox-group.md` | component | **stable** |
+| Combobox | `forms/Combobox.tsx` | `ComboboxProps` | **`label`**, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?`, `placeholder?`, `id?`, `defaultOpen?`, `variant?`, **`options`**, `value?`, `defaultValue?`, `onChange?`, `onSearchChange?`, `objectSwitcher?` | `combobox.md` | component | **stable** |
+| ComboboxListbox | `forms/ComboboxListbox.tsx` | `ComboboxListboxProps` | **`id`**, **`kind`**, **`options`**, `selectedValue?`, **`focusedIndex`**, **`optionId`**, **`onPick`**, **`onFocusIndex`**, **`ariaLabel`**, `className?` | `combobox-listbox.md` | building block | **stable** |
+| ComboboxObjectSwitcher | `forms/ComboboxObjectSwitcher.tsx` | `ComboboxObjectSwitcherProps` | **`config`**, `disabled?` | `combobox-object-switcher.md` | building block | **stable** |
+| Datepicker | `forms/Datepicker.tsx` | `DatepickerProps` | **`label`**, `value?`, `defaultValue?`, `onChange?`, `required?`, `disabled?`, `error?`, `fieldLevelHelp?`, `hideLabel?`, `layout?`, `showFormatHint?`, `today?`, `yearRange?`, `defaultOpen?`, `id?` | `datepicker.md` | component | **stable** |
+| DatepickerCalendar | `forms/DatepickerCalendar.tsx` | `DatepickerCalendarProps` | **`idPrefix`**, **`value`**, **`today`**, **`onSelect`**, **`onClose`**, **`yearRange`**, `autoFocus?` | `datepicker-calendar.md` | building block | **stable** |
+| DualListbox | `forms/DualListbox.tsx` | `DualListboxProps` | **`label`**, `sourceLabel?`, `selectedLabel?`, **`options`**, **`value`**, **`onChange`**, `required?`, `disabled?`, `error?`, `assistiveInstructions?`, `defaultHighlighted?`, `responsive?`, `size?` | `dual-listbox.md` | component | **stable** |
+| FileSelector | `forms/FileSelector.tsx` | `FileSelectorProps` | `label?`, `variant?`, **`onFiles`**, `accept?`, `multiple?`, `disabled?`, `error?`, `buttonLabel?`, `dropLabel?` | `file-selector.md` | component | **stable** |
+| FormElement | `forms/FormElement.tsx` | `FormElementProps` | **`inputId`**, **`label`**, `hideLabel?`, `required?`, `error?`, `helpText?`, `hideHelpText?`, `fieldLevelHelp?`, `layout?`, `labelAs?`, `labelId?`, `controlClassName?`, `className?`, **`children`**, `dropdown?` | `form-element.md` | building block | **stable** |
+| FormFooter | `forms/FormFooter.tsx` | `FormFooterProps` | **`actions`**, **`onAction`**, `hasErrors?`, `onErrorClick?`, `errorPopover?`, `position?` | `form-footer.md` | component | **stable** |
+| Input | `forms/Input.tsx` | `InputProps` | **`label`**, `type?`, `onChange?`, `hideLabel?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?`, `iconLeft?`, `iconRight?` + native `<input>` attributes | `input.md` | component | **stable** |
+| RadioGroup | `forms/RadioGroup.tsx` | `RadioGroupProps` | **`legend`**, `hideLegend?`, **`options`**, **`value`**, **`onChange`**, `required?`, `disabled?`, `error?`, `name?` | `radio-group.md` | component | **stable** |
+| RichTextEditor | `forms/RichTextEditor.tsx` | `RichTextEditorProps` | **`label`**, `hideLabel?`, `defaultValue?`, `onChange?`, `placeholder?`, `onInsertImage?`, `disabled?`, `error?`, `fill?`, `autoFocus?` | `rich-text-editor.md` | component | **stable** |
+| Select | `forms/Select.tsx` | `SelectProps` | **`label`**, **`options`**, `value?`, `defaultValue?`, `onChange?`, `placeholderOption?`, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `layout?`, `id?`, `name?` | `select.md` | component | **stable** |
+| Textarea | `forms/Textarea.tsx` | `TextareaProps` | **`label`**, `onChange?`, `hideLabel?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?` + native `<textarea>` attributes | `textarea.md` | component | **stable** |
+| Toggle | `forms/Toggle.tsx` | `ToggleProps` | **`label`**, `checked?`, `defaultChecked?`, `onChange?`, `onLabel?`, `offLabel?`, `disabled?`, `hideLabel?`, `capsLabel?`, `layout?`, `name?` | `toggle.md` | component | **stable** |
+
+## Buttons and menus
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Button | `buttons/Button.tsx` | `ButtonProps` | **`label`**, `variant?`, `iconName?`, `iconPosition?`, `iconSize?`, `className?` + native `<button>` attributes | `button.md` | component | **stable** |
+| ButtonGroup | `buttons/ButtonGroup.tsx` | `ButtonGroupProps` | **`children`**, `kind?`, `label?`, `className?` | `button-group.md` | component | **stable** |
+| ButtonIcon | `buttons/ButtonIcon.tsx` | `ButtonIconProps` | **`iconName`**, **`assistiveText`**, `variant?`, `size?`, `iconSize?`, `pressed?`, `menu?`, `feedback?`, `className?`, `iconClassName?` + native `<button>` attributes | `button-icon.md` | component | **stable** |
+| ButtonMenu | `buttons/ButtonMenu.tsx` | `ButtonMenuProps` | **`items`**, `onSelect?`, `label?`, `labelVariant?`, `iconName?`, **`assistiveText`**, `iconVariant?`, `iconSize?`, `iconClassName?`, `position?`, `length?`, `size?`, `actions?`, `disabled?`, `defaultOpen?`, `className?` | `button-menu.md` | component | **stable** |
+| ButtonStateful | `buttons/ButtonStateful.tsx` | `ButtonStatefulProps` | `selected?`, `defaultSelected?`, `onToggle?`, `disabled?`, `notSelected?`, `selectedState?`, `selectedFocus?`, `className?` | `button-stateful.md` | component | **stable** |
+| MenuDropdown | `buttons/MenuDropdown.tsx` | `MenuDropdownProps` | **`items`**, **`onSelect`**, **`onClose`**, `position?`, `length?`, `size?`, `actions?`, `autoFocus?`, `ariaLabel?` | `menu-dropdown.md` | building block | **stable** |
+
+## Feedback
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Avatar | `feedback/Avatar.tsx` | `AvatarProps` | **`content`**, `size?`, `shape?`, `className?` | `avatar.md` | component | **stable** |
+| Badge | `feedback/Badge.tsx` | `BadgeProps` | **`children`**, `variant?`, `className?` | `badge.md` | component | **stable** |
+| DesertIllustration | `feedback/DesertIllustration.tsx` | `DesertIllustrationProps` | — | `desert-illustration.md` | building block | **stable** |
+| EmptyState | `feedback/EmptyState.tsx` | `EmptyStateProps` | `variant?`, `heading?`, **`message`**, `size?`, `shaded?` | `empty-state.md` | component | **stable** |
+| Pill | `feedback/Pill.tsx` | `PillProps` | **`label`**, `href?`, `onClick?`, `iconName?`, `avatar?`, `onRemove?`, `error?` | `pill.md` | component | **stable** |
+| PillContainer | `feedback/PillContainer.tsx` | `PillContainerProps` | **`children`**, `label?` | `pill-container.md` | component | **stable** |
+| Spinner | `feedback/Spinner.tsx` | `SpinnerProps` | `size?`, `variant?`, `layout?`, `assistiveText?` | `spinner.md` | component | **stable** |
+
+## Icons
+
+| Component | File | Props type | Props | Doc | Role | Status |
+|---|---|---|---|---|---|---|
+| Icon | `icons/Icon.tsx` | `IconProps` | `size?`, `assistiveText?`, `className?`, `svgClassName?`, **`name`**, `tone?` | `icon.md` | component | **stable** |
+| IconSvg | `icons/IconSvg.tsx` | `IconSvgProps` | **`name`**, **`className`** | `icon-svg.md` | building block | **stable** |
+
+Shared utilities (not components): `utils/cx.ts`, `utils/useDismiss.ts`, `utils/formIds.ts`, `utils/dates.ts`; icon registry `icons/registry.ts` (generated by `npm run icons`).

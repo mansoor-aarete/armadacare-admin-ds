@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ButtonGroup } from "../buttons/ButtonGroup";
 import { ButtonIcon } from "../buttons/ButtonIcon";
 import type { UtilityIconName } from "../icons/Icon";
@@ -34,18 +34,24 @@ export type RichTextEditorProps = {
   error?: string;
   /** Grow to fill a flex column (docked composer body). */
   fill?: boolean;
+  /** Put the cursor in the editor on mount (composer opened for typing — Figma C5 focused state). */
+  autoFocus?: boolean;
 };
 
 /**
  * SLDS Rich Text Editor blueprint (toolbar of button-group lists + contenteditable textarea).
  * Formatting uses the browser's editing commands (client-side only).
  */
-export function RichTextEditor({ label, hideLabel, defaultValue = "", onChange, placeholder = "Compose text", onInsertImage, disabled, error, fill }: RichTextEditorProps) {
+export function RichTextEditor({ label, hideLabel, defaultValue = "", onChange, placeholder = "Compose text", onInsertImage, disabled, error, fill, autoFocus }: RichTextEditorProps) {
   const uid = useId();
   const labelId = `${uid}-label`;
   const areaRef = useRef<HTMLDivElement>(null);
   const [focused, setFocused] = useState(false);
   const [empty, setEmpty] = useState(defaultValue.trim() === "");
+
+  useEffect(() => {
+    if (autoFocus && !disabled) areaRef.current?.focus({ preventScroll: true });
+  }, [autoFocus, disabled]);
 
   const run = (command: string) => {
     areaRef.current?.focus();

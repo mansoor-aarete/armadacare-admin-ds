@@ -36,10 +36,10 @@ export type GlobalHeaderProps = {
   userName: string;
   onAvatar?: () => void;
   /**
-   * Sandbox / environment row above the header (Figma: panel toggle + "Sandbox (CXDev)").
+   * Sandbox / environment row above the header (Figma: panel toggle + "Sandbox (CXDev)" + round ▼ at the far right).
    * Not part of the SLDS blueprint — rendered with SLDS ButtonIcon + Badge.
    */
-  environment?: { label: string; onTogglePanel?: () => void };
+  environment?: { label: string; onTogglePanel?: () => void; onOpenMenu?: () => void; menuExpanded?: boolean };
   position?: GlobalHeaderPosition;
 };
 
@@ -70,7 +70,7 @@ export function GlobalHeader({
         Skip to Main Content
       </a>
       {environment ? (
-        <div className="slds-grid slds-grid_vertical-align-center slds-p-horizontal_small slds-p-vertical_xx-small slds-border_bottom slds-theme_default">
+        <div className="slds-grid slds-grid_vertical-align-center slds-p-horizontal_small slds-p-vertical_x-small slds-border_bottom slds-theme_default">
           <ButtonIcon
             iconName="utility:rows"
             assistiveText="Toggle Panel"
@@ -84,6 +84,17 @@ export function GlobalHeader({
             </span>
             {environment.label}
           </Badge>
+          {environment.onOpenMenu ? (
+            <div className="slds-col_bump-left">
+              <ButtonIcon
+                iconName="utility:down"
+                assistiveText="Environment menu"
+                variant="border"
+                menu={{ expanded: Boolean(environment.menuExpanded), indicator: false }}
+                onClick={environment.onOpenMenu}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
       <div className="slds-global-header slds-grid slds-grid_align-spread">

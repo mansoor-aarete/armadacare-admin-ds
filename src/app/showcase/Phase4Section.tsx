@@ -29,9 +29,9 @@ export const RECORD_TYPES: RadioOption[] = [
 ];
 
 /** Composer body used by the showcase and the Figma comparison (Figma C5). */
-export function NoteComposerBody() {
+export function NoteComposerBody({ autoFocus }: { autoFocus?: boolean }) {
   return (
-    <div className="slds-p-around_small slds-grid slds-grid_vertical slds-grow">
+    <div className="slds-p-horizontal_small slds-p-top_small slds-p-bottom_xx-small slds-grid slds-grid_vertical slds-grow">
       <div className="slds-grid slds-grid_vertical-align-end slds-m-bottom_small">
         <div className="slds-col">
           <Input label="Title" defaultValue="No new note" />
@@ -41,9 +41,9 @@ export function NoteComposerBody() {
           <span>Visibility Set by Record</span>
         </div>
       </div>
-      <RichTextEditor label="Compose text" defaultValue="Basic testing" onInsertImage={() => undefined} fill />
-      <div className="slds-grid slds-grid_vertical-align-center slds-m-top_x-small">
-        <span className="slds-form-element__label slds-m-right_x-small">Related to</span>
+      <RichTextEditor label="Compose text" defaultValue="Basic testing" onInsertImage={() => undefined} fill autoFocus={autoFocus} />
+      <div className="slds-grid slds-grid_vertical-align-center slds-m-top_xx-small slds-p-left_medium">
+        <span className="slds-form-element__label slds-m-right_small">Related to</span>
         <Pill label="Antoinette Mitcham" iconName="standard:contact" onClick={() => undefined} />
       </div>
     </div>
@@ -176,7 +176,9 @@ export function Phase4Section() {
           </div>
         </ShowcaseExample>
         <ShowcaseExample title="Einstein card — Next Best Action (empty)" visualId="einstein-card">
-          <EinsteinCard centered>Einstein doesn't have any recommendations for you right now.</EinsteinCard>
+          <EinsteinCard centered>
+            <p className="slds-text-body_small slds-text-color_weak">Einstein doesn't have any recommendations for you right now.</p>
+          </EinsteinCard>
         </ShowcaseExample>
       </div>
     </section>

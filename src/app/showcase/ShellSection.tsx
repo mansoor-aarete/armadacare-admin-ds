@@ -58,7 +58,7 @@ export function ShellSection() {
         <ShowcaseExample title="Global header — environment row, favourites, notifications (inline)" visualId="global-header" full>
           <GlobalHeader
             position="inline"
-            environment={{ label: "Sandbox (CXDev)" }}
+            environment={{ label: "Sandbox (CXDev)", onOpenMenu: () => undefined }}
             search={SEARCH}
             favorites={{ selected: fav, onToggle: () => setFav((f) => !f) }}
             onGlobalActions={() => undefined}
