@@ -3,7 +3,8 @@ import { Icon, type ObjectIconName } from "../icons/Icon";
 import { cx } from "../utils/cx";
 
 export type CardProps = {
-  title: string;
+  /** Omit (with no `actions`) for a plain bordered container without a header (tab containers, sidebar tab cards). */
+  title?: string;
   /** Title as a link (related lists). */
   onTitleClick?: () => void;
   titleHref?: string;
@@ -24,19 +25,19 @@ export type CardProps = {
   className?: string;
 };
 
-/** SLDS Cards blueprint (article.slds-card › header › body › footer). */
+/** SLDS Cards blueprint (article.slds-card › header › body › footer). Without title and actions the header is left out. */
 export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, children, bodyPadding, footer, shaded, className }: CardProps) {
   const isLink = Boolean(onTitleClick || titleHref);
-  return (
-    <article className={cx("slds-card", shaded && "slds-theme_shade", className)}>
-      <div className="slds-card__header slds-grid">
-        <header className="slds-media slds-media_center slds-has-flexi-truncate">
-          {iconName ? (
-            <div className="slds-media__figure">
-              <Icon name={iconName} size="small" />
-            </div>
-          ) : null}
-          <div className="slds-media__body">
+  const header = title || actions ? (
+    <div className="slds-card__header slds-grid">
+      <header className="slds-media slds-media_center slds-has-flexi-truncate">
+        {iconName ? (
+          <div className="slds-media__figure">
+            <Icon name={iconName} size="small" />
+          </div>
+        ) : null}
+        <div className="slds-media__body">
+          {title ? (
             <h2 className="slds-card__header-title">
               {isLink ? (
                 <a
@@ -56,11 +57,16 @@ export function Card({ title, onTitleClick, titleHref, meta, iconName, actions, 
                 </span>
               )}
             </h2>
-            {meta ? <p className="slds-text-body_small slds-m-top_xx-small">{meta}</p> : null}
-          </div>
-          {actions ? <div className="slds-no-flex">{actions}</div> : null}
-        </header>
-      </div>
+          ) : null}
+          {meta ? <p className="slds-text-body_small slds-m-top_xx-small">{meta}</p> : null}
+        </div>
+        {actions ? <div className="slds-no-flex">{actions}</div> : null}
+      </header>
+    </div>
+  ) : null;
+  return (
+    <article className={cx("slds-card", shaded && "slds-theme_shade", className)}>
+      {header}
       {children !== undefined && children !== null && children !== false ? (
         <div className={cx("slds-card__body", bodyPadding && "slds-card__body_inner", shaded && "slds-theme_default")}>{children}</div>
       ) : null}

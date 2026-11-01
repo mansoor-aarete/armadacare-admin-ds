@@ -2,23 +2,47 @@ import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { DesertIllustration } from "./DesertIllustration";
 
-/** "illustration" = SLDS Illustration (No Data: Desert); "text" = one-line message (Figma: "No payments found…"). */
-export type EmptyStateVariant = "illustration" | "text";
+/**
+ * "illustration" = SLDS Illustration (No Data: Desert); "text" = one-line message (Figma: "No payments found…");
+ * "region" = shaded placeholder block of a set height (Figma: embedded iframe / Visualforce areas that render grey).
+ */
+export type EmptyStateVariant = "illustration" | "text" | "region";
+
+/** Height of the "region" variant: small 6.25rem (Figma iframe 100 px) · medium 12.5rem · large 25rem. */
+export type EmptyStateRegionSize = "small" | "medium" | "large";
 
 export type EmptyStateProps = {
   variant?: EmptyStateVariant;
   /** Heading (illustration variant), e.g. "Get your accounts engaged". */
   heading?: string;
-  /** Body text / the message of the text variant. */
-  message: ReactNode;
+  /** Body text / the message of the text variant (optional for "region"). */
+  message?: ReactNode;
   /** Illustration size. */
   size?: "small" | "large";
   /** Shaded background (Figma D1 list area). */
   shaded?: boolean;
+  /** Height of the "region" variant. Default "small". */
+  regionSize?: EmptyStateRegionSize;
+  /** Accessible name of the region (e.g. "Participant/Members"). */
+  regionLabel?: string;
 };
 
-/** SLDS Illustration blueprint (div.slds-illustration › svg + .slds-text-longform), or a plain message. */
-export function EmptyState({ variant = "illustration", heading, message, size = "small", shaded }: EmptyStateProps) {
+const REGION_HEIGHT: Record<EmptyStateRegionSize, string> = { small: "6.25rem", medium: "12.5rem", large: "25rem" };
+
+/** SLDS Illustration blueprint (div.slds-illustration › svg + .slds-text-longform), a plain message, or a shaded placeholder region. */
+export function EmptyState({ variant = "illustration", heading, message, size = "small", shaded, regionSize = "small", regionLabel }: EmptyStateProps) {
+  if (variant === "region") {
+    return (
+      <div
+        className="slds-theme_shade slds-grid slds-grid_align-center slds-grid_vertical-align-center"
+        style={{ height: REGION_HEIGHT[regionSize] }}
+        role="region"
+        aria-label={regionLabel}
+      >
+        {message ? <p className="slds-text-body_regular slds-text-color_weak">{message}</p> : null}
+      </div>
+    );
+  }
   if (variant === "text") {
     return <p className={cx("slds-text-body_regular slds-text-color_weak slds-p-around_small", shaded && "slds-theme_shade")}>{message}</p>;
   }

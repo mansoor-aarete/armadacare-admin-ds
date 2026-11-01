@@ -20,6 +20,13 @@ export type ModalProps = {
   hideClose?: boolean;
   /** Pad the body (.slds-p-around_medium). Default true. */
   bodyPadding?: boolean;
+  /**
+   * Render the modal panel inside the page (no overlay, backdrop, close button or focus trap), as Lightning console
+   * tabs show record create / edit forms (Figma "New Account: Group", "New Account"). The panel fills the height of
+   * its parent; the body scrolls. `footer` is rendered as-is (no .slds-modal__footer wrapper) — pass a
+   * <FormFooter position="inline" />.
+   */
+  inline?: boolean;
 };
 
 const SIZE_CLASS: Record<ModalSize, string | undefined> = {
@@ -32,21 +39,56 @@ const SIZE_CLASS: Record<ModalSize, string | undefined> = {
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /** SLDS Modals blueprint (section.slds-modal.slds-fade-in-open › container › close, header, content, footer + backdrop). */
-export function Modal({ open, heading, tagline, headless, children, footer, onClose, size = "default", hideClose, bodyPadding = true }: ModalProps) {
+export function Modal({ open, heading, tagline, headless, children, footer, onClose, size = "default", hideClose, bodyPadding = true, inline }: ModalProps) {
   const uid = useId();
   const headingId = `${uid}-heading`;
   const contentId = `${uid}-content`;
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || inline) return;
     const previous = document.activeElement as HTMLElement | null;
     const first = ref.current?.querySelector<HTMLElement>(".slds-modal__content " + FOCUSABLE) ?? ref.current?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? ref.current)?.focus();
     return () => previous?.focus();
-  }, [open]);
+  }, [open, inline]);
 
   if (!open) return null;
+
+  const header = headless ? (
+    <div className="slds-modal__header slds-modal__header_empty" />
+  ) : (
+    <div className="slds-modal__header">
+      {/* .slds-modal__title is sized only inside .slds-modal; inline panels use the same size via slds-text-heading_medium. */}
+      <h1 id={headingId} className={cx("slds-modal__title slds-hyphenate", inline && "slds-text-heading_medium")} tabIndex={-1}>
+        {heading}
+      </h1>
+      {tagline ? <p className="slds-m-top_x-small">{tagline}</p> : null}
+    </div>
+  );
+  const content = (
+    <div className={cx("slds-modal__content", bodyPadding && "slds-p-around_medium", inline && "slds-grow")} id={contentId}>
+      {children}
+    </div>
+  );
+
+  if (inline) {
+    // Full-height wrapper (.slds-template__container) carrying the size class, so the SLDS container widths apply
+    // without the fixed .slds-modal section.
+    return (
+      <div className={cx("slds-template__container", SIZE_CLASS[size])}>
+        <section
+          className="slds-modal__container slds-p-top_small slds-p-bottom_none"
+          aria-labelledby={heading && !headless ? headingId : undefined}
+          aria-label={headless ? heading : undefined}
+        >
+          {header}
+          {content}
+          {footer}
+        </section>
+      </div>
+    );
+  }
 
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === "Escape") {
@@ -84,19 +126,8 @@ export function Modal({ open, heading, tagline, headless, children, footer, onCl
           {!hideClose ? (
             <ButtonIcon iconName="utility:close" assistiveText="Cancel and close" iconSize="large" className="slds-modal__close" onClick={onClose} />
           ) : null}
-          {headless ? (
-            <div className="slds-modal__header slds-modal__header_empty" />
-          ) : (
-            <div className="slds-modal__header">
-              <h1 id={headingId} className="slds-modal__title slds-hyphenate" tabIndex={-1}>
-                {heading}
-              </h1>
-              {tagline ? <p className="slds-m-top_x-small">{tagline}</p> : null}
-            </div>
-          )}
-          <div className={cx("slds-modal__content", bodyPadding && "slds-p-around_medium")} id={contentId}>
-            {children}
-          </div>
+          {header}
+          {content}
           {footer ? <div className="slds-modal__footer">{footer}</div> : null}
         </div>
       </section>

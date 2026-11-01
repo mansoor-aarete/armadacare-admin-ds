@@ -1,4 +1,4 @@
-# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.1
+# Guidelines — ArmadaCare Admin Portal design system (SLDS 1) · v1.2
 
 > Figma Make reads this folder as AI instructions. Every line is a rule.
 
@@ -33,9 +33,9 @@ A React + TypeScript design system that reproduces **Salesforce Lightning Design
 | `foundations/spacing.md` | SLDS spacing scale and utility classes |
 | `foundations/icons.md` | Icon registry, sizes, tones, licence, how to add an icon |
 | `components/overview-components.md` | Registry of every component: file, props type, props, doc, role, status (generated from the source) |
-| `components/<component-name>.md` | **One file per component**, named after the component in kebab-case (`RelatedListCard` → `related-list-card.md`). 64 files, all listed with props and status in `overview-components.md`. |
+| `components/<component-name>.md` | **One file per component**, named after the component in kebab-case (`RelatedListCard` → `related-list-card.md`). 65 files, all listed with props and status in `overview-components.md`. |
 | Buttons and menus | `button.md`, `button-stateful.md`, `button-icon.md`, `button-group.md`, `button-menu.md`, `menu-dropdown.md` |
-| Forms | `form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `combobox-listbox.md`, `combobox-object-switcher.md`, `datepicker.md`, `datepicker-calendar.md`, `dual-listbox.md`, `toggle.md`, `radio-group.md`, `file-selector.md`, `rich-text-editor.md`, `form-footer.md`, `timepicker.md` |
+| Forms | `form-element.md`, `input.md`, `textarea.md`, `checkbox.md`, `checkbox-group.md`, `select.md`, `combobox.md`, `combobox-listbox.md`, `combobox-object-switcher.md`, `datepicker.md`, `datepicker-calendar.md`, `dual-listbox.md`, `toggle.md`, `radio-group.md`, `file-selector.md`, `rich-text-editor.md`, `form-footer.md`, `timepicker.md`, `compound-field.md` |
 | Feedback | `avatar.md`, `badge.md`, `spinner.md`, `pill.md`, `pill-container.md`, `empty-state.md`, `desert-illustration.md`, `scoped-notification.md` |
 | Icons | `icon.md`, `icon-svg.md` |
 | Overlays | `help-text.md`, `tooltip.md`, `popover.md`, `error-popover.md`, `modal.md`, `docked-composer.md` |
@@ -51,7 +51,7 @@ src/styles/index.css               imports slds-theme.css (nothing else)
 src/styles/slds-theme.css          the ONLY place with colour values
 src/app/components/icons/          Icon, IconSvg, registry.ts (generated)
 src/app/components/buttons/        Button, ButtonStateful, ButtonIcon, ButtonGroup, ButtonMenu, MenuDropdown
-src/app/components/forms/          FormElement, Input, Textarea, Checkbox, CheckboxGroup, Select, Combobox (+ listbox, object switcher), Datepicker (+ calendar), DualListbox, FormFooter, Toggle, RadioGroup, FileSelector, RichTextEditor
+src/app/components/forms/          FormElement, Input, Textarea, Checkbox, CheckboxGroup, Select, Combobox (+ listbox, object switcher), Datepicker (+ calendar), DualListbox, FormFooter, Toggle, RadioGroup, FileSelector, RichTextEditor, Timepicker, CompoundField
 src/app/components/feedback/       Avatar, Badge, Spinner, EmptyState, DesertIllustration, Pill, PillContainer
 src/app/components/overlays/       HelpText, Tooltip, Popover, Modal, ErrorPopover, DockedComposer
 src/app/components/shell/          GlobalHeader, AppNav, WorkspaceTabs, WorkspaceSubTabs, SplitView, UtilityBar, ConsoleShell

@@ -45,7 +45,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 
 | Component | File | Props type | Props | Doc | Role | Status |
 |---|---|---|---|---|---|---|
-| Card | `cards/Card.tsx` | `CardProps` | **`title`**, `onTitleClick?`, `titleHref?`, `meta?`, `iconName?`, `actions?`, `children?`, `bodyPadding?`, `footer?`, `shaded?`, `className?` | `card.md` | component | **stable** |
+| Card | `cards/Card.tsx` | `CardProps` | `title?`, `onTitleClick?`, `titleHref?`, `meta?`, `iconName?`, `actions?`, `children?`, `bodyPadding?`, `footer?`, `shaded?`, `className?` | `card.md` | component | **stable** |
 | EinsteinCard | `cards/EinsteinCard.tsx` | `EinsteinCardProps` | `title?`, `onTitleClick?`, **`children`**, `centered?`, `footer?` | `einstein-card.md` | component | **stable** |
 | MetricTile | `cards/MetricTile.tsx` | `MetricTileProps` | **`label`**, **`value`**, `selected?`, `onSelect?` | `metric-tile.md` | component | **stable** |
 | RelatedListCard | `cards/RelatedListCard.tsx` | `RelatedListCardProps` | **`iconName`**, **`title`**, **`count`**, `onTitleClick?`, `meta?`, `buttons?`, `onButton?`, `menuItems?`, `onMenuSelect?`, `settingsItems?`, `onRefresh?`, `records?`, `onRecordClick?`, `children?`, `loading?`, `onViewAll?` | `related-list-card.md` | component | **stable** |
@@ -65,7 +65,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | DockedComposer | `overlays/DockedComposer.tsx` | `DockedComposerProps` | **`title`**, **`iconName`**, `minimized?`, `focused?`, `onMinimize?`, `onExpand?`, `onClose?`, **`children`**, `footer?`, `position?` | `docked-composer.md` | component | **stable** |
 | ErrorPopover | `overlays/ErrorPopover.tsx` | `ErrorPopoverProps` | **`fields`**, `heading?`, `intro?`, `messages?`, **`onClose`**, `nubbin?` | `error-popover.md` | component | **stable** |
 | HelpText | `overlays/HelpText.tsx` | `HelpTextProps` | **`content`**, `assistiveText?`, `defaultOpen?` | `help-text.md` | component | **stable** |
-| Modal | `overlays/Modal.tsx` | `ModalProps` | **`open`**, `heading?`, `tagline?`, `headless?`, **`children`**, `footer?`, **`onClose`**, `size?`, `hideClose?`, `bodyPadding?` | `modal.md` | component | **stable** |
+| Modal | `overlays/Modal.tsx` | `ModalProps` | **`open`**, `heading?`, `tagline?`, `headless?`, **`children`**, `footer?`, **`onClose`**, `size?`, `hideClose?`, `bodyPadding?`, `inline?` | `modal.md` | component | **stable** |
 | Popover | `overlays/Popover.tsx` | `PopoverProps` | **`heading`**, **`children`**, `variant?`, `iconName?`, `nubbin?`, `onClose?`, `footer?`, `id?`, `className?` | `popover.md` | component | **stable** |
 | Tooltip | `overlays/Tooltip.tsx` | `TooltipProps` | **`id`**, **`children`**, `nubbin?`, `placement?` | `tooltip.md` | component | **stable** |
 
@@ -78,6 +78,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Combobox | `forms/Combobox.tsx` | `ComboboxProps` | **`label`**, `hideLabel?`, `required?`, `disabled?`, `error?`, `helpText?`, `fieldLevelHelp?`, `layout?`, `placeholder?`, `id?`, `defaultOpen?`, `variant?`, **`options`**, `value?`, `defaultValue?`, `onChange?`, `onSearchChange?`, `objectSwitcher?` | `combobox.md` | component | **stable** |
 | ComboboxListbox | `forms/ComboboxListbox.tsx` | `ComboboxListboxProps` | **`id`**, **`kind`**, **`options`**, `selectedValue?`, **`focusedIndex`**, **`optionId`**, **`onPick`**, **`onFocusIndex`**, **`ariaLabel`**, `className?` | `combobox-listbox.md` | building block | **stable** |
 | ComboboxObjectSwitcher | `forms/ComboboxObjectSwitcher.tsx` | `ComboboxObjectSwitcherProps` | **`config`**, `disabled?` | `combobox-object-switcher.md` | building block | **stable** |
+| CompoundField | `forms/CompoundField.tsx` | `CompoundFieldProps` | **`label`**, **`rows`**, `required?`, `address?`, `layout?`, `hideLabel?`, `fieldLevelHelp?`, `error?`, `id?` | `compound-field.md` | component | **stable** |
 | Datepicker | `forms/Datepicker.tsx` | `DatepickerProps` | **`label`**, `value?`, `defaultValue?`, `onChange?`, `required?`, `disabled?`, `error?`, `fieldLevelHelp?`, `hideLabel?`, `layout?`, `showFormatHint?`, `today?`, `yearRange?`, `defaultOpen?`, `id?` | `datepicker.md` | component | **stable** |
 | DatepickerCalendar | `forms/DatepickerCalendar.tsx` | `DatepickerCalendarProps` | **`idPrefix`**, **`value`**, **`today`**, **`onSelect`**, **`onClose`**, **`yearRange`**, `autoFocus?` | `datepicker-calendar.md` | building block | **stable** |
 | DualListbox | `forms/DualListbox.tsx` | `DualListboxProps` | **`label`**, `sourceLabel?`, `selectedLabel?`, **`options`**, **`value`**, **`onChange`**, `required?`, `disabled?`, `error?`, `assistiveInstructions?`, `defaultHighlighted?`, `responsive?`, `size?` | `dual-listbox.md` | component | **stable** |
@@ -110,7 +111,7 @@ Status **stable** = API frozen for v1.0 (changes are additive). Role **building 
 | Avatar | `feedback/Avatar.tsx` | `AvatarProps` | **`content`**, `size?`, `shape?`, `className?` | `avatar.md` | component | **stable** |
 | Badge | `feedback/Badge.tsx` | `BadgeProps` | **`children`**, `variant?`, `className?` | `badge.md` | component | **stable** |
 | DesertIllustration | `feedback/DesertIllustration.tsx` | `DesertIllustrationProps` | — | `desert-illustration.md` | building block | **stable** |
-| EmptyState | `feedback/EmptyState.tsx` | `EmptyStateProps` | `variant?`, `heading?`, **`message`**, `size?`, `shaded?` | `empty-state.md` | component | **stable** |
+| EmptyState | `feedback/EmptyState.tsx` | `EmptyStateProps` | `variant?`, `heading?`, `message?`, `size?`, `shaded?`, `regionSize?`, `regionLabel?` | `empty-state.md` | component | **stable** |
 | Pill | `feedback/Pill.tsx` | `PillProps` | **`label`**, `href?`, `onClick?`, `iconName?`, `avatar?`, `onRemove?`, `error?` | `pill.md` | component | **stable** |
 | PillContainer | `feedback/PillContainer.tsx` | `PillContainerProps` | **`children`**, `label?` | `pill-container.md` | component | **stable** |
 | ScopedNotification | `feedback/ScopedNotification.tsx` | `ScopedNotificationProps` | `variant?`, **`children`**, `assistiveText?` | `scoped-notification.md` | component | **stable** |

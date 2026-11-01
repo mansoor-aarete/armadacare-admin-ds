@@ -4,6 +4,6 @@ SLDS blueprint: **Cards** — `article.slds-card(.slds-card_boundary)` › `div.
 File: `src/app/components/cards/Card.tsx`.
 
 ## Props — `CardProps`
-`title`, `onTitleClick?` / `titleHref?` (link title), `meta?` (line under the title), `iconName?`, `actions?: ReactNode`, `children`, `bodyPadding?`, `footer?: { label; assistiveText?; onClick?; href? }`, `shaded?` (grey card, white body — related lists), `className?` (SLDS classes, e.g. `slds-card_boundary`).
+`title?` (ds-v1.2: omit together with `actions` for a plain bordered container with no header — record tab containers, sidebar tab cards), `onTitleClick?` / `titleHref?` (link title), `meta?` (line under the title), `iconName?`, `actions?: ReactNode`, `children`, `bodyPadding?`, `footer?: { label; assistiveText?; onClick?; href? }`, `shaded?` (grey card, white body — related lists), `className?` (SLDS classes, e.g. `slds-card_boundary`).
 
 Card titles are 14 px (`--slds-c-card-heading-font-size`, theme block A — Figma).

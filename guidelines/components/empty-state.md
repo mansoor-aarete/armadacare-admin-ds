@@ -4,5 +4,8 @@ SLDS blueprint: **Illustration** — `div.slds-illustration.slds-illustration_sm
 File: `src/app/components/feedback/EmptyState.tsx`.
 
 ## Props — `EmptyStateProps`
-`variant?: "illustration" | "text"`, `heading?`, `message`, `size?: "small" | "large"`, `shaded?`.
+`variant?: "illustration" | "text" | "region"`, `heading?`, `message?`, `size?: "small" | "large"`, `shaded?`, `regionSize?: "small" | "medium" | "large"`, `regionLabel?`.
+
+### Region variant (ds-v1.2)
+A shaded placeholder block (`div.slds-theme_shade` + SLDS grid centering, `role="region"`) for content that renders as an empty grey area in Figma — embedded iframes / Visualforce pages (Participant/Members, Administrative Contacts) and report viewer frames. Heights: small 6.25rem (Figma iframe 100 px), medium 12.5rem, large 25rem. Optional centered weak `message`.
 Illustration colours come from the SLDS illustration classes (light blue, as in Figma).

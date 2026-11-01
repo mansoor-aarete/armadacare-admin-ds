@@ -14,6 +14,7 @@ import { CardsSection } from "./CardsSection";
 import { DialogsSection } from "./DialogsSection";
 import { Phase4Section } from "./Phase4Section";
 import { V11Section } from "./V11Section";
+import { V12Section } from "./V12Section";
 
 /** /showcase — every design-system component in every variant and state. Phases 1–4: foundations, primitives, patterns, additions. */
 export function ShowcasePage() {
@@ -39,6 +40,7 @@ export function ShowcasePage() {
       <DialogsSection />
       <Phase4Section />
       <V11Section />
+      <V12Section />
       <FigmaCompareSection />
       <FigmaComparePatterns />
     </main>
